@@ -8,3 +8,4 @@ jspm_packages/*
 src/static/js/vendor/jspm_packages/*
 src/static/vendor/*
 .DS_Store
+src/static/js/mediasite.js*
