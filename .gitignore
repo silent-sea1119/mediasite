@@ -1,0 +1,10 @@
+.idea/*
+*.pyc
+node_modules/*
+data/*
+coverage-report/*
+jspm_packages/*
+*/jspm_packages/*
+src/static/js/vendor/jspm_packages/*
+src/static/vendor/*
+.DS_Store

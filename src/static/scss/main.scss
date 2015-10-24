@@ -1,0 +1,10 @@
+@import "variables";
+
+@import "../vendor/bootstrap-sass/assets/stylesheets/bootstrap";
+
+@import "templates/index";
+@import "modules/song-tile";
+
+body {
+  background-color: $site-background;
+}
