@@ -24,8 +24,8 @@ export default class FilterableSongTable extends React.Component {
 
     MediasiteApi.getSongs(searchText, (songData) => {
       this.setState({
-        songData: songData.data.rows,
-        totalSongs: songData.data.totalSongs
+        songData: songData.data,
+        totalSongs: songData.totalSongs
       });
     });
   }

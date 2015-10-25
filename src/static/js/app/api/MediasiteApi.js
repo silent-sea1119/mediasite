@@ -6,4 +6,10 @@ export default class MediasiteApi {
       .then((response) => response.json())
       .then((jsonData) => callback(jsonData));
   }
+
+  static getSongById(songId, callback) {
+    fetch(`/api/v1/song/get/${songId}`)
+      .then((response) => response.json())
+      .then((jsonData) => callback(jsonData));
+  }
 }
