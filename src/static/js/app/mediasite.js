@@ -15,11 +15,12 @@ class App extends React.Component {
   }
 }
 
+// <IndexRoute component={Login} />
+
 ReactDOM.render((
   <Router>
     <Route path='/' component={App}>
-      <IndexRoute component={Login} />
-      <Route path='songs' component={FilterableSongTable} />
+      <IndexRoute component={FilterableSongTable} /> // path='songs'
       <Route path='song/:songId' component={Song} />
     </Route>
   </Router>
