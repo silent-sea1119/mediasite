@@ -5,10 +5,10 @@ import SongTile from './SongTile';
 
 export default class SongTileGroup extends React.Component {
   render() {
-    var filterText = this.props.filterText;
+    var searchText = this.props.searchText;
     var songs = _.map(this.props.songs, function(song) {
-      if (filterText !== "" &&
-          song.cell[0].toLowerCase().indexOf(filterText) === -1) {
+      if (searchText !== "" &&
+          song.cell[0].toLowerCase().indexOf(searchText) === -1) {
         return;
       }
       return <SongTile key={song.id}

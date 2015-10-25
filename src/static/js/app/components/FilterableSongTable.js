@@ -9,7 +9,7 @@ import SearchBar from './SearchBar';
 
 export default class FilterableSongTable extends React.Component {
   state = {
-    filterText: '',
+    searchText: '',
     songData: []
   }
 
@@ -17,35 +17,35 @@ export default class FilterableSongTable extends React.Component {
     this.getSongsFromApi();
   }
 
-  getSongsFromApi(filterText) {
-    if (filterText === undefined) {
-      filterText = "";
+  getSongsFromApi(searchText) {
+    if (searchText === undefined) {
+      searchText = "";
     }
 
-    MediasiteApi.getSongs(filterText, (songData) => {
+    MediasiteApi.getSongs(searchText, (songData) => {
       this.setState({
         songData: songData.data.rows,
         totalSongs: songData.data.totalSongs
       });
-    })
+    });
   }
 
-  handleUserInput = (filterText) => {
+  handleUserInput = (searchText) => {
     this.setState({
-      filterText: filterText
+      searchText: searchText
     });
 
     // Attempt to avoid hammering the API with requests as someone types.
-    _.throttle(_.bind(this.getSongsFromApi, this, filterText), 300, { leading: false })();
+    _.throttle(_.bind(this.getSongsFromApi, this, searchText), 300, { leading: false })();
   }
 
   render() {
     return (
       <div>
-        <SearchBar filterText={this.state.filterText}
+        <SearchBar searchText={this.state.searchText}
                    onUserInput={this.handleUserInput} />
         <SongTileGroup songs={this.state.songData}
-                   filterText={this.state.filterText}
+                   searchText={this.state.searchText}
                    totalSongCount={this.state.totalSongs} />
       </div>
     );
