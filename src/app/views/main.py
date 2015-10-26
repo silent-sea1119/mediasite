@@ -8,5 +8,5 @@ class MainView(TemplatedView):
     """
     Main view.
     """
-    def get(self):
+    def get(self, *args, **kwargs):
         self.render_reponse('index.html')
