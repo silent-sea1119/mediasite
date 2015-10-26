@@ -3,7 +3,7 @@ import React from 'react';
 export default class SearchBar extends React.Component {
   handleChange = (e) => {
     this.props.onUserInput(
-      this.refs.filterTextInput.value
+      this.refs.searchTextInput.value
     );
   }
   render() {
