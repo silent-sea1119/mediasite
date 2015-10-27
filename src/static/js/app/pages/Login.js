@@ -29,11 +29,7 @@ class Login extends React.Component {
       <div className='login'>
         <h2>Welcome to the CDAC Mediasite!</h2>
         <p>This is the place that folks come when they need media.</p>
-        <form onSubmit={this.handleSubmit}>
-          <input type='text' ref='username' />
-          <input type='password' ref='pass' />
-          <input type='submit' />
-        </form>
+        <a className='btn btn-large btn-primary' href='/api/v1/cityoauth/login/'>Login with The City!</a>
       </div>
     )
   }
