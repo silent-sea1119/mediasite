@@ -16,4 +16,4 @@ THE_CITY_OAUTH_TOKEN_GET_URI = 'https://authentication.onthecity.org/oauth/token
 THE_CITY_GET_TOKEN_URI = 'https://authentication.onthecity.org/oauth/token'
 THE_CITY_AUTHORIZATION_URI = 'https://authentication.onthecity.org/authorization?access_token={}'
 
-from settings_secret import THE_CITY_SECRET
+from settings_secret import THE_CITY_APP_SECRET
