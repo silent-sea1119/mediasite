@@ -1,11 +1,12 @@
 """
 Oauth APIs
 """
-import webapp2
+import logging
 import urllib
 
-from thecitysdk import TheCitySDK
+import webapp2
 
+from thecitysdk import TheCitySDK
 from settings import THE_CITY_LOGIN_REDIRECT_URI, THE_CITY_APP_ID, THE_CITY_OAUTH_CALLBACK_URI
 
 
@@ -22,6 +23,11 @@ class OauthRedirectCallbackHandler(webapp2.RequestHandler):
         state = self.request.GET.get('state')
 
         if code:
-            user_info = TheCitySDK.post_for_user_token(code)
-        else:
-            pass
+            sdk = TheCitySDK(TheCitySDK.post_for_user_token(code))
+            user_info = sdk.get_user_permissions()
+            if sdk.user_is_in_worship_arts(user_info):
+                logging.info('This user can join our site')
+                self.response.out.write('They are good to go')
+            else:
+                logging.info('This user needs to be added to a Worship Arts group on The City')
+                self.response.out.write('Not sufficient privileges!')
