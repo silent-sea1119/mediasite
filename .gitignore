@@ -10,3 +10,4 @@ src/static/vendor/*
 .DS_Store
 src/static/js/mediasite.js*
 src/static/css/*
+src/settings_secret.py
