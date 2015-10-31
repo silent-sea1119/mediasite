@@ -3,11 +3,10 @@ SDK for the City API
 """
 import logging
 
-import urllib
 import requests
 
 from settings import THE_CITY_APP_ID, THE_CITY_APP_SECRET, THE_CITY_OAUTH_CALLBACK_URI, THE_CITY_OAUTH_TOKEN_GET_URI, \
-    THE_CITY_ME_PERMISSIONS_URI, THE_CITY_ME_URI
+    THE_CITY_ME_PERMISSIONS_URI, THE_CITY_ME_URI, THE_CITY_AUTHORIZATION_URI
 
 
 class TheCitySDK(object):
@@ -43,18 +42,19 @@ class TheCitySDK(object):
             'redirect_uri': THE_CITY_OAUTH_CALLBACK_URI
         }
 
-        user_info = TheCitySDK._post(THE_CITY_OAUTH_TOKEN_GET_URI, post_data)
-
-        if user_info and user_info.get('access_token'):
-            return user_info['access_token']
+        return TheCitySDK._post(THE_CITY_OAUTH_TOKEN_GET_URI, post_data)
 
     def authed_get(self, url):
         return requests.get(url, headers={
             'accept': 'application/vnd.thecity.v1+json',
             'X-THECITY-ACCESS-TOKEN': self.access_token,
             'X-THECITY-SUBDOMAIN': 'cdac',
-            # 'Authorization': 'Bearer {}'.format(self.access_token)
         })
+
+    def get_basic_user_info(self):
+        user_info = self._get(THE_CITY_AUTHORIZATION_URI, url_params={'access_token': self.access_token})
+        if user_info:
+            return user_info.json()['users'][0]
 
     def get_user_info(self):
         user_json = self.authed_get(THE_CITY_ME_URI).json()
