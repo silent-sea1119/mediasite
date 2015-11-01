@@ -6,6 +6,7 @@ export default class SearchBar extends React.Component {
       this.refs.searchTextInput.value
     );
   }
+  
   render() {
     return(
       <form>
