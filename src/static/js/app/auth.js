@@ -12,7 +12,7 @@ export default {
     }
 
     if (userId === undefined) {
-    this.onChange(false);
+      this.onChange(false);
       if (cb) {
         cb(false);
       }
