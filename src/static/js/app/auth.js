@@ -1,21 +1,28 @@
 import MediasiteApi from './api/MediasiteApi';
 
 export default {
-  login(email, pass, cb) {
-    cb = arguments[arguments.length - 1]
+  login(userId, cb) {
+    cb = arguments[arguments.length - 1];
     if (localStorage.token) {
-      if (cb) cb(true)
+      if (cb) {
+        cb(true);
+      }
       this.onChange(true);
       return;
     }
 
-    if (email === undefined && pass === undefined) {
+    if (userId === undefined) {
+      this.onChange(false);
+      if (cb) {
+        cb(false);
+      }
       return;
     }
 
-    MediasiteApi.login(email, pass, (res) => {
+    MediasiteApi.login(userId, (res) => {
       if (res.authenticated) {
         localStorage.token = res.token;
+        localStorage.userId = userId;
         if (cb) {
           cb(true);
         }
@@ -35,8 +42,11 @@ export default {
 
   logout(cb) {
     delete localStorage.token;
-    if (cb) cb()
+    delete localStorage.userId;
     this.onChange(false);
+    if (cb) {
+      cb(false);
+    }
   },
 
   loggedIn() {

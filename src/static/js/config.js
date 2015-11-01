@@ -11,8 +11,8 @@ System.config({
     "blacklist": []
   },
   paths: {
-    "github:*": "js/vendor/jspm_packages/github/*",
-    "npm:*": "js/vendor/jspm_packages/npm/*"
+    "github:*": "vendor/jspm_packages/github/*",
+    "npm:*": "vendor/jspm_packages/npm/*"
   },
 
   map: {
@@ -20,7 +20,7 @@ System.config({
     "babel-runtime": "npm:babel-runtime@5.8.25",
     "core-js": "npm:core-js@1.2.1",
     "fetch": "npm:whatwg-fetch@0.9.0",
-    "history": "npm:history@1.12.6",
+    "history": "npm:history@1.12.3",
     "react": "npm:react@0.14.0",
     "react-dom": "npm:react-dom@0.14.0",
     "react-router": "npm:react-router@1.0.0-rc3",

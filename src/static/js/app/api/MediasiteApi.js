@@ -13,7 +13,13 @@ export default class MediasiteApi {
       .then((jsonData) => callback(jsonData));
   }
 
-  static login(email, password, callback) {
+  static getUserInfo(userId, callback) {
+    fetch(`/api/v1/user/get/${userId}`)
+      .then((response) => response.json())
+      .then((jsonData) => callback(jsonData));
+  }
+
+  static login(userId, callback) {
     fetch('/api/v1/user/login/', {
       method: 'post',
       headers: {
@@ -21,8 +27,7 @@ export default class MediasiteApi {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        'email': email,
-        'password': password
+        'userId': userId
       })
     })
       .then((response) => response.json())

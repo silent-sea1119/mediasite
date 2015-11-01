@@ -4,32 +4,39 @@ import connectHistory from '../connectHistory';
 import auth from '../auth';
 
 class Login extends React.Component {
-  handleSubmit = (event) => {
-    event.preventDefault();
+  componentDidMount() {
+    const { query } = this.props.location;
+    this.loginByUserId(query.userId);
+  }
 
-    var email = this.refs.username.value;
-    var pass = this.refs.pass.value;
-
-    auth.login(email, pass, (loggedIn) => {
-      if (!loggedIn)
-        return this.setState({ error: true })
-
-      var { location } = this.props;
-
-      if (location.state && location.state.nextPathname) {
-        this.props.history.replaceState(null, location.state.nextPathname)
-      } else {
-        this.props.history.replaceState(null, '/songs')
+  loginByUserId(userId) {
+    auth.login(userId, (loggedIn) => {
+      if (!loggedIn) {
+        return;
       }
-    })
+      const { location, history } = this.props;
+
+      if (location.query.nextUrl || location.state && location.state.nextPathname) {
+        history.replaceState(null, location.query.nextUrl || location.state.nextPathname);
+      } else {
+        history.replaceState(null, '/welcome');
+      }
+    });
   }
 
   render() {
+    const { location } = this.props;
+    let loginDisabled = !!location.query.success || auth.loggedIn();
+    let nextUrl = location.state ? location.state.nextPathname ? location.state.nextPathname : '' : '';
     return (
       <div className='login'>
         <h2>Welcome to the CDAC Mediasite!</h2>
         <p>This is the place that folks come when they need media.</p>
-        <a className='btn btn-large btn-primary' href='/api/v1/cityoauth/login/'>Login with The City!</a>
+        <a
+          className={ 'btn btn-large btn-primary' + (loginDisabled ? ' disabled' : '') }
+          href={'/api/v1/cityoauth/login/' + (nextUrl ? '?nextUrl=' + nextUrl : '')}>
+          { !loginDisabled ? 'Login with The City!' : 'Logging in...' }
+        </a>
       </div>
     )
   }
