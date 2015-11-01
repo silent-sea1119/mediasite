@@ -2,24 +2,37 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import _ from 'underscore';
 
+import connectHistory from '../connectHistory';
+
 import MediasiteApi from '../api/MediasiteApi';
 
 import SongTileGroup from './SongTileGroup';
 import SearchBar from './SearchBar';
 
-export default class FilterableSongTable extends React.Component {
+class FilterableSongTable extends React.Component {
   state = {
     searchText: '',
     songData: []
   }
 
   componentDidMount() {
-    this.getSongsFromApi();
+    this.getSongsFromApi(this.state.searchText);
+  }
+
+  componentWillMount() {
+    let { query } = this.props.location;
+    let searchText = query && query.searchText ? query.searchText : '';
+    this.setState({
+      searchText: searchText
+    });
   }
 
   getSongsFromApi(searchText) {
-    if (searchText === undefined) {
-      searchText = "";
+    if (searchText !== '') {
+      // Set searchText query parameter
+      this.props.history.replaceState(null, '/songs', {'searchText': searchText});
+    } else {
+      this.props.history.replaceState(null, '/songs', null);
     }
 
     MediasiteApi.getSongs(searchText, (songData) => {
@@ -36,7 +49,7 @@ export default class FilterableSongTable extends React.Component {
     });
 
     // Attempt to avoid hammering the API with requests as someone types.
-    _.throttle(_.bind(this.getSongsFromApi, this, searchText), 300, { leading: false })();
+    _.debounce(_.bind(this.getSongsFromApi, this, searchText), 300, { leading: false })();
   }
 
   render() {
@@ -51,3 +64,5 @@ export default class FilterableSongTable extends React.Component {
     );
   }
 }
+
+export default connectHistory(FilterableSongTable)
