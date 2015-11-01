@@ -17,9 +17,9 @@ class Login extends React.Component {
       const { location, history } = this.props;
 
       if (location.query.nextUrl || location.state && location.state.nextPathname) {
-        history.replaceState(null, location.query.nextUrl || location.state.nextPathname)
+        history.replaceState(null, location.query.nextUrl || location.state.nextPathname);
       } else {
-        history.replaceState(null, '/')
+        history.replaceState(null, '/welcome');
       }
     });
   }

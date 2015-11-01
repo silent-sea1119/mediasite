@@ -68,7 +68,8 @@ class App extends React.Component {
 const Welcome = () => {
   return (
     <div>
-      <p>Welcome to the CDAC mediasite! Probably the third different way that gets spelled :)</p>
+      <h2>Welcome to the CDAC Mediasite!</h2>
+      <p>This is the place that folks come when they need media.</p>
     </div>
   )
 }
@@ -83,7 +84,8 @@ function requireAuth(nextState, replaceState) {
 render((
   <Router history={createBrowserHistory()}>
     <Route path='/' component={App}>
-      <IndexRoute component={!auth.loggedIn() ? Login : Welcome} />
+      <IndexRoute component={Login} />
+      <Route path='welcome' component={Welcome} />
       <Route path='songs' component={FilterableSongTable} onEnter={requireAuth} />
       <Route path='song/:songId' component={Song} onEnter={requireAuth} />
       <Route path='login' component={Login} />

@@ -69,7 +69,7 @@ class TheCitySDK(object):
     @staticmethod
     def user_is_in_worship_arts(user_info):
         return len([post_type for post_type, groups in user_info['can_create_in_group_ids'].iteritems()
-                    if 104999 in groups]) > 0
+                    if 104999 in groups]) > 0 or user_info['staff']
 
 
 class TheCitySDKException(Exception):
