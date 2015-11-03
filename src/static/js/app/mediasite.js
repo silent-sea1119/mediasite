@@ -70,6 +70,7 @@ const Welcome = () => {
     <div>
       <h2>Welcome to the CDAC Mediasite!</h2>
       <p>This is the place that folks come when they need media.</p>
+      <Link className='btn btn-large btn-primary' to='/songs'>Song Search</Link>
     </div>
   )
 }
@@ -84,8 +85,8 @@ function requireAuth(nextState, replaceState) {
 render((
   <Router history={createBrowserHistory()}>
     <Route path='/' component={App}>
-      <IndexRoute component={Login} />
-      <Route path='welcome' component={Welcome} />
+      <IndexRoute component={!auth.loggedIn() ? Login : Welcome} />
+      <Route path='welcome' component={Welcome} onEnter={requireAuth} />
       <Route path='songs' component={FilterableSongTable} onEnter={requireAuth} />
       <Route path='song/:songId' component={Song} onEnter={requireAuth} />
       <Route path='login' component={Login} />
