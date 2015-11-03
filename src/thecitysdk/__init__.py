@@ -68,8 +68,21 @@ class TheCitySDK(object):
 
     @staticmethod
     def user_is_in_worship_arts(user_info):
+        """
+        Groups allowed (so far):
+            104999 - WA Band and Vocals
+            104934 - WA Technical Team
+            100800 - WA Audio Team
+            107330 - WA Handbells
+            104932 - WA Design team
+        Or anyone who is "staff".
+        """
         return len([post_type for post_type, groups in user_info['can_create_in_group_ids'].iteritems()
-                    if 104999 in groups]) > 0 or user_info['staff']
+                    if any([104999 in groups,
+                            104934 in groups,
+                            100800 in groups,
+                            107330 in groups,
+                            104932 in groups])]) > 0 or user_info['staff']
 
 
 class TheCitySDKException(Exception):
