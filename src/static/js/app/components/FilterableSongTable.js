@@ -49,7 +49,7 @@ class FilterableSongTable extends React.Component {
     });
 
     // Attempt to avoid hammering the API with requests as someone types.
-    _.debounce(_.bind(this.getSongsFromApi, this, searchText), 300, { leading: false })();
+    _.throttle(_.bind(this.getSongsFromApi, this, searchText), 300, { leading: false })();
   }
 
   render() {
