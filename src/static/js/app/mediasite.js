@@ -12,17 +12,17 @@ class App extends React.Component {
   state = {
     loggedIn: auth.loggedIn(),
     user: null
-  }
+  };
 
   updateAuth = (loggedIn) => {
     let newState = {
-      loggedIn: loggedIn,
-    }
+      loggedIn: loggedIn
+    };
     if (!loggedIn && this.state.loggedIn && this.state.user !== null) {
       newState.user = null;
     }
     this.setState(newState);
-  }
+  };
 
   componentDidMount() {
     this.loadUserInfo();
