@@ -21,10 +21,12 @@ const MediasiteHeader = (props) => {
           </ul>
           <ul className='nav navbar-nav navbar-right'>
             <li>
-              <p className='navbar-text'>{props.user !== null ? props.user.firstName : ''}</p>
+              <a href='#'>{props.user !== null ? props.user.firstName : ''}</a>
+            </li>
+            <li>
               <img src={props.user !== null ? props.user.profilePicture : ''} className='user-profile__image' />
             </li>
-            <li className='divider'></li>
+            <li role='separator' className='divider'></li>
             <li><Link to={ props.loggedIn ? '/logout' : '/login' }>{ props.loggedIn ? 'Logout' : 'Login' }</Link></li>
           </ul>
         </div>
