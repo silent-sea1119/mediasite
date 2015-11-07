@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import _ from 'underscore';
 
 import connectHistory from '../connectHistory';
 
@@ -13,7 +12,7 @@ class FilterableSongTable extends React.Component {
   state = {
     searchText: '',
     songData: []
-  }
+  };
 
   componentDidMount() {
     this.getSongsFromApi(this.state.searchText);
@@ -48,9 +47,9 @@ class FilterableSongTable extends React.Component {
       searchText: searchText
     });
 
-    // Attempt to avoid hammering the API with requests as someone types.
-    _.throttle(_.bind(this.getSongsFromApi, this, searchText), 300, { leading: false })();
-  }
+    // TODO: Attempt to avoid hammering the API with requests as someone types.
+    this.getSongsFromApi(searchText);
+  };
 
   render() {
     return (

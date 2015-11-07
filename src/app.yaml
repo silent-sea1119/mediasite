@@ -1,5 +1,5 @@
 application: cdac-mediasite
-version: 4-zoom-fixes
+version: 1-1-0-additional-song-data
 runtime: python27
 api_version: 1
 threadsafe: true

@@ -1,11 +1,11 @@
 import React from 'react';
 
 export default class SearchBar extends React.Component {
-  handleChange = (e) => {
+  handleChange = () => {
     this.props.onUserInput(
       this.refs.searchTextInput.value
     );
-  }
+  };
   
   render() {
     return(

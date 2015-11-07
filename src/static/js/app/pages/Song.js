@@ -1,33 +1,53 @@
 import React from 'react';
-import { Link } from 'react-router';
 import MediasiteApi from '../api/MediasiteApi';
 
 export default class Song extends React.Component {
   state = {
-    title: 'Loading...',
-    author1: '',
-    author2: ''
-  }
+    songData: null,
+    isLoading: true
+  };
 
   componentDidMount() {
     MediasiteApi.getSongById(this.props.params.songId, (songData) => {
-      // do stuff.
       this.setState({
-        title: songData.data.Title,
-        author1: songData.data.Author1,
-        author2: songData.data.Author2
+        'songData': songData.data,
+        isLoading: false
       });
     });
   }
 
+  getSafeSongMarkup(songData) {
+    if (songData) {
+      return {
+        __html:
+          `<h2>${songData.Title}</h2>` +
+          `<p>${songData.Author1}` + (songData.Author2 ? ` &amp; ${songData.Author2}` : ``) + `</p>` +
+          `<p>Key: ${this.valueOrEmptyString(songData.SongKey)}</p>` +
+          `<p>Style: ${this.valueOrEmptyString(songData.Style)}` +
+          `<p>Uses: ` + this.valueOrEmptyString(songData.Use1) + (songData.Use2 ? `, ${songData.Use2}` : ``) + `</p>` +
+          `<p>Notes: ${this.valueOrEmptyString(songData.Notes)}</p>` +
+          (songData.CCLI ? `<p>CCLI: <a target='_blank' href='http://ca.search.ccli.com/songs/${songData.CCLI}'>${songData.CCLI}</a></p>` : ``) +
+          (songData.CopyDate ? `<p>Copyright: ${songData.CopyDate}</p>` : ``) +
+          `<h3>Print Song Sheet:</h3><p>Someday...</p>` +
+          (songData.YouTubeLink ?
+            `<h3>YouTube</h3>
+             <iframe src='http://www.youtube.com/embed/${songData.YouTubeLink}' width='640' height='390' frameborder='0'></iframe>` :
+            ``)
+      }
+    } else {
+      return {
+        __html: '<h2>Loading...</h2>'
+      }
+    }
+  }
+
+  valueOrEmptyString(value) {
+    return value ? value : '';
+  }
+
   render() {
     return (
-      <div>
-        <h2>{this.state.title || 'Loading...'}</h2>
-        <p>{this.state.author1}</p>
-        <p>{this.state.author2}</p>
-        <p>Here is a song id! {this.props.params.songId}</p>
-      </div>
+      <div dangerouslySetInnerHTML={this.getSafeSongMarkup(this.state.songData)}></div>
     );
   }
 }
