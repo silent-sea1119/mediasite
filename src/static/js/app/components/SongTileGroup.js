@@ -15,7 +15,7 @@ export default class SongTileGroup extends React.Component {
                    songId={song.id}
                    title={song.cell[0]}
                    author1={song.cell[1]}
-                   authro2={song.cell[2]} />;
+                   author2={song.cell[2]} />;
     });
 
     return (
