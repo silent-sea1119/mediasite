@@ -24,14 +24,14 @@ export default class Song extends React.Component {
           `<p>${songData.Author1}` + (songData.Author2 ? ` &amp; ${songData.Author2}` : ``) + `</p>` +
           `<p>Key: ${this.valueOrEmptyString(songData.SongKey)}</p>` +
           `<p>Style: ${this.valueOrEmptyString(songData.Style)}` +
-          `<p>Uses: ` + this.valueOrEmptyString(songData.Use1) + (songData.Use2 ? `, ${songData.Use2}` : ``) + `</p>` +
+          `<p>Uses: ${this.valueOrEmptyString(songData.Use1)}` + (songData.Use2 ? `, ${songData.Use2}` : ``) + `</p>` +
           `<p>Notes: ${this.valueOrEmptyString(songData.Notes)}</p>` +
           (songData.CCLI ? `<p>CCLI: <a target='_blank' href='http://ca.search.ccli.com/songs/${songData.CCLI}'>${songData.CCLI}</a></p>` : ``) +
           (songData.CopyDate ? `<p>Copyright: ${songData.CopyDate}</p>` : ``) +
           `<h3>Print Song Sheet:</h3><p>Someday...</p>` +
           (songData.YouTubeLink ?
             `<h3>YouTube</h3>
-             <iframe src='http://www.youtube.com/embed/${songData.YouTubeLink}' width='640' height='390' frameborder='0'></iframe>` :
+             <iframe class='youtube-video' src='http://www.youtube.com/embed/${songData.YouTubeLink}' frameborder='0'></iframe>` :
             ``)
       }
     } else {

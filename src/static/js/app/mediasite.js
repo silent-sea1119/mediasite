@@ -3,8 +3,8 @@ import { render } from 'react-dom';
 import createBrowserHistory from 'history/lib/createBrowserHistory';
 import { Router, Route, IndexRoute, Link, History } from 'react-router';
 
-import { Login, Logout, Song, MediasiteHeader } from './pages/all';
-import FilterableSongTable from './components/FilterableSongTable';
+import { Login, Logout, Song, SongTable, MediasiteHeader, Welcome } from './pages/all';
+import FilterableSongTable from './pages/SongTable';
 import auth from './auth';
 import MediasiteApi from './api/MediasiteApi';
 
@@ -65,16 +65,6 @@ class App extends React.Component {
   }
 }
 
-const Welcome = () => {
-  return (
-    <div>
-      <h2>Welcome to the CDAC Mediasite!</h2>
-      <p>This is the place that folks come when they need media.</p>
-      <Link className='btn btn-large btn-primary' to='/songs'>Song Search</Link>
-    </div>
-  )
-};
-
 function requireAuth(nextState, replaceState) {
   if (!auth.loggedIn()) {
     replaceState({ nextPathname: nextState.location.pathname }, '/login')
@@ -87,7 +77,7 @@ render((
     <Route path='/' component={App}>
       <IndexRoute component={!auth.loggedIn() ? Login : Welcome} />
       <Route path='welcome' component={Welcome} onEnter={requireAuth} />
-      <Route path='songs' component={FilterableSongTable} onEnter={requireAuth} />
+      <Route path='songs' component={SongTable} onEnter={requireAuth} />
       <Route path='song/:songId' component={Song} onEnter={requireAuth} />
       <Route path='login' component={Login} />
       <Route path='logout' component={Logout} />

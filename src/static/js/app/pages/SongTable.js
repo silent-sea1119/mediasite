@@ -5,8 +5,8 @@ import connectHistory from '../connectHistory';
 
 import MediasiteApi from '../api/MediasiteApi';
 
-import SongTileGroup from './SongTileGroup';
-import SearchBar from './SearchBar';
+import SongTileGroup from './../components/SongTileGroup';
+import SearchBar from './../components/SearchBar';
 
 class FilterableSongTable extends React.Component {
   state = {
