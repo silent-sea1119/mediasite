@@ -64,17 +64,6 @@ class MediasiteSDK(object):
         except urllib2.URLError as ue:
             raise MediasiteSDKException(ue.message)
 
-    @staticmethod
-    def login(email, password):
-        """
-        Login to the mediasite.
-        """
-        if email == 'graham' and password == 'password1':
-            return {
-                'authenticated': True,
-                'token': 'supersecuretoken'
-            }
-
 
 class MediasiteSDKException(Exception):
     """
