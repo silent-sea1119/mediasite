@@ -73,7 +73,7 @@ const Welcome = () => {
       <Link className='btn btn-large btn-primary' to='/songs'>Song Search</Link>
     </div>
   )
-}
+};
 
 function requireAuth(nextState, replaceState) {
   if (!auth.loggedIn()) {
