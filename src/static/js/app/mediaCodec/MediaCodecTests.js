@@ -9,13 +9,24 @@ var testDataXML = "<SONG SongID='12345' TotalParts='6' Title='Cry Out To Jesus'>
 var testDataLegacy = "<6,Verse 1,Chorus,Verse 2,Bridge,Verse 3,Chorus2><Verse 1><C,1><NL>To everyone who's lost someone they love<NL><C/F,1><NL>Long before it was their time<NL><Am,5><NL>You feel like the days you had were not enough<NL><G,10><NL>when you said goodbye<NL><C,1><NL>And to all of the people with burdens and pains<NL><C/F,1><NL>Keeping you back from your life<NL><Am,5><NL>You believe that there's nothing and there is no one<NL><G,9><NL>Who can make it right</Verse 1><Chorus><F,10><NL>There is hope for the helpless<NL><C,1><NL>Rest for the weary<NL><Am,1><G,21><NL>Love for the broken heart<NL><F,10><NL>There is grace and forgiveness<NL><C,1><NL>Mercy and healing<NL><Am,7><G,29><NL>He'll meet you wherever you are<NL><F,12><C,30><Am,38></,41></,43><G,45></,47></,49><C,51><NL>Cry out to Jesus, Cry out to Jesus</Chorus><Verse 2><C,9><NL>For the marriage that's struggling just to hang on<NL><F,6><NL>They lost all of their faith in love<NL><Am,9><NL>They've done all they can to make it right again<NL><G,16><NL>Still it's not enough<NL><C,9><NL>For the ones who can't break the addictions and chains<NL><C/F,5><NL>You try to give up but you come back again<NL><Am,6><NL>Just remember that you're not alone in your shame<NL><G,10><Gsus4,14><G,20><NL>And your suffering</Verse 2><Bridge><Am,1><NL>When your lonely<NL><G,1><C,23><F,49><NL>And it feels like the whole world is falling on you<NL><Am,1><G,21><F,41><NL>You just reach out, you just cry out to Jesus<NL><F,8><NL>Cry to Jesus</Bridge><Verse 3><C,1><NL>To the widow who struggles with being alone<NL><F,1><NL>Wiping the tears from her eyes<NL><Am,9><NL>For the children around the world without a home<NL><G,7><NL>Say a prayer tonight</Verse 3><Chorus2><F,10><NL>There is hope for the helpless<NL><C,1><NL>Rest for the weary<NL><Am,1><G,21><NL>Love for the broken heart<NL><F,10><NL>There is grace and forgiveness<NL><C,1><NL>Mercy and healing<NL><Am,7><G,29><NL>He'll meet you wherever you are<NL><F,10><NL>There is hope for the helpless<NL><C,1><NL>Rest for the weary<NL><Am,1><G,21><NL>Love for the broken heart<NL><F,10><NL>There is grace and forgiveness<NL><C,1><NL>Mercy and healing<NL><Am,7><G,29><NL>He'll meet you wherever you are<NL><F,12><NL>Cry out to Jesus,<NL><C,12><F,18><C,24><F,30><NL>Cry out to Jesus<NL><Am,12><G,19><F,23><NL>Cry out to Jesus<NL><Am,12><G,19><F,23><NL>Cry out to Jesus<NL><Am,12><G,19><F,23><NL>                         (hold)</Chorus2>";
 var gLegalChars =  'ABCDEFGabcdefgimjM2345679#SUsu/^|(): no';
 var testDataPlainText = "C\r\nThis is a test of the decoder\r\nF    D    E\r\nWhat a test indeed";
+var testDataJson = {  "id": 3708,  "parts": [    {      "partData": [        {          "note": [            {              "position": 1,              "note": "G5"            },            {              "position": 6,              "note": "D4/F#"            },            {              "position": 18,              "note": "Em7"            },            {              "position": 22,              "note": "D4/F#"            }          ],          "lyric": null        },        {          "note": [],          "lyric": "Praise to You, God"        },        {          "note": [            {              "position": 1,              "note": "G5"            },            {              "position": 6,              "note": "D4/F#"            },            {              "position": 19,              "note": "Em7"            },            {              "position": 23,              "note": "D4/F#"            }          ],          "lyric": null        },        {          "note": [],          "lyric": "Father of our Lord"        },        {          "note": [            {              "position": 7,              "note": "C"            },            {              "position": 11,              "note": "G/B"            },            {              "position": 19,              "note": "Am7"            },            {              "position": 24,              "note": "Am7/G"            },            {              "position": 30,              "note": "D"            }          ],          "lyric": null        },        {          "note": [],          "lyric": "For great is Your mercy    on us"        }      ],      "partName": "Verse 1"    },    {      "partData": [        {          "note": [            {              "position": 1,              "note": "G5"            },            {              "position": 6,              "note": "D4/F#"            },            {              "position": 18,              "note": "Em7"            },            {              "position": 22,              "note": "D4/F#"            }          ],          "lyric": null        },        {          "note": [],          "lyric": "Praise to You, God"        },        {          "note": [            {              "position": 1,              "note": "G5"            },            {              "position": 12,              "note": "D4/F#"            },            {              "position": 26,              "note": "Em7"            },            {              "position": 30,              "note": "D4/F#"            }          ],          "lyric": null        },        {          "note": [],          "lyric": "You've given us new birth"        },        {          "note": [            {              "position": 3,              "note": "C"            },            {              "position": 8,              "note": "G/B"            },            {              "position": 18,              "note": "Am7"            },            {              "position": 22,              "note": "Am7/G"            },            {              "position": 38,              "note": "D"            }          ],          "lyric": null        },        {          "note": [],          "lyric": "Into a living hope       through Your Son"        }      ],      "partName": "Verse 2"    },    {      "partData": [        {          "note": [            {              "position": 1,              "note": "C"            },            {              "position": 4,              "note": "D"            },            {              "position": 8,              "note": "Em"            },            {              "position": 11,              "note": "D"            },            {              "position": 13,              "note": "C"            },            {              "position": 19,              "note": "D"            },            {              "position": 32,              "note": "Em"            },            {              "position": 35,              "note": "D"            }          ],          "lyric": null        },        {          "note": [],          "lyric": "In You      we greatly rejoice"        },        {          "note": [            {              "position": 1,              "note": "C"            },            {              "position": 4,              "note": "D"            },            {              "position": 8,              "note": "Em"            },            {              "position": 11,              "note": "D"            },            {              "position": 21,              "note": "C"            },            {              "position": 30,              "note": "D"            },            {              "position": 40,              "note": "G5"            },            {              "position": 43,              "note": "D4/F#"            },            {              "position": 49,              "note": "Em7"            },            {              "position": 53,              "note": "D4/F#"            }          ],          "lyric": null        },        {          "note": [],          "lyric": "In You    we have joy in a living hope"        }      ],      "partName": "Chorus"    }  ],  "title": "A Living Hope",  "key": "G",  "partCount": 3};
+
+QUnit.test('encode json data to html', function (assert) {
+    var config = {
+        legalChars: gLegalChars,
+        key: 'G'
+    };
+    var testSong = new Song(config, 3708, 'G');
+    var songHtml = testSong.Encode(testDataJson, ENCODETYPE.HTML);
+    assert.ok(songHtml.indexOf('<div') === 0, 'Passed!');
+});
 
 QUnit.test("decode Legacy Song Data", function (assert) {
     var config = {
         legalChars: gLegalChars,  
         key: 'C'
     };
-    var testSong = new song(config, 12345, 'Cry Out To Jesus');
+    var testSong = new Song(config, 12345, 'Cry Out To Jesus');
     var encodedResults = testSong.Decode(testDataLegacy, ENCODETYPE.Legacy);
     //console.log(encodedResults);
     assert.ok(encodedResults.parts.length == 6, "Passed!");
@@ -25,7 +36,7 @@ QUnit.test("decode Legacy Song Data & encode HTML", function (assert) {
     var config = {
         legalChars: gLegalChars   
     };
-    var testSong = new song(config, 12345, 'Cry Out To Jesus', 'C');
+    var testSong = new Song(config, 12345, 'Cry Out To Jesus', 'C');
     var encodedResults = testSong.Decode(testDataLegacy, ENCODETYPE.Legacy);
     //console.log(encodedResults);
 
@@ -38,7 +49,7 @@ QUnit.test("decode Legacy Song Data & encode text", function (assert) {
    var config = {
        legalChars: gLegalChars
     };
-    var testSong = new song(config, 12345, 'Cry Out To Jesus', 'C');
+    var testSong = new Song(config, 12345, 'Cry Out To Jesus', 'C');
     var encodedResults = testSong.Decode(testDataLegacy, ENCODETYPE.Legacy);
     //console.log(encodedResults);
 
@@ -51,7 +62,7 @@ QUnit.test("decode Legacy Song Data & re-encode & compare", function (assert) {
     var config = {
         legalChars: gLegalChars
     };
-    var testSong = new song(config, 12345, 'Cry Out To Jesus', 'C');
+    var testSong = new Song(config, 12345, 'Cry Out To Jesus', 'C');
     var encodedResults = testSong.Decode(testDataLegacy, ENCODETYPE.Legacy);
     //console.log(encodedResults);
 
@@ -66,7 +77,7 @@ QUnit.test("decode XML Song Data", function (assert) {
     var config = {
         legalChars: gLegalChars      
     };
-    var testSong = new song(config, 12345, 'Cry Out To Jesus', 'C');
+    var testSong = new Song(config, 12345, 'Cry Out To Jesus', 'C');
     var encodedResults = testSong.Decode(testDataXML, ENCODETYPE.XML);
     //console.log(encodedResults);
     assert.ok(encodedResults.parts.length == 6, "Passed!");
@@ -76,7 +87,7 @@ QUnit.test("decode XML Song Data & re-encode & compare", function (assert) {
     var config = {
         legalChars: gLegalChars
     };
-    var testSong = new song(config, 12345, 'Cry Out To Jesus', 'C');
+    var testSong = new Song(config, 12345, 'Cry Out To Jesus', 'C');
     var encodedResults = testSong.Decode(testDataXML, ENCODETYPE.XML);
     //console.log(testDataXML);
     //console.log('');
@@ -91,7 +102,7 @@ QUnit.test("decode Plain Text Song Data & re-encode & compare", function (assert
     var config = {
         legalChars: gLegalChars
     };
-    var testSong = new song(config, 12345, 'Cry Out To Jesus', 'C');
+    var testSong = new Song(config, 12345, 'Cry Out To Jesus', 'C');
     //input for this stream is a mashup of all the part names in one array, and a corresponding array of part data (*directly from the form)
     var encodedResults = testSong.Decode({partName: ['sample'], partData: [testDataPlainText]}, ENCODETYPE.PlainText);
     console.log(testDataPlainText);
@@ -116,10 +127,10 @@ QUnit.test("transposer Test #2", function (assert) {
     var testTranspose = new transposer('C', 'G');
     var result = testTranspose.transposeNote('Dsus7/F#maj');
     assert.ok(result == "Asus7/C#maj", "Passed!");
-})
+});
 
 QUnit.test("transposer Test #3", function (assert) {
     var testTranspose = new transposer('E', 'F');
     var result = testTranspose.transposeNote('Dsus7/Gbmaj');
     assert.ok(result == "D#sus7/Gmaj", "Passed!");
-})
+});

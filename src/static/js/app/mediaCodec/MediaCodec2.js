@@ -50,7 +50,7 @@ var HTML_CLASS_NAMES = {
 var vbCrLf = '\r\n';
 
 
-function song(config, id, title, pSongKey) {
+function Song(config, id, title, pSongKey) {
   this.config = config;
   this.id = id;
   this.title = title;
@@ -206,6 +206,7 @@ function song(config, id, title, pSongKey) {
 
   function encodeHTML(pJsonData, pObjectType, pTransposeObj) {
     var retData = "";
+    console.log(pJsonData, pObjectType, pTransposeObj);
 
     switch (pObjectType) {
       case OBJECTTYPE.song:
