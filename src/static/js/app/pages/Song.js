@@ -47,7 +47,9 @@ export default class Song extends React.Component {
 
   render() {
     return (
-      <div dangerouslySetInnerHTML={this.getSafeSongMarkup(this.state.songData)}></div>
+      <div
+        className="song"
+        dangerouslySetInnerHTML={this.getSafeSongMarkup(this.state.songData)}></div>
     );
   }
 }

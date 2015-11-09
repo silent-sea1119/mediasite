@@ -1,9 +1,13 @@
-.youtube-video {
-  width: 100%;
-  height: auto;
+.song {
+  //background-color: $song-background;
 
-  @media (min-width: $screen-sm-min) {
-    width: 640px;
-    height: 390px;
+  .youtube-video {
+    width: 100%;
+    height: auto;
+
+    @media (min-width: $screen-sm-min) {
+      width: 640px;
+      height: 390px;
+    }
   }
 }
