@@ -4,7 +4,6 @@ API endpoints for users
 import json
 from app.models.user import User
 from app.views.api import JsonApiHandler
-from mediasitesdk import MediasiteSDK
 
 
 class LoginHandler(JsonApiHandler):
@@ -34,6 +33,6 @@ class GetUserInfoHandler(JsonApiHandler):
 
         # TODO: Cache this for quicker retrieval? No need to look it all up every time.
         user = User.get_by_user_id(user_id) if user_id else None
-        result = user.get_info_dict() if user else None
+        result = user.info_dict if user else None
 
         return self.render_response(result)

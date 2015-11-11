@@ -21,7 +21,6 @@ class OauthLoginHandler(webapp2.RequestHandler):
 class OauthRedirectCallbackHandler(webapp2.RequestHandler):
     def get(self):
         code = self.request.GET.get('code')
-        state = self.request.GET.get('state')
 
         if code:
             user_info = TheCitySDK.post_for_user_token(code)
