@@ -33,7 +33,7 @@ def decode_jwt(jwt_string):
     """
     if not jwt_string:
         raise ValueError('jwt_string is required')
-    if not isinstance(jwt_string, str):
-        raise TypeError('jwt_string must be of type str')
+    if not isinstance(jwt_string, str) and not isinstance(jwt_string, unicode):
+        raise TypeError('jwt_string must be of type str or unicode')
 
     return jwt.decode(jwt_string, key=MEDIASITE_JWT_SECRET)

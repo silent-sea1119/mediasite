@@ -3,6 +3,8 @@ Tests for JWT functionality
 """
 import unittest
 
+from mock import mock
+
 import jwt
 from app.domain.mediasite_jwts import create_jwt_from_city_dict, decode_jwt
 from settings import MEDIASITE_JWT_SECRET
@@ -63,6 +65,13 @@ class JwtEncodeDecodeTests(unittest.TestCase):
     def test_decode_jwt_requires_jwt_string_parameter(self):
         with self.assertRaises(ValueError):
             decode_jwt(None)
+
+    @mock.patch('app.domain.mediasite_jwts.jwt.decode', mock.MagicMock())
+    def test_decode_jwt_allows_unicode_string(self):
+        try:
+            decode_jwt(u'myunicodestring')
+        except TypeError:
+            self.fail('should not get here')
 
     def test_decode_jwt_decodes_jwt_string_properly(self):
         jwt_token_string = create_jwt_from_city_dict(self.user_dict)
