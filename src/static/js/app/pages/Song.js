@@ -52,7 +52,7 @@ export default class Song extends React.Component {
     return { __html: '' };
   }
 
-  valueOrEmptyString(value) {
+  static valueOrEmptyString(value) {
     return value ? value : '';
   }
 
