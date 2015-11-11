@@ -1,4 +1,6 @@
 import React from 'react';
+
+import SongSheetConfigurator from '../components/SongSheetConfigurator';
 import MediasiteApi from '../api/MediasiteApi';
 
 export default class Song extends React.Component {
@@ -27,12 +29,7 @@ export default class Song extends React.Component {
           `<p>Uses: ${this.valueOrEmptyString(songData.Use1)}` + (songData.Use2 ? `, ${songData.Use2}` : ``) + `</p>` +
           `<p>Notes: ${this.valueOrEmptyString(songData.Notes)}</p>` +
           (songData.CCLI ? `<p>CCLI: <a target='_blank' href='http://ca.search.ccli.com/songs/${songData.CCLI}'>${songData.CCLI}</a></p>` : ``) +
-          (songData.CopyDate ? `<p>Copyright: ${songData.CopyDate}</p>` : ``) +
-          `<h3>Print Song Sheet:</h3><p>Someday...</p>` +
-          (songData.YouTubeLink ?
-            `<h3>YouTube</h3>
-             <iframe class='youtube-video' src='http://www.youtube.com/embed/${songData.YouTubeLink}' frameborder='0'></iframe>` :
-            ``)
+          (songData.CopyDate ? `<p>Copyright: ${songData.CopyDate}</p>` : ``)
       }
     } else {
       return {
@@ -41,15 +38,37 @@ export default class Song extends React.Component {
     }
   }
 
-  valueOrEmptyString(value) {
+  getSafeYoutubeMarkup(songData) {
+    if (songData) {
+      if (songData.YouTubeLink) {
+        let youtubeLink = `http://www.youtube.com/embed/${this.state.songData.YouTubeLink}`;
+        return {
+          __html:
+            `<h3>YouTube</h3>
+             <iframe class='youtube-video' src=${youtubeLink} frameborder='0'></iframe>`
+        };
+      }
+    }
+    return { __html: '' };
+  }
+
+  static valueOrEmptyString(value) {
     return value ? value : '';
   }
 
   render() {
     return (
-      <div
-        className="song"
-        dangerouslySetInnerHTML={this.getSafeSongMarkup(this.state.songData)}></div>
+      <div>
+        <div
+          className="song"
+          dangerouslySetInnerHTML={this.getSafeSongMarkup(this.state.songData)}>
+        </div>
+        <h3>Print Song Sheet:</h3>
+        <SongSheetConfigurator />
+        <div
+          dangerouslySetInnerHTML={this.getSafeYoutubeMarkup(this.state.songData)}>
+        </div>
+      </div>
     );
   }
 }
