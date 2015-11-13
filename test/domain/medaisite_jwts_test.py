@@ -51,8 +51,7 @@ class JwtEncodeDecodeTests(unittest.TestCase):
         user_info = {
             u'id': 1099636,
             u'first_name': u'Graham',
-            u'last_name': u'Holtslander',
-            u'email': u'menello@gmail.com'
+            u'last_name': u'Holtslander'
         }
         user_permissions = {
             u'staff': False,
