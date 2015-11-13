@@ -1,6 +1,8 @@
 """
 user model tests
 """
+import jwt
+from app.domain.mediasite_jwts import decode_jwt
 from app.models.user import User
 from test.fixtures.appengine import GaeTestCase
 
@@ -45,15 +47,16 @@ class UserModelTests(GaeTestCase):
 
     def test_get_key_hash_returns_appropriate_hash_value(self):
         user = User.put_from_city_dict(self.user_dict).get()
-        self.assertEqual(abs(hash(User.build_key(self.user_dict['id']))), user.get_key_hash())
+        user_jwt_decoded = decode_jwt(user.get_key_hash())
+        self.assertEqual(user.id, user_jwt_decoded['usr']['id'])
 
     def test_get_info_dict_returns_a_dict(self):
         user = User.put_from_city_dict(self.user_dict).get()
-        user_dict = user.get_info_dict()
+        user_dict = user.info_dict
         self.assertTrue(type(user_dict) == dict)
 
     def test_get_info_dict_returns_sane_info_about_a_user(self):
         user = User.put_from_city_dict(self.user_dict).get()
-        user_dict = user.get_info_dict()
+        user_dict = user.info_dict
         self.assertEqual(self.user_dict['first_name'], user_dict['first_name'])
         self.assertEqual(self.user_dict['last_name'], user_dict['last_name'])

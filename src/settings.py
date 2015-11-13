@@ -30,4 +30,4 @@ THE_CITY_BASE_URI = 'http://api.onthecity.org'
 THE_CITY_ME_URI = THE_CITY_BASE_URI + '/me'
 THE_CITY_ME_PERMISSIONS_URI = THE_CITY_ME_URI + '/permissions'
 
-from settings_secret import THE_CITY_APP_SECRET
+from settings_secret import THE_CITY_APP_SECRET, MEDIASITE_JWT_SECRET

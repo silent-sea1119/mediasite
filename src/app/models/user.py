@@ -2,6 +2,7 @@
 user models
 """
 import json
+
 from google.appengine.ext import ndb
 
 
@@ -21,6 +22,7 @@ class User(ndb.Model):
     inactive_reason = ndb.StringProperty()
     subdomain = ndb.StringProperty()
     church_name = ndb.StringProperty()
+    jwt = ndb.StringProperty()
 
     @classmethod
     def build_key(cls, user_id):
@@ -36,6 +38,7 @@ class User(ndb.Model):
             if attribute == 'addresses':
                 value = json.dumps(value)
             setattr(user, attribute, value)
+
         return user.put()
 
     @classmethod
@@ -44,13 +47,14 @@ class User(ndb.Model):
 
     def get_key_hash(self):
         """
-        For storing the hashed key on client side (as a login token)
+        For storing the JWT on client side (as a login token)
         """
-        return abs(hash(self.key))
+        return self.jwt
 
-    def get_info_dict(self):
+    @property
+    def info_dict(self):
         """
-        Get a dictionary of info about a user
+        Get a dictionary of basic info about a user
         :r_type: dict
         """
         return {
