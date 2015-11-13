@@ -5,6 +5,8 @@ import logging
 import urllib
 
 import webapp2
+
+from app.domain.mediasite_jwts import create_jwt_from_user_data
 from app.models.user import User
 
 from thecitysdk import TheCitySDK
@@ -28,9 +30,9 @@ class OauthRedirectCallbackHandler(webapp2.RequestHandler):
             user_permissions = sdk.get_user_permissions()
             if 'error_code' not in user_permissions:
                 if sdk.user_is_in_worship_arts(user_permissions):
-                    # Put model by user_info dict?
                     logging.info('This user can join our site')
                     user_info_dict = sdk.get_basic_user_info()
+                    user_info_dict['jwt'] = create_jwt_from_user_data(user_permissions, user_info_dict)
                     User.put_from_city_dict(user_info_dict)
                     self.redirect('/login?success=true&userId={}'.format(user_info_dict['id']))
                 else:

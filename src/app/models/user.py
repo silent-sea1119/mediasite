@@ -5,8 +5,6 @@ import json
 
 from google.appengine.ext import ndb
 
-from app.domain.mediasite_jwts import create_jwt_from_city_dict
-
 
 class User(ndb.Model):
     id = ndb.IntegerProperty(required=True)
@@ -40,7 +38,6 @@ class User(ndb.Model):
             if attribute == 'addresses':
                 value = json.dumps(value)
             setattr(user, attribute, value)
-        user.jwt = create_jwt_from_city_dict(city_dict)
 
         return user.put()
 
