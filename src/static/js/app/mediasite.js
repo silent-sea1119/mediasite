@@ -1,10 +1,15 @@
 import React from 'react';
 import { render } from 'react-dom';
-import createBrowserHistory from 'history/lib/createBrowserHistory';
-import { Router, Route, IndexRoute, Link, History } from 'react-router';
+import { Router, Route, IndexRoute, Link, History, browserHistory } from 'react-router';
 
-import { Login, Logout, Song, SongTable, MediasiteHeader, Welcome } from './pages/all';
-import FilterableSongTable from './pages/SongTable';
+import {
+    Login,
+    Logout,
+    Song,
+    SongTable,
+    MediasiteHeader,
+    Welcome
+} from './pages';
 import auth from './auth';
 import MediasiteApi from './api/MediasiteApi';
 
@@ -73,7 +78,7 @@ function requireAuth(nextState, replaceState) {
 
 // ReactDOM.render
 render((
-  <Router history={createBrowserHistory()}>
+  <Router history={browserHistory}>
     <Route path='/' component={App}>
       <IndexRoute component={!auth.loggedIn() ? Login : Welcome} />
       <Route path='welcome' component={Welcome} onEnter={requireAuth} />

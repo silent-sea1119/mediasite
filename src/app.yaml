@@ -1,5 +1,4 @@
 application: cdac-mediasite
-version: 1-3-0-jwts-stored-locally-for-login
 runtime: python27
 api_version: 1
 threadsafe: true

@@ -1,34 +1,29 @@
 {
-  "jspm": {
-    "directories": {
-      "baseURL": "src/static",
-      "packages": "src/static/js/vendor/jspm_packages"
-    },
-    "configFile": "src/static/js/config.js",
-    "dependencies": {
-      "fetch": "npm:whatwg-fetch@^0.9.0",
-      "react": "npm:react@^0.13.3",
-      "react-dom": "npm:react-dom@^0.14.0",
-      "react-router": "npm:react-router@^1.0.0-rc3",
-      "underscore": "npm:underscore@^1.8.3"
-    },
-    "devDependencies": {
-      "babel": "npm:babel-core@^5.8.24",
-      "babel-runtime": "npm:babel-runtime@^5.8.24",
-      "core-js": "npm:core-js@^1.1.4"
-    }
+  "dependencies": {
+    "fetch": "^1.1.0",
+    "lodash": "^4.13.1",
+    "react": "^15.1.0",
+    "react-dom": "^15.1.0",
+    "react-router": "^2.5.1"
   },
   "devDependencies": {
-    "babel-jest": "^5.3.0",
-    "fetch": "^0.3.6",
-    "jest": "^0.1.40",
+    "babel": "^6.5.2",
+    "babel-core": "^6.10.4",
+    "babel-jest": "^13.0.0",
+    "babel-loader": "^6.2.4",
+    "babel-plugin-transform-class-properties": "^6.10.2",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-react": "^6.11.1",
+    "exports-loader": "^0.6.3",
+    "imports-loader": "^0.6.5",
+    "jest": "^13.0.0",
     "jest-cli": "^0.5.8",
+    "json-loader": "^0.5.4",
     "jspm": "^0.16.10",
     "node-sass": "^3.3.3",
     "nodemon": "^1.7.1",
-    "react": "^0.14.0",
-    "react-addons-test-utils": "^0.14.0",
-    "react-dom": "^0.14.0"
+    "react-addons-test-utils": "^15.1.0",
+    "webpack": "^1.13.1"
   },
   "scripts": {
     "build-js": "jspm bundle-sfx ./src/static/js/app/mediasite ./src/static/js/mediasite.js",

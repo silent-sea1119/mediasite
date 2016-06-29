@@ -1,6 +1,6 @@
 import React from 'react';
+import { browserHistory } from 'react-router';
 
-import connectHistory from '../connectHistory';
 import auth from '../auth';
 
 class Login extends React.Component {
@@ -14,12 +14,12 @@ class Login extends React.Component {
       if (!loggedIn) {
         return;
       }
-      const { location, history } = this.props;
+      const { location } = this.props;
 
       if (location.query.nextUrl || location.state && location.state.nextPathname) {
-        history.replaceState(null, location.query.nextUrl || location.state.nextPathname);
+        browserHistory.replaceState(null, location.query.nextUrl || location.state.nextPathname);
       } else {
-        history.replaceState(null, '/welcome');
+        browserHistory.replaceState(null, '/welcome');
       }
     });
   }
@@ -42,4 +42,4 @@ class Login extends React.Component {
   }
 }
 
-export default connectHistory(Login)
+export default Login
