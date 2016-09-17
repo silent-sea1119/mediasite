@@ -17,7 +17,7 @@ class FilterableSongTable extends React.Component {
   }
 
   componentWillMount() {
-    const query = this.props.location.query;
+    const { query } = this.props.location;
     const searchText = query && query.searchText ? query.searchText : '';
     this.setState({
       searchText: searchText
@@ -42,7 +42,7 @@ class FilterableSongTable extends React.Component {
 
   handleUserInput = (searchText) => {
     this.setState({
-      searchText
+      searchText  // TODO: Has to be a way to do this stuff without setting state twice
     });
     // TODO: Attempt to avoid hammering the API with requests as someone types.
     this.getSongsFromApi(searchText);

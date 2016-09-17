@@ -29,7 +29,13 @@
     "watch-js": "nodemon --watch ./src/static/js/app --ignore '*/__tests__/*.js' -x \"npm run build-js\"",
     "build-css": "node-sass --include-path scss src/static/scss/main.scss src/static/css/global.css",
     "watch-css": "nodemon -e scss -x \"npm run build-css\"",
-    "test": "BABEL_JEST_STAGE=0 jest"
+    "test": "BABEL_JEST_STAGE=0 jest",
+    "build-js:prod": "webpack -p",
+    "build-css:prod": "node-sass --include-path scss build/static/scss/main.scss build/static/css/global.css",
+    "build:prod": "npm run clean && cp -r src build && export NODE_ENV=production && npm run build-js:prod && npm run build-css:prod",
+    "clean": "rm -rf build",
+    "deploy:prod": "npm run build:prod && gcloud app deploy --project=cdac-mediasite build/app.yaml",
+    "deploy:demo": "npm run build:prod && gcloud app deploy --project=cdac-demo-purchaseorder build/app.yaml"
   },
   "jest": {
     "scriptPreprocessor": "node_modules/babel-jest",
