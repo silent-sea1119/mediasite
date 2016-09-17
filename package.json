@@ -1,7 +1,6 @@
 {
   "dependencies": {
     "fetch": "^1.1.0",
-    "jquery": "^2.2.4",
     "lodash": "^4.13.1",
     "materialize-css": "^0.97.7",
     "react": "^15.1.0",
