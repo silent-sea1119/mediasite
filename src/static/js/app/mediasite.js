@@ -6,7 +6,7 @@ import {
     Login,
     Logout,
     Song,
-    SongTable,
+    FilterableSongTable,
     MediasiteHeader,
     Welcome
 } from './pages';
@@ -70,9 +70,9 @@ class App extends React.Component {
   }
 }
 
-function requireAuth(nextState, replaceState) {
+function requireAuth(nextState, replace) {
   if (!auth.loggedIn()) {
-    replaceState({ nextPathname: nextState.location.pathname }, '/login')
+    replace(`/login?nextPathName=${nextState.location.pathname}`)
   }
 }
 
@@ -82,7 +82,7 @@ render((
     <Route path='/' component={App}>
       <IndexRoute component={!auth.loggedIn() ? Login : Welcome} />
       <Route path='welcome' component={Welcome} onEnter={requireAuth} />
-      <Route path='songs' component={SongTable} onEnter={requireAuth} />
+      <Route path='songs' component={FilterableSongTable} onEnter={requireAuth} />
       <Route path='song/:songId' component={Song} onEnter={requireAuth} />
       <Route path='login' component={Login} />
       <Route path='logout' component={Logout} />

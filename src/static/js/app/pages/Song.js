@@ -24,10 +24,10 @@ export default class Song extends React.Component {
         __html:
           `<h2>${songData.Title}</h2>` +
           `<p>${songData.Author1}` + (songData.Author2 ? ` &amp; ${songData.Author2}` : ``) + `</p>` +
-          `<p>Key: ${this.valueOrEmptyString(songData.SongKey)}</p>` +
-          `<p>Style: ${this.valueOrEmptyString(songData.Style)}` +
-          `<p>Uses: ${this.valueOrEmptyString(songData.Use1)}` + (songData.Use2 ? `, ${songData.Use2}` : ``) + `</p>` +
-          `<p>Notes: ${this.valueOrEmptyString(songData.Notes)}</p>` +
+          `<p>Key: ${Song.valueOrEmptyString(songData.SongKey)}</p>` +
+          `<p>Style: ${Song.valueOrEmptyString(songData.Style)}` +
+          `<p>Uses: ${Song.valueOrEmptyString(songData.Use1)}` + (songData.Use2 ? `, ${songData.Use2}` : ``) + `</p>` +
+          `<p>Notes: ${Song.valueOrEmptyString(songData.Notes)}</p>` +
           (songData.CCLI ? `<p>CCLI: <a target='_blank' href='http://ca.search.ccli.com/songs/${songData.CCLI}'>${songData.CCLI}</a></p>` : ``) +
           (songData.CopyDate ? `<p>Copyright: ${songData.CopyDate}</p>` : ``)
       }

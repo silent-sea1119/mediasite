@@ -1,7 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-
-import connectHistory from '../connectHistory';
+import { withRouter } from 'react-router';
 
 import MediasiteApi from '../api/MediasiteApi';
 
@@ -19,8 +17,8 @@ class FilterableSongTable extends React.Component {
   }
 
   componentWillMount() {
-    let { query } = this.props.location;
-    let searchText = query && query.searchText ? query.searchText : '';
+    const query = this.props.location.query;
+    const searchText = query && query.searchText ? query.searchText : '';
     this.setState({
       searchText: searchText
     });
@@ -29,9 +27,9 @@ class FilterableSongTable extends React.Component {
   getSongsFromApi(searchText) {
     if (searchText !== '') {
       // Set searchText query parameter
-      this.props.history.replaceState(null, '/songs', {'searchText': searchText});
+      this.props.router.replace(`/songs?searchText=${searchText}`);
     } else {
-      this.props.history.replaceState(null, '/songs', null);
+      this.props.router.replace('/songs');
     }
 
     MediasiteApi.getSongs(searchText, (songData) => {
@@ -44,9 +42,8 @@ class FilterableSongTable extends React.Component {
 
   handleUserInput = (searchText) => {
     this.setState({
-      searchText: searchText
+      searchText
     });
-
     // TODO: Attempt to avoid hammering the API with requests as someone types.
     this.getSongsFromApi(searchText);
   };
@@ -57,11 +54,11 @@ class FilterableSongTable extends React.Component {
         <SearchBar searchText={this.state.searchText}
                    onUserInput={this.handleUserInput} />
         <SongTileGroup songs={this.state.songData}
-                   searchText={this.state.searchText}
-                   totalSongCount={this.state.totalSongs} />
+                       searchText={this.state.searchText}
+                       totalSongCount={this.state.totalSongs} />
       </div>
     );
   }
 }
 
-export default connectHistory(FilterableSongTable)
+export default withRouter(FilterableSongTable)

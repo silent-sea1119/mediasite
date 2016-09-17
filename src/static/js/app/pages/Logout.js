@@ -1,14 +1,13 @@
 import React from 'react';
 
-import { browserHistory } from 'react-router';
+import { withRouter } from 'react-router';
 
-import connectHistory from '../connectHistory';
 import auth from '../auth';
 
 class Logout extends React.Component {
   componentDidMount() {
     auth.logout(() => {
-      browserHistory.replaceState(null, '/');
+      this.props.router.replace('/');
     });
   }
 
@@ -17,4 +16,4 @@ class Logout extends React.Component {
   }
 }
 
-export default Logout
+export default withRouter(Logout)

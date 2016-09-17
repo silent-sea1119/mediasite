@@ -50,7 +50,7 @@ export default {
   },
 
   loggedIn() {
-    return true; // !!localStorage.token;
+    return !!this.getToken();
   },
 
   onChange() {}

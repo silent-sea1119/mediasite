@@ -1,5 +1,5 @@
 import React from 'react';
-import { browserHistory } from 'react-router';
+import { withRouter } from 'react-router';
 
 import auth from '../auth';
 
@@ -17,9 +17,9 @@ class Login extends React.Component {
       const { location } = this.props;
 
       if (location.query.nextUrl || location.state && location.state.nextPathname) {
-        browserHistory.replaceState(null, location.query.nextUrl || location.state.nextPathname);
+        this.props.router.replace(location.query.nextUrl || location.state.nextPathname);
       } else {
-        browserHistory.replaceState(null, '/welcome');
+        this.props.router.replace('/welcome');
       }
     });
   }
@@ -42,4 +42,4 @@ class Login extends React.Component {
   }
 }
 
-export default Login
+export default withRouter(Login)

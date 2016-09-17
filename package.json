@@ -4,7 +4,7 @@
     "lodash": "^4.13.1",
     "react": "^15.1.0",
     "react-dom": "^15.1.0",
-    "react-router": "^2.5.1"
+    "react-router": "^2.8.1"
   },
   "devDependencies": {
     "babel": "^6.5.2",
@@ -19,14 +19,13 @@
     "jest": "^13.0.0",
     "jest-cli": "^0.5.8",
     "json-loader": "^0.5.4",
-    "jspm": "^0.16.10",
     "node-sass": "^3.3.3",
     "nodemon": "^1.7.1",
     "react-addons-test-utils": "^15.1.0",
     "webpack": "^1.13.1"
   },
   "scripts": {
-    "build-js": "jspm bundle-sfx ./src/static/js/app/mediasite ./src/static/js/mediasite.js",
+    "build-js": "webpack",
     "watch-js": "nodemon --watch ./src/static/js/app --ignore '*/__tests__/*.js' -x \"npm run build-js\"",
     "build-css": "node-sass --include-path scss src/static/scss/main.scss src/static/css/global.css",
     "watch-css": "nodemon -e scss -x \"npm run build-css\"",
