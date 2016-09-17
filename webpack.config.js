@@ -32,5 +32,8 @@ module.exports = {
         net: 'empty',
         tls: 'empty',
         dns: 'empty'
-    }
+    },
+    externals: {
+        jquery: 'jQuery'
+    },
 };

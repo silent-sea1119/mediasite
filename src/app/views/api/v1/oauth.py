@@ -26,7 +26,7 @@ class OauthRedirectCallbackHandler(webapp2.RequestHandler):
 
         if code:
             user_info = TheCitySDK.post_for_user_token(code)
-            sdk = TheCitySDK(user_info['access_token'])
+            sdk = TheCitySDK(user_info.get('access_token'))
             user_permissions = sdk.get_user_permissions()
             if 'error_code' not in user_permissions:
                 if sdk.user_is_in_worship_arts(user_permissions):

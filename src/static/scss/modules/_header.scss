@@ -1,12 +1,11 @@
 .user-profile {
 
-
   &__image {
     max-height: 50px;
     border-radius: 50%;
     margin-left: 15px;
 
-    @media (min-width: $screen-sm-min) {
+    @media #{$medium-and-up} {
       margin-left: 0;
     }
   }

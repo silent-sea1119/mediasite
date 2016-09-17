@@ -1,14 +1,9 @@
 @import "variables";
 
-@import "../vendor/bootstrap-sass/assets/stylesheets/bootstrap";
-//@import "../vendor/bootstrap-material-design/sass/bootstrap-material-design";
+@import "../vendor/materialize/sass/materialize";
 
 @import "templates/index";
 @import "templates/song";
 @import "modules/song-tile";
 @import "modules/header";
 @import "modules/song-sheet-configurator";
-
-body {
-  background-color: $site-background;
-}

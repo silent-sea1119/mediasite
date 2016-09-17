@@ -5,7 +5,7 @@
 .youtube-video {
   width: 100%;
 
-  @media (min-width: $screen-sm-min) {
+  @media #{$medium-and-up} {
     width: 640px;
     height: 390px;
   }

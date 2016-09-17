@@ -4,19 +4,16 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
-    <!-- <link href="css/font-awesome.min.css" rel="stylesheet"> -->
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="/static/css/global.css">
-    <link rel="stylesheet" href="/static/vendor/bootstrap-material-design/dist/css/bootstrap-material-design.min.css">
     <title>{% block page_title %}Media Site{% endblock %}</title>
   </head>
-<body>
-  {% block content %}{% endblock %}
+  <body>
+    {% block content %}{% endblock %}
 
-  <script src="/static/vendor/jquery/dist/jquery.min.js"></script>
-  <script src="/static/vendor/bootstrap-sass/assets/javascripts/bootstrap.min.js"></script>
-  <script src="/static/js/app/mediaCodec/MediaCodec2.js"></script>
+    <script src="/static/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="/static/js/app/mediaCodec/MediaCodec2.js"></script>
 
-  {% block javascripts %}{% endblock %}
+    {% block javascripts %}{% endblock %}
   </body>
-
 </html>
