@@ -1,6 +1,8 @@
 import React from 'react';
 
-import SongSheetConfigurator from '../components/SongSheetConfigurator';
+import SongSheetConfiguratorCard from '../components/SongSheetConfigurator';
+import YouTube from '../components/YouTube';
+import SongDataCard from '../components/SongData';
 import MediasiteApi from '../api/MediasiteApi';
 
 export default class Song extends React.Component {
@@ -18,56 +20,25 @@ export default class Song extends React.Component {
     });
   }
 
-  getSafeSongMarkup(songData) {
-    if (songData) {
-      return {
-        __html:
-          `<h2>${songData.Title}</h2>` +
-          `<p>${songData.Author1}` + (songData.Author2 ? ` &amp; ${songData.Author2}` : ``) + `</p>` +
-          `<p>Key: ${Song.valueOrEmptyString(songData.SongKey)}</p>` +
-          `<p>Style: ${Song.valueOrEmptyString(songData.Style)}` +
-          `<p>Uses: ${Song.valueOrEmptyString(songData.Use1)}` + (songData.Use2 ? `, ${songData.Use2}` : ``) + `</p>` +
-          `<p>Notes: ${Song.valueOrEmptyString(songData.Notes)}</p>` +
-          (songData.CCLI ? `<p>CCLI: <a target='_blank' href='http://ca.search.ccli.com/songs/${songData.CCLI}'>${songData.CCLI}</a></p>` : ``) +
-          (songData.CopyDate ? `<p>Copyright: ${songData.CopyDate}</p>` : ``)
-      }
-    } else {
-      return {
-        __html: '<h2>Loading...</h2>'
-      }
-    }
-  }
-
-  getSafeYoutubeMarkup(songData) {
-    if (songData) {
-      if (songData.YouTubeLink) {
-        let youtubeLink = `http://www.youtube.com/embed/${this.state.songData.YouTubeLink}`;
-        return {
-          __html:
-            `<h3>YouTube</h3>
-             <iframe class='youtube-video' src=${youtubeLink} frameborder='0'></iframe>`
-        };
-      }
-    }
-    return { __html: '' };
-  }
-
-  static valueOrEmptyString(value) {
-    return value ? value : '';
-  }
-
   render() {
+    if (this.state.isLoading) {
+      return (
+        <div className="progress">
+            <div className="indeterminate"></div>
+        </div>
+      );
+    }
+    let youtubeArea;
+    if (this.state.songData.YouTubeLink) {
+      youtubeArea = <YouTube youTubeLink={this.state.songData.YouTubeLink}/>;
+    } else {
+      youtubeArea = <div>This song doesn't have a YouTube link yet.</div>
+    }
     return (
       <div>
-        <div
-          className="song"
-          dangerouslySetInnerHTML={this.getSafeSongMarkup(this.state.songData)}>
-        </div>
-        <h3>Print Song Sheet:</h3>
-        <SongSheetConfigurator />
-        <div
-          dangerouslySetInnerHTML={this.getSafeYoutubeMarkup(this.state.songData)}>
-        </div>
+        <SongDataCard songData={this.state.songData} />
+        <SongSheetConfiguratorCard />
+        {youtubeArea}
       </div>
     );
   }

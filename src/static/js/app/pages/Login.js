@@ -29,14 +29,16 @@ class Login extends React.Component {
     let loginDisabled = !!location.query.success || auth.loggedIn();
     let nextUrl = location.state ? location.state.nextPathname ? location.state.nextPathname : '' : '';
     return (
-      <div className='login'>
-        <h2>Welcome to the CDAC Mediasite!</h2>
-        <p>This is the place that folks come when they need media.</p>
-        <a
-          className={ 'btn btn-large btn-primary' + (loginDisabled ? ' disabled' : '') }
-          href={'/api/v1/cityoauth/login/' + (nextUrl ? '?nextUrl=' + nextUrl : '')}>
-          { !loginDisabled ? 'Login with The City!' : 'Logging in...' }
-        </a>
+      <div className='card login'>
+        <div className="card-content">
+          <h2>Welcome to the CDAC Mediasite!</h2>
+          <p>This is the place that folks come when they need media.</p>
+          <a
+            className={ 'btn btn-large btn-primary' + (loginDisabled ? ' disabled' : '') }
+            href={'/api/v1/cityoauth/login/' + (nextUrl ? '?nextUrl=' + nextUrl : '')}>
+            { !loginDisabled ? 'Login with The City!' : 'Logging in...' }
+          </a>
+        </div>
       </div>
     )
   }

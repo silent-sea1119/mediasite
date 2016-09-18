@@ -1,12 +1,12 @@
 import React from 'react';
-import _ from 'lodash';
+import map from 'lodash/map';
 
 import SongTile from './SongTile';
 
 export default class SongTileGroup extends React.Component {
   render() {
     var searchText = this.props.searchText;
-    var songs = _.map(this.props.songs, function(song) {
+    var songs = map(this.props.songs, function(song) {
       if (searchText !== "" &&
           song.cell[0].toLowerCase().indexOf(searchText.toLowerCase()) === -1) {
         return;

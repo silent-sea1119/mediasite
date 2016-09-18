@@ -7,3 +7,15 @@
 @import "modules/song-tile";
 @import "modules/header";
 @import "modules/song-sheet-configurator";
+
+body {
+    background: $background-color;
+}
+
+nav .nav-wrapper {
+    padding: 0 5px;
+}
+
+#mediasite {
+    min-height: 91vh;
+}

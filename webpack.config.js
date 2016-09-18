@@ -1,4 +1,15 @@
 const webpack = require('webpack');
+const DashboardPlugin = require('webpack-dashboard/plugin');
+
+let pluginList = [
+    new webpack.ProvidePlugin({
+        'Promise': 'es6-promise',
+        'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
+    })
+];
+if (process.env.NODE_ENV !== 'production') {
+    pluginList.push(new DashboardPlugin());
+}
 
 module.exports = {
     entry: './src/static/js/app/mediasite.js',
@@ -22,12 +33,7 @@ module.exports = {
             }
         ]
     },
-    plugins: [
-        new webpack.ProvidePlugin({
-            'Promise': 'es6-promise',
-            'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
-        })
-    ],
+    plugins: pluginList,
     node: {
         net: 'empty',
         tls: 'empty',
@@ -35,5 +41,5 @@ module.exports = {
     },
     externals: {
         jquery: 'jQuery'
-    },
+    }
 };

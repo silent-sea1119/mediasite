@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "fetch": "^1.1.0",
-    "lodash": "^4.13.1",
+    "lodash": "^4.15.0",
     "materialize-css": "^0.97.7",
     "react": "^15.1.0",
     "react-dom": "^15.1.0",
@@ -23,11 +23,12 @@
     "node-sass": "^3.3.3",
     "nodemon": "^1.7.1",
     "react-addons-test-utils": "^15.1.0",
-    "webpack": "^1.13.1"
+    "webpack": "^1.13.1",
+    "webpack-dashboard": "^0.1.8"
   },
   "scripts": {
     "build-js": "webpack",
-    "watch-js": "webpack --watch",
+    "watch-js": "webpack-dashboard -- webpack --watch",
     "build-css": "node-sass --include-path scss src/static/scss/main.scss src/static/css/global.css",
     "watch-css": "nodemon -e scss -x \"npm run build-css\"",
     "test": "BABEL_JEST_STAGE=0 jest",

@@ -1,4 +1,5 @@
 import React from 'react';
+import 'materialize-css';
 
 export default class SearchBar extends React.Component {
   handleChange = () => {
@@ -6,21 +7,28 @@ export default class SearchBar extends React.Component {
       this.refs.searchTextInput.value
     );
   };
+
+  componentDidMount() {
+    if (typeof Materialize.updateTextFields === 'function') {
+      Materialize.updateTextFields();
+    }
+  }
   
   render() {
     return(
-      <form>
-        <div className="form-group">
+      <div className="row">
+        <div className="input-field col s12">
+          <i className="material-icons prefix">search</i>
           <input
               type="text"
-              placeholder="Search..."
               ref="searchTextInput"
               value={this.props.searchText}
               onChange={this.handleChange}
-              className="form-control"
+              id="search"
           />
+          <label htmlFor="search">Search</label>
         </div>
-      </form>
+      </div>
     );
   }
 }
