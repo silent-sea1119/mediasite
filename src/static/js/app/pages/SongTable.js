@@ -9,7 +9,8 @@ import SearchBar from './../components/SearchBar';
 class FilterableSongTable extends React.Component {
   state = {
     searchText: '',
-    songData: []
+    songData: [],
+    isLoading: true
   };
 
   componentDidMount() {
@@ -25,6 +26,9 @@ class FilterableSongTable extends React.Component {
   }
 
   getSongsFromApi(searchText) {
+    this.setState({
+      isLoading: true
+    });
     if (searchText !== '') {
       // Set searchText query parameter
       this.props.router.replace(`/songs?searchText=${searchText}`);
@@ -35,7 +39,8 @@ class FilterableSongTable extends React.Component {
     MediasiteApi.getSongs(searchText, (songData) => {
       this.setState({
         songData: songData.data,
-        totalSongs: songData.totalSongs
+        totalSongs: songData.totalSongs,
+        isLoading: false
       });
     });
   }
@@ -53,9 +58,14 @@ class FilterableSongTable extends React.Component {
       <div>
         <SearchBar searchText={this.state.searchText}
                    onUserInput={this.handleUserInput} />
-        <SongTileGroup songs={this.state.songData}
-                       searchText={this.state.searchText}
-                       totalSongCount={this.state.totalSongs} />
+        {this.state.isLoading ?
+          <div className="progress">
+            <div className="indeterminate"></div>
+          </div> :
+          <SongTileGroup songs={this.state.songData}
+                         searchText={this.state.searchText}
+                         totalSongCount={this.state.totalSongs}/>
+        }
       </div>
     );
   }

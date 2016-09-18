@@ -34,7 +34,7 @@ class Login extends React.Component {
           <h2>Welcome to the CDAC Mediasite!</h2>
           <p>This is the place that folks come when they need media.</p>
           <a
-            className={ 'btn btn-large btn-primary' + (loginDisabled ? ' disabled' : '') }
+            className={ 'btn btn-large waves-effect btn-primary' + (loginDisabled ? ' disabled' : '') }
             href={'/api/v1/cityoauth/login/' + (nextUrl ? '?nextUrl=' + nextUrl : '')}>
             { !loginDisabled ? 'Login with The City!' : 'Logging in...' }
           </a>

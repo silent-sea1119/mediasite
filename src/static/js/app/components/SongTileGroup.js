@@ -20,7 +20,16 @@ export default class SongTileGroup extends React.Component {
 
     return (
       <div className="row">
-        {songs}
+        { songs.length > 0 ?
+          songs :
+          <div className="col sm12">
+            <div className="card">
+              <div className="card-content">
+                No songs matched your search!
+              </div>
+            </div>
+          </div>
+        }
       </div>
     );
   }
