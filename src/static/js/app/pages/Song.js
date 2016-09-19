@@ -37,7 +37,7 @@ export default class Song extends React.Component {
     return (
       <div>
         <SongDataCard songData={this.state.songData} />
-        <SongSheetConfiguratorCard />
+        <SongSheetConfiguratorCard songKey={this.state.songData.SongKey} />
         {youtubeArea}
       </div>
     );
