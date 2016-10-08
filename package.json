@@ -36,7 +36,8 @@
     "build-css:prod": "node-sass --include-path scss build/static/scss/main.scss build/static/css/global.css",
     "build:prod": "npm run clean && cp -r src build && export NODE_ENV=production && npm run build-js:prod && npm run build-css:prod",
     "clean": "rm -rf build",
-    "deploy:prod": "gcloud app deploy --project=cdac-mediasite build/app.yaml"
+    "deploy:prod": "gcloud app deploy --project=cdac-mediasite build/app.yaml",
+    "start": "dev_appserver.py src/app.yaml --port=8079 --admin_port=9079 --storage_path=./data/"
   },
   "jest": {
     "scriptPreprocessor": "node_modules/babel-jest",
