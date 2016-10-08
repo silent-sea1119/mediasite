@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 
 export default class SongTile extends React.Component {
   render() {
-    var songUrl = "/song/" + this.props.songId;
+    const songUrl = "/song/" + this.props.songId;
     return (
       <div className="col l4 m6 s12">
         <div className="card small">
