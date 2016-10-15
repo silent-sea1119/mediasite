@@ -1,8 +1,5 @@
-import { Song } from './mediacodec';
-import React from 'react';
-import {render} from 'react-dom';
-
-import MaterializeSelect from './components/materialize/Select';
+import expect from 'expect';
+import { Song, Transposer } from './mediacodec';
 
 const testDataJson = {
     "id": 3708,
@@ -227,168 +224,129 @@ const testDataJson = {
     "partCount": 3
 };
 
-const aLivingHope = new Song(3708, 'A Living Hope', 'G', testDataJson);
-//
-// const SongSheet = ({songer}) => {
-//   return (
-//     <div dangerouslySetInnerHTML={{__html: songer.toHtml('C')}}>
-//     </div>
-//   )
-// };
+describe('media codec', function () {
+  describe('Song', function () {
+    beforeEach(function () {
+      this.song = new Song(3708, 'A Living Hope', 'G', testDataJson);
+    });
 
+    describe('toHtml', function () {
+      it('should take in a transposition key and return html', function () {
+        const actual = this.song.toHtml('G');
+        expect(actual.substring(0, 4)).toEqual('<div');
+      });
+    });
 
-class SongSheet extends React.Component {
-  state = {
-    songKey: 'Bb',
-    textSize: '16px'
-  }
+    describe('generateNoteLine', function () {
+      it('should return \'G\' for an array passed in with 1, G', function () {
+        const transposer = new Transposer('G', 'G');
+        const actual = this.song.generateNoteLine([{note: 'G', position: 0}], transposer);
+        const expected = "G";
+        expect(actual).toEqual(expected);
+      });
 
-  updateChosenSongKey(event) {
-    this.setState({ songKey: event.target.value });
-  }
+      it('should return a crazy string for an array passed in with lots of notes', function () {
+        const transposer = this.song.createTransposer();
+        const actual = this.song.generateNoteLine([
+            {"position": 1,"note": "C"}, {"position": 4,"note": "D"}, {"position": 8,"note": "Em"}, {"position": 11,"note": "D"}, {"position": 21,"note": "C"}, {"position": 30,"note": "D"}, {"position": 40,"note": "G5"}, {"position": 43,"note": "D4/F#"}, {"position": 49,"note": "Em7"}, {"position": 53,"note": "D4/F#"}],
+          transposer);
+        expect(actual).toEqual('&nbsp;C&nbsp;&nbsp;D&nbsp;&nbsp;&nbsp;Em&nbsp;D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G5&nbsp;D4/F#&nbsp;Em7&nbsp;D4/F#');
+      });
+    });
 
-  updateChosenTextSize(event) {
-    this.setState({ textSize: event.target.value });
-  }
+    describe('createTransposer', function () {
+      it('should use the key passed in if it is not undefined', function () {
+        const actual = this.song.createTransposer('A');
+        expect(actual.transposeKey).toEqual('A');
+      });
 
-  render() {
-    const { songer } = this.props;
+      it('should use the song\'s key if the transposeKey is not passed in', function () {
+        const actual = this.song.createTransposer();
+        expect(actual.transposeKey).toEqual(this.song.songKey);
+      });
+    });
+  });
 
-    const songKeyOptions = [
-      <option key='A' value='A'>A</option>,
-      <option key='B' value='B'>B</option>,
-      <option key='C' value='C'>C</option>
-    ];
-    const textSizeOptions = [
-      <option key='14px' value='14px'>14px</option>,
-      <option key='16px' value='16px'>16px</option>,
-      <option key='18px' value='18px'>18px</option>
-    ];
-    return (
-      <div>
-        <MaterializeSelect
-          selectValue={this.state.songKey}
-          options={songKeyOptions}
-          label="Song Key"
-          handleOnSelect={this.updateChosenSongKey.bind(this)}
-        />
-        <MaterializeSelect
-          selectValue={this.state.textSize}
-          options={textSizeOptions}
-          label="Text Size"
-          handleOnSelect={this.updateChosenTextSize.bind(this)}
-        />
-        <div dangerouslySetInnerHTML={{__html: songer.toHtml(this.state.songKey)}}></div>
-      </div>
-    )
-  }
-};
+  describe('Transposer', function () {
+    describe('needsTransposition', function () {
+      it('should be false if songKey and transposeKey are equal', function () {
+        const actual = new Transposer('G', 'G').needsTransposition();
+        expect(actual).toEqual(false);
+      });
 
+      it('should be true if songKey and transposeKey are not equal', function () {
+        const actual = new Transposer('G', 'A').needsTransposition();
+        expect(actual).toEqual(true);
+      });
+    });
 
-// document.getElementById('mediasite').innerHTML = aLivingHope.toHtml('D');
-render(<SongSheet songer={aLivingHope} />, document.getElementById('mediasite'));
+    describe('transposeNote', function () {
+      beforeEach(function () {
+        this.tposer = new Transposer('G', 'A');
+      });
 
-// import 'materialize-css';
-// import React from 'react';
-// import { render } from 'react-dom';
-// import { Router, Route, IndexRoute, Link, History, browserHistory } from 'react-router';
-//
-// import {
-//     Login,
-//     Logout,
-//     Song,
-//     FilterableSongTable,
-//     GenerateSongSheet,
-//     MediasiteHeader,
-//     Welcome
-// } from './pages';
-// import auth from './auth';
-// import MediasiteApi from './api/MediasiteApi';
-//
-// class App extends React.Component {
-//   state = {
-//     loggedIn: auth.loggedIn(),
-//     user: null
-//   };
-//
-//   updateAuth = (loggedIn) => {
-//     let newState = {
-//       loggedIn: loggedIn
-//     };
-//     if (!loggedIn && this.state.loggedIn && this.state.user !== null) {
-//       newState.user = null;
-//     }
-//     this.setState(newState);
-//   };
-//
-//   componentDidMount() {
-//     this.loadUserInfo();
-//     $('.button-collapse').sideNav();
-//   }
-//
-//   componentDidUpdate() {
-//     this.loadUserInfo();
-//   }
-//
-//   componentWillMount() {
-//     auth.onChange = this.updateAuth;
-//     auth.login();
-//   }
-//
-//   loadUserInfo() {
-//     this.setState({
-//       user: {
-//         'title': 'Dude',
-//         'profilePicture': '',
-//         'firstName': 'Graham',
-//         'lastName': 'Holtslander',
-//         'email': 'b@b.com'
-//       }
-//     });
-//     if (false && this.state.user === null && this.state.loggedIn) {
-//       MediasiteApi.getUserInfo(localStorage.userId, (userInfo) => {
-//         this.setState({
-//           user: {
-//             'title': userInfo.data.title,
-//             'profilePicture': userInfo.data.profile_picture,
-//             'firstName': userInfo.data.first_name,
-//             'lastName': userInfo.data.last_name,
-//             'email': userInfo.data.email
-//           }
-//         });
-//       });
-//     }
-//   }
-//
-//   render() {
-//     return (
-//       <div className='mediasite'>
-//         <MediasiteHeader loggedIn={this.state.loggedIn} user={this.state.user} />
-//         <div className='container'>
-//           {this.props.children}
-//         </div>
-//       </div>
-//     );
-//   }
-// }
-//
-// function requireAuth(nextState, replace) {
-//   if (!auth.loggedIn()) {
-//     replace(`/login?nextPathName=${nextState.location.pathname}`)
-//   }
-// }
-//
-// // ReactDOM.render
-// render((
-//   <Router history={browserHistory}>
-//     <Route path='/' component={App}>
-//       <IndexRoute component={!auth.loggedIn() ? Login : Welcome} />
-//       <Route path='welcome' component={Welcome} onEnter={requireAuth} />
-//       <Route path='songs' component={FilterableSongTable} onEnter={requireAuth} />
-//       <Route path='song/:songId' component={Song} onEnter={requireAuth} />
-//       <Route path='song/:songId/print' component={GenerateSongSheet} onEnter={requireAuth} />
-//       <Route path='login' component={Login} />
-//       <Route path='logout' component={Logout} />
-//     </Route>
-//   </Router>
-// ), document.getElementById('mediasite'));
+      it('should do nothing if a note does not need to be transposed', function () {
+        const actual = new Transposer('G', 'G').transposeNote('A')
+        expect(actual).toEqual('A');
+      });
+    });
+
+    describe('getNoteShiftVal', function () {
+      it('should return noteShiftVal if it has already been set', function () {
+        const tposer = new Transposer('G', 'A');
+        tposer.noteShiftVal = 1;
+        const actual = tposer.getNoteShiftVal();
+        expect(actual).toEqual(1);
+      });
+
+      it('should return 1 for the difference between G# and A', function () {
+        const tposer = new Transposer('G#', 'A');
+        const actual = tposer.getNoteShiftVal();
+        expect(actual).toEqual(1);
+      });
+
+      it('should return 2 for the difference between G and A', function () {
+        const tposer = new Transposer('G', 'A');
+        const actual = tposer.getNoteShiftVal();
+        expect(actual).toEqual(2);
+      });
+    });
+
+    describe('shiftNote', function () {
+      it('should shift a note\'s index by a positive amount if requested', function () {
+        expect(Transposer.shiftNote(5, 2)).toEqual(7);
+      });
+
+      it('should wrap around if the notes value would go above 12', function () {
+        expect(Transposer.shiftNote(11, 4)).toEqual(3);
+      });
+    });
+
+    describe('transposeNote', function () {
+      it('should transpose a G to an A if that is what is set', function () {
+        const actual = new Transposer('G', 'A').transposeNote('G');
+        expect(actual).toBe('A');
+      });
+
+      it('should transpose A/A to G/G if transposing A to G', function () {
+        const actual = new Transposer('A', 'G').transposeNote('A/A');
+        expect(actual).toBe('G/G');
+      });
+
+      it('should transpose Am to Gm if transposing A to G', function () {
+        const actual = new Transposer('A', 'G').transposeNote('Am');
+        expect(actual).toBe('Gm');
+      });
+
+      it('should transpose Dsus4 to Csus4', function () {
+        const actual = new Transposer('D', 'C').transposeNote('Dsus4');
+        expect(actual).toBe('Csus4');
+      });
+
+      it('should transpose Csus4/F to Dsus4/G', function () {
+        const actual = new Transposer('C', 'D').transposeNote('Csus4/F');
+        expect(actual).toBe('Dsus4/G');
+      });
+    });
+  });
+});
