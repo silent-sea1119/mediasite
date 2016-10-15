@@ -19,3 +19,104 @@ nav .nav-wrapper {
 #mediasite {
     min-height: 91vh;
 }
+
+.SongNotes {
+	font-family: "Courier New", Courier, mono;
+	font-style: normal;
+	font-size: 14px;
+	text-transform: none;
+	line-height: normal;
+	font-weight: normal;
+	font-variant: normal;
+	color: #000000;
+	text-decoration: none;
+	padding: 0px;
+	margin: 0px 0px 20px;
+}
+
+.SongNoteLine {
+	font-family: "Courier New", Courier, mono;
+	font-style: normal;
+	font-size: 14px;
+	line-height: normal;
+	font-weight: bold;
+	font-variant: normal;
+	text-transform: none;
+	color: #000000;
+	text-decoration: none;
+	padding: 0px;
+	margin: 0px 0px 20px;
+}
+
+.SongTitle {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 16px;
+	font-style: normal;
+	font-weight: bold;
+	font-variant: normal;
+	text-transform: none;
+	color: #000000;
+	text-decoration: none;
+	text-align: center;
+	margin: 0px;
+}
+
+.Author {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9px;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	color: #000000;
+	text-decoration: none;
+	text-align: center;
+	margin: 0px;
+}
+
+.CopyRight {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9px;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	color: #000000;
+	text-decoration: none;
+	text-align: center;
+	clip:  rect(0px auto auto auto);
+	margin: 0px;
+}
+
+.SongPartTitle {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: bold;
+	margin: 0px;
+	color: #000000;
+	text-decoration: none;
+	font-style: normal;
+	line-height: normal;
+	font-variant: normal;
+	text-transform: none;
+}
+
+.ArrangementTitle {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	color: #000000;
+	text-decoration: none;
+}
+
+.SongNoNotes {
+	font-family: Arial, Helvetica, sans-serif;
+	font-style: normal;
+	font-size: 14px;
+	line-height: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	color: #000000;
+	text-decoration: none;
+}

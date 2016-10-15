@@ -1,4 +1,6 @@
 import React from 'react';
+import { browserHistory } from 'react-router'
+
 import 'materialize-css';
 import MaterializeSelect from './materialize/Select';
 
@@ -18,6 +20,7 @@ export default class SongSheetConfigurator extends React.Component {
   }
 
   handleGenerateSheet = () => {
+    // browserHistory.push(`/songs/${songId}/print?params...`);
     console.log(
       'Arrangements will be printed: ' + this.refs.arrange.checked,
       'Chords will be printed: ' + this.refs.chords.checked,
@@ -71,7 +74,7 @@ export default class SongSheetConfigurator extends React.Component {
         </div>
         <div className="card-action">
           <a onClick={this.handleGenerateSheet}>Generate Sheet</a>
-          <a>Generate Preview</a>
+          <a onClick={this.handleGeneratePreview}>Generate Preview</a>
         </div>
       </div>
     );

@@ -23,7 +23,7 @@
     "nodemon": "^1.7.1",
     "react-addons-test-utils": "^15.1.0",
     "webpack": "^1.13.1",
-    "webpack-dashboard": "^0.1.8"
+    "webpack-dashboard": "^0.2.0"
   },
   "scripts": {
     "build-js": "webpack",
