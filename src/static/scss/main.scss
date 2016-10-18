@@ -20,6 +20,14 @@ nav .nav-wrapper {
     min-height: 91vh;
 }
 
+@media print
+{
+    .no-print, .no-print *
+    {
+        display: none !important;
+    }
+}
+
 .SongNotes {
 	font-family: "Courier New", Courier, mono;
 	font-style: normal;
