@@ -3,20 +3,42 @@ import { withRouter } from "react-router";
 
 import MaterializeSelect from '../components/materialize/Select';
 
+import MediasiteApi from '../api/MediasiteApi';
 import { Song } from '../mediacodec/Song.js';
 
 class SongSheet extends React.Component {
+  state = {
+    isLoading: true,
+    songData: {}
+  }
+
   componentDidMount() {
-    console.log(this.props.location.query);
-    const aLivingHope = new Song(3708, 'A Living Hope', 'G', "{}");
+    MediasiteApi.getSongById(this.props.params.songId, (songData) => {
+      this.setState({
+        songData: songData.data,
+        isLoading: false
+      });
+    });
   }
 
   render() {
-    const { songKey, textSize } = this.state;
+    if (this.state.isLoading) {
+      return (
+        <div className="progress">
+            <div className="indeterminate"></div>
+        </div>
+      );
+    }
+
+    const songData = this.state.songData;
+    const { songKey, textSize, printArrangements, printChords, printPartNames } = this.props.location.query;
+    const songId = this.props.params.songId;
+
+    const song = new Song(songId, songData.Title, songData.SongKey, songData.SongData);
 
     return (
       <div>
-        <div dangerouslySetInnerHTML={{__html: songer ? songer.toHtml(this.state.songKey) : ''}}></div>
+        <div dangerouslySetInnerHTML={{__html: song.toHtml(songKey)}}></div>
       </div>
     )
   }

@@ -6,7 +6,7 @@ const YouTube = ({ youTubeLink }) => {
     <div className="card">
       <div className="card-content">
         <div className="card-title">YouTube</div>
-        <iframe className='youtube-video' src={youtubeEmbedLink} frameborder='0'></iframe>
+        <iframe className='youtube-video' src={youtubeEmbedLink} frameBorder='0'></iframe>
       </div>
     </div>
   );

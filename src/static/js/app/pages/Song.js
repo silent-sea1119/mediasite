@@ -14,7 +14,7 @@ export default class Song extends React.Component {
   componentDidMount() {
     MediasiteApi.getSongById(this.props.params.songId, (songData) => {
       this.setState({
-        'songData': songData.data,
+        songData: songData.data,
         isLoading: false
       });
     });
@@ -37,7 +37,7 @@ export default class Song extends React.Component {
     return (
       <div>
         <SongDataCard songData={this.state.songData} />
-        <SongSheetConfiguratorCard songKey={this.state.songData.SongKey} />
+        <SongSheetConfiguratorCard songKey={this.state.songData.SongKey} songId={this.props.params.songId} />
         {youtubeArea}
       </div>
     );

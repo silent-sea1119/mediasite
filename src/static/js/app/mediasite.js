@@ -46,16 +46,7 @@ class App extends React.Component {
   }
 
   loadUserInfo() {
-    this.setState({
-      user: {
-        'title': 'Dude',
-        'profilePicture': '',
-        'firstName': 'Graham',
-        'lastName': 'Holtslander',
-        'email': 'b@b.com'
-      }
-    });
-    if (false && this.state.user === null && this.state.loggedIn) {
+    if (this.state.user === null && this.state.loggedIn) {
       MediasiteApi.getUserInfo(localStorage.userId, (userInfo) => {
         this.setState({
           user: {
