@@ -11,7 +11,7 @@ const SongData = ({ songData }) => {
   const ccliSection = songData.CCLI ? <p>CCLI: <a target='_blank' href={`http://ca.search.ccli.com/songs/${songData.CCLI}`}>{songData.CCLI}</a></p> : '';
   const copyrightSection = songData.CopyDate ? <p>Copyright: {songData.CopyDate}</p> : '';
   return (
-    <div className="song-data">
+    <div>
       <div className="card-title">{songData.Title}</div>
       <p>{songData.Author1}{songData.Author2 ? ` & ${songData.Author2}` : ``}</p>
       <p>Key: {valueOrEmptyString(songData.SongKey)}</p>

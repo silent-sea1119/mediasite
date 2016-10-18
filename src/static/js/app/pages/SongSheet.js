@@ -37,9 +37,24 @@ class SongSheet extends React.Component {
 
     const song = new Song(songId, songData.Title, songData.SongKey, songData.SongData);
 
+    const ccliSection = songData.CCLI ? <p>CCLI: <a target='_blank' href={`http://ca.search.ccli.com/songs/${songData.CCLI}`}>{songData.CCLI}</a></p> : '';
+    const copyrightSection = songData.CopyDate ? <p>Copyright: {songData.CopyDate}</p> : '';
+
+    const arrangementSection = printArrangements === 'true' ? <div className="ArrangementTitle">Arrangement: {songData.SongOrder}</div> : '';
+
     return (
-      <div className="sheet-song-data">
-        <SongData songData={songData} />
+      <div style={{backgroundColor: 'white'}}>
+        <div className="song-data">
+          <div className="card-title">{songData.Title}</div>
+          <p>{songData.Author1}{songData.Author2 ? ` & ${songData.Author2}` : ``}</p>
+          <p>Key: {valueOrEmptyString(songData.SongKey)}</p>
+          <p>Style: {valueOrEmptyString(songData.Style)}</p>
+          <p>Uses: {valueOrEmptyString(songData.Use1)}{songData.Use2 ? `, ${songData.Use2}` : ``}</p>
+          <p>Notes: {valueOrEmptyString(songData.Notes)}</p>
+          {ccliSection}
+          {copyrightSection}
+        </div>
+        {arrangementSection}
         <div dangerouslySetInnerHTML={{__html: song.toHtml(songKey)}}></div>
       </div>
     )
@@ -47,3 +62,7 @@ class SongSheet extends React.Component {
 };
 
 export default withRouter(SongSheet);
+
+const valueOrEmptyString = (value) => {
+  return value ? value : '';
+};
