@@ -27,14 +27,14 @@ class Song {
           `;
         } else {
           let line = this.generateNoteLine(songDatum.note, transposer);  // TODO: songDatum.note should be notes someday
-          partLineHtml = `<span class='noteLine'>${line}</span>`;
+          partLineHtml = `<span class='SongNoteLine'>${line}</span>`;
         }
         return previousPartHtml + '<br />' + partLineHtml;
       }, '');
 
       return previousHtml + `
         <div id="${songPart.partName}" class="songPart">
-          <div class="songPartName">${songPart.partName}</div>
+          <div class="SongPartTitle">${songPart.partName}</div>
           ${partHtml}
         </div>
         <br />

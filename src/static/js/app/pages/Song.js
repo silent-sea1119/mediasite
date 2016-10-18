@@ -2,7 +2,7 @@ import React from 'react';
 
 import SongSheetConfiguratorCard from '../components/SongSheetConfigurator';
 import YouTube from '../components/YouTube';
-import SongDataCard from '../components/SongData';
+import SongData from '../components/SongData';
 import MediasiteApi from '../api/MediasiteApi';
 
 export default class Song extends React.Component {
@@ -36,7 +36,11 @@ export default class Song extends React.Component {
     }
     return (
       <div>
-        <SongDataCard songData={this.state.songData} />
+        <div className="card">
+          <div className="card-content">
+            <SongData songData={this.state.songData} />
+          </div>
+        </div>
         <SongSheetConfiguratorCard songKey={this.state.songData.SongKey} songId={this.props.params.songId} />
         {youtubeArea}
       </div>

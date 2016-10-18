@@ -5,6 +5,7 @@ import MaterializeSelect from '../components/materialize/Select';
 
 import MediasiteApi from '../api/MediasiteApi';
 import { Song } from '../mediacodec/Song.js';
+import SongData from '../components/SongData.js';
 
 class SongSheet extends React.Component {
   state = {
@@ -37,7 +38,8 @@ class SongSheet extends React.Component {
     const song = new Song(songId, songData.Title, songData.SongKey, songData.SongData);
 
     return (
-      <div>
+      <div className="sheet-song-data">
+        <SongData songData={songData} />
         <div dangerouslySetInnerHTML={{__html: song.toHtml(songKey)}}></div>
       </div>
     )
