@@ -14,5 +14,5 @@ class JsonApiHandler(webapp2.RequestHandler):
         }
         if type(additional_info) == dict:
             return_dict.update(additional_info)
-        logging.info('Response sent to client was: {}'.format(json.dumps(return_dict)))
+        # logging.info('Response sent to client was: {}'.format(json.dumps(return_dict)))
         self.response.out.write(json.dumps(return_dict))

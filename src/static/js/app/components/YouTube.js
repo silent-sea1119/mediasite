@@ -1,7 +1,7 @@
 import React from 'react';
 
 const YouTube = ({ youTubeLink }) => {
-  const youtubeEmbedLink = `http://www.youtube.com/embed/${youTubeLink}`;
+  const youtubeEmbedLink = `https://www.youtube.com/embed/${youTubeLink}`;
   return (
     <div className="card">
       <div className="card-content">

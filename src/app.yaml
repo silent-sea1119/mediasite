@@ -14,24 +14,32 @@ handlers:
 - url: /favicon\.ico
   static_files: static/img/favicon.ico
   upload: static/img/favicon\.ico
+  secure: always
 
 - url: /static
   static_dir: static
+  secure: always
+  http_headers:
+    Strict-Transport-Security: "max-age=2000; includeSubdomains"
 
 - url: /manifest.json
   static_files: static/manifest.json
   upload: static/manifest\.json
+  secure: always
 
 - url: /sw.js
   static_files: static/js/sw.js
   upload: static/js/sw\.js
+  secure: always
 
 - url: /admin/.*
   script: google.appengine.ext.admin.application
   login: admin
+  secure: always
 
 - url: /.*
   script: main.APP
+  secure: always
 
 skip_files:
 - ^(.*/)?#.*#$

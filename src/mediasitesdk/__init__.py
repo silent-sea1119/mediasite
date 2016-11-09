@@ -41,7 +41,7 @@ class MediasiteSDK(object):
                 'sort_order': sort_order
             })
             loaded_result = json.loads(result)
-            logging.info(loaded_result)
+            # logging.info(loaded_result)
             return loaded_result
         except urllib2.URLError as ue:
             raise MediasiteSDKException(ue.message)
