@@ -18,6 +18,14 @@ handlers:
 - url: /static
   static_dir: static
 
+- url: /manifest.json
+  static_files: static/manifest.json
+  upload: static/manifest\.json
+
+- url: /sw.js
+  static_files: static/js/sw.js
+  upload: static/js/sw\.js
+
 - url: /admin/.*
   script: google.appengine.ext.admin.application
   login: admin

@@ -93,3 +93,11 @@ render((
     <Route path='song/:songId/print' component={SongSheet} onEnter={requireAuth} />
   </Router>
 ), document.getElementById('mediasite'));
+
+
+// Register service worker because why not do it in here? :)
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js').then(function(registration) {
+    console.log('Excellent, registered with scope: ', registration.scope);
+  });
+}

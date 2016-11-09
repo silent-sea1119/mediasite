@@ -1,0 +1,20 @@
+{
+  "name": "Circle Drive Alliance Church Mediasite",
+  "short_name": "CDAC Mediasite",
+  "display": "standalone",
+  "start_url": "/",
+  "default_locale": "en",
+  "orientation": "portrait",
+  "theme_color": "#92cec1",
+  "background_color": "#f9f2cc",
+  "icons": [
+    {
+      "src": "/static/images/crappyicon.png",
+      "sizes": "72x72",
+      "type": "image/png"
+    },
+    {
+      "todo": "Add more of these icons yo!"
+    }
+  ]
+}
