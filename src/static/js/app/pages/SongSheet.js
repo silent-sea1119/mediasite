@@ -1,8 +1,6 @@
 import React from 'react';
 import { withRouter } from "react-router";
 
-import MaterializeSelect from '../components/materialize/Select';
-
 import MediasiteApi from '../api/MediasiteApi';
 import { Song } from '../mediacodec/Song.js';
 import SongData from '../components/SongData.js';
