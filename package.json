@@ -36,6 +36,7 @@
     "build:prod": "npm run clean && cp -r src build && export NODE_ENV=production && npm run build-js:prod && npm run build-css:prod",
     "clean": "rm -rf build",
     "deploy:prod": "gcloud app deploy --project=cdac-mediasite build/app.yaml",
+    "bnd": "npm run build:prod && npm run deploy:prod",
     "start": "dev_appserver.py src/app.yaml --port=8079 --admin_port=9079 --storage_path=./data/"
   }
 }

@@ -20,7 +20,7 @@ handlers:
   static_dir: static
   secure: always
   http_headers:
-    Strict-Transport-Security: "max-age=2000; includeSubdomains"
+    Strict-Transport-Security: "max-age=2592000; includeSubdomains"
 
 - url: /manifest.json
   static_files: static/manifest.json

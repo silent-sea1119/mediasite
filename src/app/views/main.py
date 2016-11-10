@@ -9,4 +9,4 @@ class MainView(TemplatedView):
     Main view.
     """
     def get(self, *args, **kwargs):
-        self.render_reponse('index.html')
+        self.render_reponse('base.html')
