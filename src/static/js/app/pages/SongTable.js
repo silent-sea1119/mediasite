@@ -39,7 +39,6 @@ class FilterableSongTable extends React.Component {
     MediasiteApi.getSongs(searchText, (songData) => {
       this.setState({
         songData: songData.data,
-        totalSongs: songData.totalSongs,
         isLoading: false
       });
     });
@@ -63,8 +62,7 @@ class FilterableSongTable extends React.Component {
             <div className="indeterminate"></div>
           </div> :
           <SongTileGroup songs={this.state.songData}
-                         searchText={this.state.searchText}
-                         totalSongCount={this.state.totalSongs}/>
+                         searchText={this.state.searchText}/>
         }
       </div>
     );

@@ -6,8 +6,9 @@ import json
 import urllib
 import urllib2
 
+from app.song import get_song_by_id
+from app.song import search_songs_by_title
 from settings import MEDIASITE_SEARCH_SONGS_URL, MEDIASITE_GET_SONG_URL, MEDIASITE_API_KEY
-
 
 class MediasiteSDK(object):
 
@@ -33,16 +34,17 @@ class MediasiteSDK(object):
         :return: json.loads'd result from the API
         """
         try:
-            result = MediasiteSDK.get(MEDIASITE_SEARCH_SONGS_URL, **{
-                'searchText': search_text,
-                'searchField': search_field,
-                'rows': rows,
-                'page': page,
-                'sort_order': sort_order
-            })
-            loaded_result = json.loads(result)
+            # result = MediasiteSDK.get(MEDIASITE_SEARCH_SONGS_URL, **{
+            #     'searchText': search_text,
+            #     'searchField': search_field,
+            #     'rows': rows,
+            #     'page': page,
+            #     'sort_order': sort_order
+            # })
+            # loaded_result = json.loads(result)
             # logging.info(loaded_result)
-            return loaded_result
+            # return loaded_result
+            return [song.to_api_dict() for song in search_songs_by_title(search_text) if song]
         except urllib2.URLError as ue:
             raise MediasiteSDKException(ue.message)
 
@@ -55,12 +57,15 @@ class MediasiteSDK(object):
         :return: json.loads'd result from the API
         """
         try:
-            result = MediasiteSDK.get(MEDIASITE_GET_SONG_URL, **{
-                'id': song_id
-            })
-            loaded_result = json.loads(result)
-            logging.info(loaded_result)
-            return loaded_result
+            # result = MediasiteSDK.get(MEDIASITE_GET_SONG_URL, **{
+            #     'id': song_id
+            # })
+            # loaded_result = json.loads(result)
+            # logging.info(loaded_result)
+            song = get_song_by_id(song_id)
+            if not song:
+                raise urllib2.URLError("Song with id {} not found".format(song_id))
+            return song.to_api_dict()
         except urllib2.URLError as ue:
             raise MediasiteSDKException(ue.message)
 
