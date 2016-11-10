@@ -16,6 +16,7 @@
     "tests"
   ],
   "dependencies": {
-    "materialize": "~0.97.7"
+    "materialize": "~0.97.7",
+    "sw-toolbox": "~3.4.0"
   }
 }
