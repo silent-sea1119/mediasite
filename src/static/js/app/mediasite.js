@@ -4,6 +4,7 @@ import { render } from 'react-dom';
 import { Router, Route, IndexRoute, Link, History, browserHistory } from 'react-router';
 
 import {
+    EditSong,
     Login,
     Logout,
     Song,
@@ -87,6 +88,7 @@ render((
       <Route path='welcome' component={Welcome} onEnter={requireAuth} />
       <Route path='songs' component={FilterableSongTable} onEnter={requireAuth} />
       <Route path='song/:songId' component={Song} onEnter={requireAuth} />
+      <Route path='song/:songId/edit' component={EditSong} onEnter={requireAuth} />
       <Route path='login' component={Login} />
       <Route path='logout' component={Logout} />
     </Route>

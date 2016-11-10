@@ -47,6 +47,15 @@ def create_song(title, author1, song_key,
     return song_id
 
 
+def update_song_by_id(song_id, **kwargs):
+    """ Update a song by its id, passing in kwargs to do so """
+    song = get_song_by_id(song_id)
+    for key, value in kwargs.iteritems():
+        if hasattr(song, key):
+            setattr(song, key, value)
+    song.put()
+
+
 def search_songs_by_title(search_text):
     """ Search songs by search_text, which searches the titles only """
     song_query = Song.query()

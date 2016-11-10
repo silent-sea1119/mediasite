@@ -62,5 +62,5 @@ class Song(ndb.Model):
             "songOrder": self.song_order,
             "externalUrl": self.external_url,
             "fontSize": self.font_size,
-            "songData": json.loads(self.song_data) if with_song_data and self.song_data else ""
+            "songData": self.song_data if with_song_data and self.song_data else {}
         }
