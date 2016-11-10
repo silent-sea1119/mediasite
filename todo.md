@@ -17,5 +17,3 @@ Todo:
 - Ask permission in context
 - Be awesome!
 - g.co/WebPushNotifications
-
-- Use a /shell handler that loads app shell?
