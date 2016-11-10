@@ -5,7 +5,7 @@ const MediasiteHeader = (props) => {
   return (
     <nav>
       <div className='nav-wrapper'>
-        <Link to='/' className='brand-logo'>CDAC Mediasite</Link>
+        <Link to='/' className='brand-logo'>Circle's Mediasite</Link>
         <a href="#" data-activates="mobile-demo" className="button-collapse"><i className="material-icons">menu</i></a>
         <ul className='right hide-on-med-and-down'>
           <li><Link to='/songs'>Songs</Link></li>

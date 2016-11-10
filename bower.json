@@ -5,7 +5,7 @@
   "authors": [
     "Graham Holtslander <menello@gmail.com>"
   ],
-  "description": "CDAC's media site based on App Engine",
+  "description": "Circle's media site based on App Engine",
   "main": "src/main.py",
   "license": "MIT",
   "ignore": [

@@ -1,6 +1,6 @@
-# CDAC Mediasite
+# Circle's Mediasite
 
-A re-envisioning of the CDAC mediasite, the place to go for song charts and the like!
+A re-envisioning of the Circle mediasite, the place to go for song charts and the like!
 
 To get things up and running, here's "all" you have to do:
 

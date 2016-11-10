@@ -1,6 +1,6 @@
 {
   "name": "Circle Drive Alliance Church Mediasite",
-  "short_name": "CDAC Mediasite",
+  "short_name": "Mediasite",
   "display": "standalone",
   "start_url": "/",
   "default_locale": "en",
