@@ -1,9 +1,8 @@
 """
 API endpoints related to songs
 """
-from app.song import get_song_by_id
+from app.song import search_songs_by_title, get_song_api_dict_by_id
 from app.views.api import JsonApiHandler
-from mediasitesdk import MediasiteSDK
 
 
 class SongApiHandler(JsonApiHandler):
@@ -11,10 +10,10 @@ class SongApiHandler(JsonApiHandler):
     Api for getting single songs by id
     """
     def get(self, song_id):
-        song = get_song_by_id(song_id)
+        song = get_song_api_dict_by_id(song_id, with_song_data=True)
         if not song:
             return self.abort(404)
-        return self.render_response(song.to_api_dict(with_song_data=True))
+        return self.render_response(song)
 
 
 class SongsApiHandler(JsonApiHandler):
@@ -23,5 +22,5 @@ class SongsApiHandler(JsonApiHandler):
     """
     def get(self):
         search_text = self.request.GET.get('searchText', '')
-        result = MediasiteSDK.get_songs(search_text=search_text, rows=50)
+        result = search_songs_by_title(search_text)
         return self.render_response(result)

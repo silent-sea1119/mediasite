@@ -4,9 +4,15 @@ from .model import Song
 
 def get_song_by_id(song_id):
     """ Get a song by its id """
-    song = Song.build_key(song_id)
+    song_key = Song.build_key(song_id)
+    return song_key.get()
+
+
+def get_song_api_dict_by_id(song_id, with_song_data=False):
+    """ Get a song's api dict by its id """
+    song = get_song_by_id(song_id)
     if song:
-        return song.get()
+        return song.to_api_dict(with_song_data=with_song_data)
 
 
 def create_song(title, author1, song_key,
@@ -18,23 +24,23 @@ def create_song(title, author1, song_key,
     song = Song(
         key=Song.build_key(song_id),
         song_id=song_id,
-        Title=title,
-        Author1=author1,
-        Author2=author2,
-        SongKey=song_key,
-        CCLI=ccli,
-        Style=style,
-        Use1=use1,
-        Use2=use2,
-        CopyDate=copy_date,
-        BibleReference=bible_reference,
-        YouTubeLink=youtube_link,
-        Publisher=publisher,
-        Notes=notes,
-        SongOrder=song_order,
-        ExternalUrl=external_url,
-        FontSize=font_size,
-        SongData=song_data
+        title=title,
+        author1=author1,
+        author2=author2,
+        song_key=song_key,
+        ccli=ccli,
+        style=style,
+        use1=use1,
+        use2=use2,
+        copy_date=copy_date,
+        bible_reference=bible_reference,
+        youtube_link=youtube_link,
+        publisher=publisher,
+        notes=notes,
+        song_order=song_order,
+        external_url=external_url,
+        font_size=font_size,
+        song_data=song_data
     )
     song.put()
 
@@ -43,4 +49,8 @@ def create_song(title, author1, song_key,
 
 def search_songs_by_title(search_text):
     """ Search songs by search_text, which searches the titles only """
-    return Song.query(Song.Title >= search_text).filter(Song.Title < search_text + u'\ufffd').fetch()
+    song_query = Song.query()
+    if search_text:
+        lower_search = search_text.lower()
+        song_query.filter(Song.lower_title >= lower_search).filter(Song.lower_title < lower_search + u'\ufffd')
+    return [song.to_api_dict() for song in song_query.fetch()]
