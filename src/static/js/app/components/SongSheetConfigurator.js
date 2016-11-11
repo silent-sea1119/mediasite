@@ -1,5 +1,5 @@
 import React from 'react';
-import { browserHistory } from 'react-router'
+import { browserHistory } from 'react-router';
 
 import 'materialize-css';
 import MaterializeSelect from './materialize/Select';
