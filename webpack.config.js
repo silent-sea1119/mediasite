@@ -16,6 +16,12 @@ module.exports = {
     output: {
         filename: 'src/static/js/mediasite.js'
     },
+    resolve: {
+      alias: {
+        react: "preact-compat",
+        "react-dom": "preact-compat"
+      }
+    },
     module: {
         loaders: [
             {
