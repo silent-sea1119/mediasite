@@ -16,3 +16,4 @@ build
 src/static/js/manifest.*.js
 src/static/js/mediasite.*.js
 src/static/js/vendor.*.js
+src/templates/base.html

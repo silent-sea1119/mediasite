@@ -14,12 +14,6 @@ let pluginList = [
 ];
 if (args.watch) {
     pluginList.push(new DashboardPlugin());
-} else if (ENV === 'production') {
-    pluginList.push(new webpack.optimize.UglifyJsPlugin({
-        compress: {
-            warnings: true
-        }
-    }));
 }
 
 module.exports = {
