@@ -33,22 +33,22 @@ class SongSheet extends React.Component {
     const { songKey, textSize, printArrangements, printChords, printPartNames } = this.props.location.query;
     const songId = this.props.params.songId;
 
-    const song = new Song(songId, songData.Title, songData.SongKey, songData.SongData);
+    const song = new Song(songId, songData.title, songData.songKey, songData.songData);
 
-    const ccliSection = songData.CCLI ? <p>CCLI: <a target='_blank' href={`http://ca.search.ccli.com/songs/${songData.CCLI}`}>{songData.CCLI}</a></p> : '';
-    const copyrightSection = songData.CopyDate ? <p>Copyright: {songData.CopyDate}</p> : '';
+    const ccliSection = songData.ccli ? <p>CCLI: <a target='_blank' href={`http://ca.search.ccli.com/songs/${songData.CCLI}`}>{songData.ccli}</a></p> : '';
+    const copyrightSection = songData.copyDate ? <p>Copyright: {songData.copyDate}</p> : '';
 
-    const arrangementSection = printArrangements === 'true' ? <div className="ArrangementTitle">Arrangement: {songData.SongOrder}</div> : '';
+    const arrangementSection = printArrangements === 'true' ? <div className="ArrangementTitle">Arrangement: {songData.songOrder}</div> : '';
 
     return (
-      <div style={{backgroundColor: 'white'}}>
+      <div style={{backgroundColor: 'white', padding: '10px'}}>
         <div className="song-data">
-          <div className="card-title">{songData.Title}</div>
-          <p>{songData.Author1}{songData.Author2 ? ` & ${songData.Author2}` : ``}</p>
-          <p>Key: {valueOrEmptyString(songData.SongKey)}</p>
-          <p>Style: {valueOrEmptyString(songData.Style)}</p>
-          <p>Uses: {valueOrEmptyString(songData.Use1)}{songData.Use2 ? `, ${songData.Use2}` : ``}</p>
-          <p>Notes: {valueOrEmptyString(songData.Notes)}</p>
+          <div className="card-title">{songData.title}</div>
+          <p>{songData.author1}{songData.author2 ? ` & ${songData.author2}` : ``}</p>
+          <p>Key: {valueOrEmptyString(songData.songKey)}</p>
+          <p>Style: {valueOrEmptyString(songData.style)}</p>
+          <p>Uses: {valueOrEmptyString(songData.use1)}{songData.use2 ? `, ${songData.use2}` : ``}</p>
+          <p>Notes: {valueOrEmptyString(songData.notes)}</p>
           {ccliSection}
           {copyrightSection}
         </div>

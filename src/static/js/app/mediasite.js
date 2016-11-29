@@ -3,7 +3,10 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Router, Route, IndexRoute, Link, History, browserHistory } from 'react-router';
 
+import { loadScript, browserSupportsAllFeatures } from './browser-helpers';
+
 import {
+    EditSong,
     Login,
     Logout,
     Song,
@@ -79,25 +82,39 @@ function requireAuth(nextState, replace) {
   }
 }
 
-// ReactDOM.render
-render((
-  <Router history={browserHistory}>
-    <Route path='/' component={App}>
-      <IndexRoute component={!auth.loggedIn() ? Login : Welcome} />
-      <Route path='welcome' component={Welcome} onEnter={requireAuth} />
-      <Route path='songs' component={FilterableSongTable} onEnter={requireAuth} />
-      <Route path='song/:songId' component={Song} onEnter={requireAuth} />
-      <Route path='login' component={Login} />
-      <Route path='logout' component={Logout} />
-    </Route>
-    <Route path='song/:songId/print' component={SongSheet} onEnter={requireAuth} />
-  </Router>
-), document.getElementById('mediasite'));
+function startRender(error) {
+  if (error) {
+    console.error(error);
+  } else {
+    render((
+      <Router history={browserHistory}>
+        <Route path='/' component={App}>
+          <IndexRoute component={!auth.loggedIn() ? Login : Welcome} />
+          <Route path='welcome' component={Welcome} onEnter={requireAuth} />
+          <Route path='songs' component={FilterableSongTable} onEnter={requireAuth} />
+          <Route path='song/new' component={EditSong} onEnter={requireAuth} />
+          <Route path='song/:songId' component={Song} onEnter={requireAuth} />
+          <Route path='song/:songId/edit' component={EditSong} onEnter={requireAuth} />
+          <Route path='login' component={Login} />
+          <Route path='logout' component={Logout} />
+        </Route>
+        <Route path='song/:songId/print' component={SongSheet} onEnter={requireAuth} />
+      </Router>
+    ), document.getElementById('mediasite'));
+  }
+}
+
+if (browserSupportsAllFeatures()) {
+  startRender();
+} else {
+  // If it's not all supported, load some polyfills.
+  loadScript('https://cdn.polyfill.io/v2/polyfill.min.js?features=Promise,fetch&rum=1', startRender);
+}
 
 
 // Register service worker because why not do it in here? :)
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/sw.js').then(function(registration) {
-    console.log('Excellent, registered with scope: ', registration.scope);
-  });
-}
+// if ('serviceWorker' in navigator) {
+//   navigator.serviceWorker.register('/sw.js').then(function(registration) {
+//     console.log('Excellent, registered with scope: ', registration.scope);
+//   });
+// }

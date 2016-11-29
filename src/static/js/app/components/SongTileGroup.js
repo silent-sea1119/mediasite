@@ -8,14 +8,14 @@ export default class SongTileGroup extends React.Component {
     var searchText = this.props.searchText;
     var songs = map(this.props.songs, function(song) {
       if (searchText !== "" &&
-          song.cell[0].toLowerCase().indexOf(searchText.toLowerCase()) === -1) {
+          song.title.toLowerCase().indexOf(searchText.toLowerCase()) === -1) {
         return;
       }
-      return <SongTile key={song.id}
-                   songId={song.id}
-                   title={song.cell[0]}
-                   author1={song.cell[1]}
-                   author2={song.cell[2]} />;
+      return <SongTile key={song.songId}
+                   songId={song.songId}
+                   title={song.title}
+                   author1={song.author1}
+                   author2={song.author2} />;
     });
 
     return (

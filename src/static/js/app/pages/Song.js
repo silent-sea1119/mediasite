@@ -29,10 +29,16 @@ export default class Song extends React.Component {
       );
     }
     let youtubeArea;
-    if (this.state.songData.YouTubeLink) {
-      youtubeArea = <YouTube youTubeLink={this.state.songData.YouTubeLink}/>;
+    if (this.state.songData.youtubeLink) {
+      youtubeArea = <YouTube youTubeLink={this.state.songData.youtubeLink}/>;
     } else {
-      youtubeArea = <div>This song doesn't have a YouTube link yet.</div>
+      youtubeArea = <div>This song doesn't have a YouTube link yet.</div>;
+    }
+    let songConfiguratorArea;
+    if (this.state.songData.songData.parts) {
+      songConfiguratorArea = <SongSheetConfiguratorCard songKey={this.state.songData.songKey} songId={this.props.params.songId} />
+    } else {
+      songConfiguratorArea = <div>This song doesn't have a chart attached yet.</div>;
     }
     return (
       <div>
@@ -41,7 +47,7 @@ export default class Song extends React.Component {
             <SongData songData={this.state.songData} />
           </div>
         </div>
-        <SongSheetConfiguratorCard songKey={this.state.songData.SongKey} songId={this.props.params.songId} />
+        {songConfiguratorArea}
         {youtubeArea}
       </div>
     );

@@ -1,5 +1,5 @@
 import React from 'react';
-import { browserHistory } from 'react-router'
+import { browserHistory } from 'react-router';
 
 import 'materialize-css';
 import MaterializeSelect from './materialize/Select';
@@ -19,16 +19,13 @@ export default class SongSheetConfigurator extends React.Component {
     });
   }
 
+  calculateSongUrl() {
+    return `/song/${this.props.songId}/print?songKey=${this.state.songKey}&textSize=${this.state.textSize}&printArrangements=${this.arrangement.checked}&printChords=${this.chords.checked}&printPartNames=${this.partNames.checked}`;
+  }
+
   handleGenerateSheet = (event) => {
     event.preventDefault();
-    browserHistory.push(`/song/${this.props.songId}/print?songKey=${this.state.songKey}&textSize=${this.state.textSize}&printArrangements=${this.arrangement.checked}&printChords=${this.chords.checked}&printPartNames=${this.partNames.checked}`);
-    // console.log(
-    //   'Arrangements will be printed: ' + this.arrangement.checked,
-    //   'Chords will be printed: ' + this.chords.checked,
-    //   'Part names will be printed: ' + this.partNames.checked,
-    //   'The song key will be: ' + this.state.songKey,
-    //   'The text size will be: ' + this.state.textSize
-    // );
+    browserHistory.push(this.calculateSongUrl());
   };
 
   updateChosenSongKey = (event) => {

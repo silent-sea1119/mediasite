@@ -1,5 +1,5 @@
 import expect from 'expect';
-import { Song, Transposer } from './index.js';
+import { Song, Transposer, songTextToJson } from './index.js';
 
 const testDataJson = {
     "id": 3708,
