@@ -35,7 +35,7 @@ export default class Song extends React.Component {
       youtubeArea = <div>This song doesn't have a YouTube link yet.</div>;
     }
     let songConfiguratorArea;
-    if (this.state.songData.songData) {
+    if (this.state.songData.songData.parts) {
       songConfiguratorArea = <SongSheetConfiguratorCard songKey={this.state.songData.songKey} songId={this.props.params.songId} />
     } else {
       songConfiguratorArea = <div>This song doesn't have a chart attached yet.</div>;

@@ -31,13 +31,14 @@ class SongApiHandler(JsonApiHandler):
     @staticmethod
     def _convert_camel_to_snake(song_body):
         converts = {
-            'copy_date': song_body.get('copyDate', ''),
-            'bible_reference': song_body.get('bibleReference', ''),
-            'youtube_link': song_body.get('youtubeLink', ''),
-            'song_order': song_body.get('songOrder', ''),
-            'external_url': song_body.get('externalUrl', ''),
-            'font_size': song_body.get('fontSize', ''),
-            'song_data': song_body.get('songData', ''),
+            u'copy_date': song_body.get('copyDate', u''),
+            u'bible_reference': song_body.get('bibleReference', u''),
+            u'youtube_link': song_body.get('youtubeLink', u''),
+            u'song_order': song_body.get('songOrder', u''),
+            u'external_url': song_body.get('externalUrl', u''),
+            u'font_size': song_body.get('fontSize', u''),
+            u'song_data': song_body.get('songData', u''),
+            u'song_key': song_body.get('songKey', u'')
         }
         song_body.update(converts)
         return song_body

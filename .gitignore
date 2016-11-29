@@ -12,3 +12,7 @@ src/static/js/mediasite.js*
 src/static/css/*
 src/settings_secret.py
 build
+
+src/static/js/manifest.*.js
+src/static/js/mediasite.*.js
+src/static/js/vendor.*.js

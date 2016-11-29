@@ -5,13 +5,15 @@ import 'materialize-css';
 import MediasiteApi from '../api/MediasiteApi';
 import MaterializeSelect from '../components/materialize/Select';
 
+import SongPartCreator from '../components/SongPartCreator';
+
 const MUSICAL_KEYS = ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B'];
 const TEXT_SIZES = [10, 11, 12, 13, 14, 15, 16, 18, 20, 24];
 
 export default class EditSong extends React.Component {
   state = {
     isLoading: true,
-    songKey: '',
+    songKey: 'C',
     title: '',
     author1: '',
     author2: '',
@@ -21,10 +23,12 @@ export default class EditSong extends React.Component {
     publisher: '',
     songOrder: '',
     externalUrl: '',
-    songKey: ''
+    songKey: '',
+    songPartData: {}
   };
 
   componentDidMount() {
+    // TODO: Fix bug where Editing a song then clicking New song will not get rid of that data
     if (this.props.params.songId) {
       MediasiteApi.getSongById(this.props.params.songId, (response) => {
         const songData = response.data;
@@ -39,6 +43,7 @@ export default class EditSong extends React.Component {
           publisher: songData.publisher || '',
           songOrder: songData.songOrder || '',
           externalUrl: songData.externalUrl || '',
+          songPartData: songData.songData || {},
           isLoading: false
         });
         if (typeof Materialize.updateTextFields === 'function') {
@@ -48,8 +53,13 @@ export default class EditSong extends React.Component {
     } else {
       this.setState({
         isLoading: false
-      })
+      });
     }
+  }
+
+  gatherSongData() {
+    const parts = this.songPartData.gatherSongData();
+    return { parts };
   }
 
   handleFormSubmit(event) {
@@ -64,7 +74,8 @@ export default class EditSong extends React.Component {
       publisher: this.state.publisher,
       songOrder: this.state.songOrder,
       externalUrl: this.state.externalUrl,
-      songKey: this.state.songKey
+      songKey: this.state.songKey,
+      songData: this.gatherSongData()
     };
     if (!this.props.params.songId) {
       MediasiteApi.createSong(songObj, (response) => {
@@ -107,11 +118,11 @@ export default class EditSong extends React.Component {
             <div className="card-title">{this.state.title === '' ? 'New Song' : this.state.title }</div>
             <form className="col s12" onSubmit={this.handleFormSubmit.bind(this)}>
               <div className="input-field col s12">
-                <input id="title" type="text" className="validate" value={this.state.title} onChange={(event) => this.handleFormChange(event, 'title')}/>
+                <input id="title" type="text" className="validate" value={this.state.title} onChange={(event) => this.handleFormChange(event, 'title')} required />
                 <label htmlFor="title">Title</label>
               </div>
               <div className="input-field col s12">
-                <input id="author1" type="text" className="validate" value={this.state.author1} onChange={(event) => this.handleFormChange(event, 'author1')}/>
+                <input id="author1" type="text" className="validate" value={this.state.author1} onChange={(event) => this.handleFormChange(event, 'author1')} required />
                 <label htmlFor="author1">Author #1</label>
               </div>
               <div className="input-field col s12">
@@ -148,6 +159,15 @@ export default class EditSong extends React.Component {
                 <input id="externalUrl" type="text" className="validate" value={this.state.externalUrl} onChange={(event) => this.handleFormChange(event, 'externalUrl')}/>
                 <label htmlFor="externalUrl">External URL</label>
               </div>
+              <input className="btn" type="submit" />
+            </form>
+          </div>
+        </div>
+        <div className="card">
+          <div className="card-content">
+            <div className="card-title">Song Information</div>
+            <form onSubmit={this.handleFormSubmit.bind(this)}>
+              <SongPartCreator songParts={this.state.songPartData.parts || []} ref={(input) => this.songPartData = input}></SongPartCreator>
               <input className="btn" type="submit" />
             </form>
           </div>

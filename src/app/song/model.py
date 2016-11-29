@@ -1,17 +1,13 @@
 """
 song models
 """
-import json
-
 from tinyid import TinyIDGenerator
 
 from google.appengine.ext import ndb
 
 
 class Song(ndb.Model):
-    """
-    Songs
-    """
+    """ Songs """
     song_id = ndb.StringProperty(required=True)
     title = ndb.StringProperty(required=True)
     lower_title = ndb.ComputedProperty(lambda song: song.title.lower())

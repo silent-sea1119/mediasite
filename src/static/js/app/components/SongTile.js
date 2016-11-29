@@ -14,6 +14,7 @@ export default class SongTile extends React.Component {
           </div>
           <div className="card-action">
             <Link to={songUrl}>View</Link>
+            <Link to={songUrl + '/edit'}>Edit</Link>
           </div>
         </div>
       </div>

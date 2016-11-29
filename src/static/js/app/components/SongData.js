@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 const valueOrEmptyString = (value) => {
   return value ? value : '';
@@ -12,7 +13,7 @@ const SongData = ({ songData }) => {
   const copyrightSection = songData.copyDate ? <p>Copyright: {songData.copyDate}</p> : '';
   return (
     <div>
-      <div className="card-title">{songData.title}</div>
+      <div className="card-title">{songData.title} <Link to={`/song/${songData.songId}/edit`}><i className="material-icons prefix">mode edit</i></Link></div>
       <p>{songData.author1}{songData.author2 ? ` & ${songData.author2}` : ``}</p>
       <p>Key: {valueOrEmptyString(songData.songKey)}</p>
       <p>Style: {valueOrEmptyString(songData.style)}</p>

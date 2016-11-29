@@ -1,5 +1,3 @@
-import 'fetch';
-
 export default class MediasiteApi {
   static getSongs(searchText, callback) {
     fetch(`/api/v1/songs/get/?searchText=${searchText}`)
