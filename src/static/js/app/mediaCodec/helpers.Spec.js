@@ -34,12 +34,16 @@ describe('Song Helper Functions', function () {
   });
 
   describe('isNoteLine', function () {
-    it('should return true for a line like "G   C   D"', function () {
+    it('should return true for a line that contains chord notes', function () {
       expect(isNoteLine("G   C   D")).toBe(true);
     });
 
-    it('should return false for a line like "(2x)"', function () {
+    it('should return false for a line that contains playing instructions', function () {
       expect(isNoteLine('(x2)')).toBe(false);
-    })
+    });
+
+    it('should return false for a line that contains lyrics', function () {
+      expect(isNoteLine('Oh Canada')).toBe(false);
+    });
   });
 });
