@@ -9,12 +9,10 @@ To get things up and running, here's "all" you have to do:
   1. `npm install -g bower` (if you don't already have it)
   2. `bower install` (for static assets)
   3. `npm install` (for Javascript-related things and some command-line tools)
-  4. `npm install -g jspm` (if you don't already have it)
-  5. `jspm install` (for the main application code to work)
-  6. `npm run build-js` (to compile the Javascript app)
-  7. `npm run build-css` (to compile the styles for the app)
-3. Start a Google App Engine server from the `./src` directory of the repo.
-4. Navigate to `http://localhost:8080` (your port may vary)!
+  4. `npm run build-js` (to compile the Javascript app)
+  5. `npm run build-css` (to compile the styles for the app)
+  6. `npm start` (starts a gcloud server appropriately)
+3. Navigate to `http://localhost:8079`
 
 Those steps will work best on \*nix. Here's what I found worked for me on Windows (10):
 
