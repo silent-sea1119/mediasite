@@ -144,7 +144,7 @@ export default class EditSong extends React.Component {
                 <label htmlFor="copyDate">Copyright Date</label>
               </div>
               <div className="input-field col s12">
-                <input id="youtubeLink" type="text" className="validate" placeholder="Only the code is required" value={this.state.youtubeLink} onChange={(event) => this.handleFormChange(event, 'youtubeLink')}/>
+                <input id="youtubeLink" type="text" className="validate" value={this.state.youtubeLink} onChange={(event) => this.handleFormChange(event, 'youtubeLink')}/>
                 <label htmlFor="youtubeLink">YouTube Link</label>
               </div>
               <div className="input-field col s12">
@@ -152,8 +152,8 @@ export default class EditSong extends React.Component {
                 <label htmlFor="publisher">Publisher</label>
               </div>
               <div className="input-field col s12">
-                <input id="songOrder" type="text" className="validate" placeholder="The way the song is arranged" value={this.state.songOrder} onChange={(event) => this.handleFormChange(event, 'songOrder')}/>
-                <label htmlFor="arrangement">Song Order</label>
+                <input id="songOrder" type="text" className="validate" value={this.state.songOrder} onChange={(event) => this.handleFormChange(event, 'songOrder')}/>
+                <label htmlFor="arrangement">Song Order/Arrangement</label>
               </div>
               <div className="input-field col s12">
                 <input id="externalUrl" type="text" className="validate" value={this.state.externalUrl} onChange={(event) => this.handleFormChange(event, 'externalUrl')}/>

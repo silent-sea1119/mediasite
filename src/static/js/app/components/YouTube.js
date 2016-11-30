@@ -10,6 +10,7 @@ const YouTube = ({ youTubeLink }) => {
   } else {
     youTubeId = youTubeLink;
   }
+
   const youtubeEmbedLink = `https://www.youtube.com/embed/${youTubeId}`;
   return (
     <div className="card">
