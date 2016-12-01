@@ -31,21 +31,21 @@ class SongApiHandler(JsonApiHandler):
     @staticmethod
     def _convert_camel_to_snake(song_body):
         converts = {
-            u'copy_date': song_body.get('copyDate', u''),
-            u'bible_reference': song_body.get('bibleReference', u''),
-            u'youtube_link': song_body.get('youtubeLink', u''),
-            u'song_order': song_body.get('songOrder', u''),
-            u'external_url': song_body.get('externalUrl', u''),
-            u'font_size': song_body.get('fontSize', u''),
-            u'song_data': song_body.get('songData', u''),
-            u'song_key': song_body.get('songKey', u'')
+            u'copy_date': song_body.pop('copyDate', u''),
+            u'bible_reference': song_body.pop('bibleReference', u''),
+            u'youtube_link': song_body.pop('youtubeLink', u''),
+            u'song_order': song_body.pop('songOrder', u''),
+            u'external_url': song_body.pop('externalUrl', u''),
+            u'font_size': song_body.pop('fontSize', u''),
+            u'song_data': song_body.pop('songData', u''),
+            u'song_key': song_body.pop('songKey', u'')
         }
         song_body.update(converts)
         return song_body
 
     def put(self):
         new_song_body = json.loads(self.request.body)
-        new_song_id = create_song(new_song_body['title'], new_song_body['author1'], new_song_body['songKey'])
+        new_song_id = create_song(**self._convert_camel_to_snake(new_song_body))
         return self.render_response({'songId': new_song_id})
 
 
