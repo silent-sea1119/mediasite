@@ -7,6 +7,7 @@ import { loadScript, browserSupportsAllFeatures } from './browser-helpers';
 
 import {
     EditSong,
+    NewSong,
     Login,
     Logout,
     Song,
@@ -92,7 +93,7 @@ function startRender(error) {
           <IndexRoute component={!auth.loggedIn() ? Login : Welcome} />
           <Route path='welcome' component={Welcome} onEnter={requireAuth} />
           <Route path='songs' component={FilterableSongTable} onEnter={requireAuth} />
-          <Route path='song/new' component={EditSong} onEnter={requireAuth} />
+          <Route path='song/new' component={NewSong} onEnter={requireAuth} />
           <Route path='song/:songId' component={Song} onEnter={requireAuth} />
           <Route path='song/:songId/edit' component={EditSong} onEnter={requireAuth} />
           <Route path='login' component={Login} />

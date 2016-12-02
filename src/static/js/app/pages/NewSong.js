@@ -27,31 +27,6 @@ export default class EditSong extends React.Component {
     songPartData: []
   };
 
-  componentDidMount() {
-    if (this.props.params.songId) {
-      MediasiteApi.getSongById(this.props.params.songId, (response) => {
-        const songData = response.data;
-        this.setState({
-          songKey: songData.songKey,
-          title: songData.title,
-          author1: songData.author1,
-          author2: songData.author2 || '',
-          ccli: songData.ccli || '',
-          copyDate: songData.copyDate || '',
-          youtubeLink: songData.youtubeLink || '',
-          publisher: songData.publisher || '',
-          songOrder: songData.songOrder || '',
-          externalUrl: songData.externalUrl || '',
-          songPartData: songData.songData || {},
-          isLoading: false
-        });
-        if (typeof Materialize.updateTextFields === 'function') {
-          Materialize.updateTextFields();
-        }
-      });
-    }
-  }
-
   gatherSongData() {
     const parts = this.songPartData.gatherSongData();
     return { parts };
@@ -72,8 +47,7 @@ export default class EditSong extends React.Component {
       songKey: this.state.songKey,
       songData: this.gatherSongData()
     };
-    songObj.songId = this.props.params.songId;
-    MediasiteApi.updateSong(songObj, (response) => {
+    MediasiteApi.createSong(songObj, (response) => {
       browserHistory.push(`/song/${response.data.songId}`);
     });
   }
@@ -90,13 +64,6 @@ export default class EditSong extends React.Component {
   };
 
   render() {
-    if (this.state.isLoading) {
-      return (
-        <div className="progress">
-            <div className="indeterminate"></div>
-        </div>
-      );
-    }
     const keyOptions = MUSICAL_KEYS.map((key) => {
       return <option key={key} value={key}>{key}</option>;
     });
