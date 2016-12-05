@@ -3,8 +3,8 @@
     "fetch": "^1.1.0",
     "lodash": "^4.15.0",
     "materialize-css": "^0.97.7",
-    "preact": "^6.4.0",
-    "preact-compat": "^3.9.1",
+    "preact": "^7.1.0",
+    "preact-compat": "^3.9.3",
     "react": "^15.1.0",
     "react-dom": "^15.1.0",
     "react-router": "^2.8.1"

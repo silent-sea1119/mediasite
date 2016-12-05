@@ -46,7 +46,7 @@ export default class EditSong extends React.Component {
           isLoading: false
         });
         if (typeof Materialize.updateTextFields === 'function') {
-          Materialize.updateTextFields();
+          setTimeout(Materialize.updateTextFields, 300);
         }
       });
     }
@@ -107,15 +107,15 @@ export default class EditSong extends React.Component {
             <div className="card-title">{this.state.title === '' ? 'New Song' : this.state.title }</div>
             <form className="col s12" onSubmit={this.handleFormSubmit.bind(this)}>
               <div className="input-field col s12">
-                <input id="title" type="text" className="validate" value={this.state.title} onChange={(event) => this.handleFormChange(event, 'title')} required />
+                <input id="title" type="text" className="validate" value={this.state.title} onInput={this.linkState('title')} required />
                 <label htmlFor="title">Title</label>
               </div>
               <div className="input-field col s12">
-                <input id="author1" type="text" className="validate" value={this.state.author1} onChange={(event) => this.handleFormChange(event, 'author1')} required />
+                <input id="author1" type="text" className="validate" value={this.state.author1} onInput={this.linkState('author1')} required />
                 <label htmlFor="author1">Author #1</label>
               </div>
               <div className="input-field col s12">
-                <input id="author2" type="text" className="validate" value={this.state.author2} onChange={(event) => this.handleFormChange(event, 'author2')}/>
+                <input id="author2" type="text" className="validate" value={this.state.author2} onInput={this.linkState('author2')}/>
                 <label htmlFor="author2">Author #2</label>
               </div>
               <MaterializeSelect
@@ -125,27 +125,27 @@ export default class EditSong extends React.Component {
                 handleOnSelect={(event) => this.handleFormChange(event, 'songKey')}
               />
               <div className="input-field col s12">
-                <input id="ccli" type="text" className="validate" value={this.state.ccli} onChange={(event) => this.handleFormChange(event, 'ccli')}/>
+                <input id="ccli" type="text" className="validate" value={this.state.ccli} onInput={this.linkState('ccli')}/>
                 <label htmlFor="ccli">CCLI #</label>
               </div>
               <div className="input-field col s12">
-                <input id="copyDate" type="text" className="validate" value={this.state.copyDate} onChange={(event) => this.handleFormChange(event, 'copyDate')}/>
+                <input id="copyDate" type="text" className="validate" value={this.state.copyDate} onInput={this.linkState('copyDate')}/>
                 <label htmlFor="copyDate">Copyright Date</label>
               </div>
               <div className="input-field col s12">
-                <input id="youtubeLink" type="text" className="validate" value={this.state.youtubeLink} onChange={(event) => this.handleFormChange(event, 'youtubeLink')}/>
+                <input id="youtubeLink" type="text" className="validate" value={this.state.youtubeLink} onInput={this.linkState('youtubeLink')}/>
                 <label htmlFor="youtubeLink">YouTube Link</label>
               </div>
               <div className="input-field col s12">
-                <input id="publisher" type="text" className="validate" value={this.state.publisher} onChange={(event) => this.handleFormChange(event, 'publisher')}/>
+                <input id="publisher" type="text" className="validate" value={this.state.publisher} onInput={this.linkState('publisher')}/>
                 <label htmlFor="publisher">Publisher</label>
               </div>
               <div className="input-field col s12">
-                <input id="songOrder" type="text" className="validate" value={this.state.songOrder} onChange={(event) => this.handleFormChange(event, 'songOrder')}/>
+                <input id="songOrder" type="text" className="validate" value={this.state.songOrder} onInput={this.linkState('songOrder')}/>
                 <label htmlFor="arrangement">Song Order/Arrangement</label>
               </div>
               <div className="input-field col s12">
-                <input id="externalUrl" type="text" className="validate" value={this.state.externalUrl} onChange={(event) => this.handleFormChange(event, 'externalUrl')}/>
+                <input id="externalUrl" type="text" className="validate" value={this.state.externalUrl} onInput={this.linkState('externalUrl')}/>
                 <label htmlFor="externalUrl">External URL</label>
               </div>
               <input className="btn" type="submit" />
