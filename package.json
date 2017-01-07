@@ -25,7 +25,7 @@
     "node-sass": "^3.3.3",
     "nodemon": "^1.7.1",
     "react-addons-test-utils": "^15.1.0",
-    "webpack": "^2.1.0-beta.25",
+    "webpack": "^2.2.0-rc.3",
     "webpack-dashboard": "^0.2.0",
     "yargs": "^6.4.0"
   },
@@ -39,7 +39,7 @@
     "build-css:prod": "node-sass --include-path scss build/static/scss/main.scss build/static/css/global.css",
     "build:prod": "npm run clean && npm run build-js:prod && cp -r src build && npm run build-css:prod",
     "clean": "rm -rf build",
-    "deploy:prod": "gcloud app deploy --project=cdac-mediasite build/app.yaml",
+    "deploy:prod": "gcloud app deploy --project=cdac-mediasite build/app.yaml -q --promote",
     "bnd": "npm run build:prod && npm run deploy:prod",
     "start": "dev_appserver.py src/app.yaml --port=8079 --admin_port=9079 --storage_path=./data/"
   }
