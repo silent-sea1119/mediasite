@@ -15,9 +15,10 @@ from settings import THE_CITY_LOGIN_REDIRECT_URI, THE_CITY_APP_ID, THE_CITY_OAUT
 
 class OauthLoginHandler(webapp2.RequestHandler):
     def get(self):
+        next_url = self.request.GET.get('nextUrl', '')  # Pass along where they were trying to go
         self.redirect(THE_CITY_LOGIN_REDIRECT_URI.format(THE_CITY_APP_ID,
                                                          urllib.quote(THE_CITY_OAUTH_CALLBACK_URI, safe=''),
-                                                         'somestatefulthing'))
+                                                         urllib.quote(next_url)))
 
 
 class OauthRedirectCallbackHandler(webapp2.RequestHandler):
@@ -34,7 +35,9 @@ class OauthRedirectCallbackHandler(webapp2.RequestHandler):
                     user_info_dict = sdk.get_basic_user_info()
                     user_info_dict['jwt'] = create_jwt_from_user_data(user_permissions, user_info_dict)
                     User.put_from_city_dict(user_info_dict)
-                    self.redirect('/login?success=true&userId={}'.format(user_info_dict['id']))
+
+                    redirect_to = self.request.GET.get('state', '/songs')
+                    self.redirect('/login?success=true&userId={}&nextUrl={}'.format(user_info_dict['id'], redirect_to))
                 else:
                     logging.info('This user needs to be added to a Worship Arts group on The City')
                     # TODO: Redirect to a different landing page explaining the purpose of this site and who to contact.

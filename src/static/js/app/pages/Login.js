@@ -16,8 +16,8 @@ class Login extends React.Component {
       }
       const { location } = this.props;
 
-      if (location.query.nextUrl || location.state && location.state.nextPathname) {
-        this.props.router.replace(location.query.nextUrl || location.state.nextPathname);
+      if (location.query.nextUrl || location.query.nextPathName) {
+        this.props.router.replace(location.query.nextUrl || location.query.nextPathName);
       } else {
         this.props.router.replace('/welcome');
       }
@@ -27,7 +27,7 @@ class Login extends React.Component {
   render() {
     const { location } = this.props;
     let loginDisabled = !!location.query.success || auth.loggedIn();
-    let nextUrl = location.state ? location.state.nextPathname ? location.state.nextPathname : '' : '';
+    let nextUrl = location.query ? location.query.nextPathName ? location.query.nextPathName : '' : '';
     return (
       <div className='card login'>
         <div className="card-content">
