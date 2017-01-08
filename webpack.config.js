@@ -37,17 +37,15 @@ module.exports = {
             {
                 test: /\.js$/,
                 exclude: /node_modules/,
-                use: 'babel-loader',
-                options: {
-                    presets: [
-                        [
-                            'es2015', {
-                                'modules': false
-                            }
-                        ],
-                        'react'
-                    ],
-                    plugins: ['transform-class-properties']
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                      presets: [
+                          ['es2015', { 'modules': false } ],
+                          'react'
+                      ],
+                      plugins: ['transform-class-properties']
+                    }
                 }
             }, {
                 test: /\.json$/,

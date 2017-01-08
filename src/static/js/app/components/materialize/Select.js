@@ -6,7 +6,7 @@ class MaterializeSelect extends React.Component {
     return (
       <div>
         <label>{label}</label>
-        <select className="browser-default" defaultValue={selectValue} onChange={handleOnSelect}>
+        <select className="browser-default" value={selectValue} onChange={handleOnSelect}>
           {options}
         </select>
       </div>
