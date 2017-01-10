@@ -4,7 +4,7 @@ import 'materialize-css';
 export default class SearchBar extends React.Component {
   handleChange = () => {
     this.props.onUserInput(
-      this.refs.searchTextInput.value
+      this.searchTextInput.value
     );
   };
 
@@ -13,7 +13,7 @@ export default class SearchBar extends React.Component {
       Materialize.updateTextFields();
     }
   }
-  
+
   render() {
     return(
       <div className="row">
@@ -21,7 +21,7 @@ export default class SearchBar extends React.Component {
           <i className="material-icons prefix">search</i>
           <input
               type="text"
-              ref="searchTextInput"
+              ref={input => this.searchTextInput = input}
               value={this.props.searchText}
               onChange={this.handleChange}
               id="search"

@@ -1,17 +1,17 @@
 import React from 'react';
 
-class MaterializeSelect extends React.Component {
-  render() {
-    const {options, label, selectValue, handleOnSelect} = this.props;
-    return (
-      <div>
-        <label>{label}</label>
-        <select className="browser-default" value={selectValue} onChange={handleOnSelect}>
-          {options}
-        </select>
-      </div>
-    )
-  };
-}
+const MaterializeSelect = ({options, label, selectValue, handleOnSelect}) => {
+  // Put an empty option on
+  options.unshift(<option key='empty' value=''></option>);
+
+  return (
+    <div>
+      <label>{label}</label>
+      <select className="browser-default" defaultValue={selectValue} onChange={handleOnSelect}>
+        {options}
+      </select>
+    </div>
+  )
+};
 
 export default MaterializeSelect;

@@ -1,11 +1,10 @@
 import React from 'react';
 import { browserHistory } from 'react-router';
 
-import 'materialize-css';
 import MaterializeSelect from './materialize/Select';
 
 const MUSICAL_KEYS = ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B'];
-const TEXT_SIZES = [10, 11, 12, 13, 14, 15, 16, 18, 20, 24];
+const TEXT_SIZES = [16, 18, 20, 24]; // unused for now 10, 11, 12, 13, 14, 15,
 
 export default class SongSheetConfigurator extends React.Component {
   state = {
@@ -30,7 +29,6 @@ export default class SongSheetConfigurator extends React.Component {
 
   updateChosenSongKey = (event) => {
     const newKey = event.target.value;
-    console.log(event.target.value);
     this.setState({ songKey: newKey });
   };
 
