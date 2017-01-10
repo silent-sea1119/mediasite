@@ -47,7 +47,7 @@ class SongSheet extends React.Component {
           <p>{songData.author1}{songData.author2 ? ` & ${songData.author2}` : ``}</p>
           <p>Key: {valueOrEmptyString(songData.songKey)}</p>
           <p>Style: {valueOrEmptyString(songData.style)}</p>
-          <p>Uses: {valueOrEmptyString(songData.use1)}{songData.use2 ? `, ${songData.use2}` : ``}</p>
+          {/* <p>Uses: {valueOrEmptyString(songData.use1)}{songData.use2 ? `, ${songData.use2}` : ``}</p> */}
           <p>Notes: {valueOrEmptyString(songData.notes)}</p>
           {ccliSection}
           {copyrightSection}
