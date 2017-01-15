@@ -11,6 +11,9 @@ libraries:
   version: latest
 
 handlers:
+- url: /.well-known
+  static_dir: .well-known
+
 - url: /favicon\.ico
   static_files: static/images/favicon.ico
   upload: static/images/favicon\.ico
