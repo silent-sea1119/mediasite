@@ -3,9 +3,10 @@ import { browserHistory } from 'react-router';
 import 'materialize-css';
 
 import MediasiteApi from '../api/MediasiteApi';
-import MaterializeSelect from '../components/materialize/Select';
 
+import MaterializeSelect from '../components/materialize/Select';
 import SongPartCreator from '../components/SongPartCreator';
+import SongField from '../components/SongField';
 
 const MUSICAL_KEYS = ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B'];
 const TEXT_SIZES = [10, 11, 12, 13, 14, 15, 16, 18, 20, 24];
@@ -23,6 +24,7 @@ export default class EditSong extends React.Component {
     publisher: '',
     songOrder: '',
     externalUrl: '',
+    notes: '',
     songKey: '',
     songPartData: []
   };
@@ -45,6 +47,7 @@ export default class EditSong extends React.Component {
       songOrder: this.state.songOrder,
       externalUrl: this.state.externalUrl,
       songKey: this.state.songKey,
+      notes: this.state.notes,
       songData: this.gatherSongData()
     };
     MediasiteApi.createSong(songObj, (response) => {
@@ -115,6 +118,7 @@ export default class EditSong extends React.Component {
                 <input id="externalUrl" type="text" className="validate" value={this.state.externalUrl} onChange={(event) => this.handleFormChange(event, 'externalUrl')}/>
                 <label htmlFor="externalUrl">External URL</label>
               </div>
+              <SongField fieldId='notes' fieldValue={this.state.notes} handleOnChange={(event) => this.handleFormChange(event, 'notes')} labelText='Notes' />
               <input className="btn" type="submit" />
             </form>
           </div>

@@ -3,9 +3,10 @@ import { browserHistory } from 'react-router';
 import 'materialize-css';
 
 import MediasiteApi from '../api/MediasiteApi';
-import MaterializeSelect from '../components/materialize/Select';
 
+import MaterializeSelect from '../components/materialize/Select';
 import SongPartCreator from '../components/SongPartCreator';
+import SongField from '../components/SongField';
 
 const MUSICAL_KEYS = ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B'];
 const TEXT_SIZES = [10, 11, 12, 13, 14, 15, 16, 18, 20, 24];
@@ -145,13 +146,4 @@ export default class EditSong extends React.Component {
       </div>
     );
   }
-}
-
-const SongField = ({fieldValue, handleOnChange, fieldId, labelText}) => {
-  return (
-    <div className="input-field col s12">
-      <input id={fieldId} type="text" className="validate" value={fieldValue} onChange={handleOnChange}/>
-      <label htmlFor={fieldId}>{labelText}</label>
-    </div>
-  );
 }
