@@ -2,14 +2,20 @@ import React from 'react';  // Required for JSX magicks
 import { Link } from 'react-router';
 
 const MediasiteHeader = (props) => {
+  let addSongLink = '';
+  let songsLink = '';
+  if (props.loggedIn) {
+    addSongLink = <li><Link to='/song/new'>Add Song</Link></li>;
+    songsLink = <li><Link to='/songs'>Songs</Link></li>;
+  }
   return (
     <nav>
       <div className='nav-wrapper'>
         <Link to='/' className='brand-logo'>Circle's Mediasite</Link>
         <a href="#" data-activates="mobile-demo" className="button-collapse"><i className="material-icons">menu</i></a>
         <ul className='right hide-on-med-and-down'>
-          <li><Link to='/song/new'>Add Song</Link></li>
-          <li><Link to='/songs'>Songs</Link></li>
+          {addSongLink}
+          {songsLink}
           <li>
             <a href='#'>{props.user !== null ? props.user.firstName : ''}</a>
           </li>
