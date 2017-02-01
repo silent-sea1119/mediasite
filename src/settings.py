@@ -12,7 +12,7 @@ MEDIASITE_SEARCH_SONGS_URL = MEDIASITE_SONGS_URL + 'Search/'
 
 # Production Plugin App Id
 THE_CITY_APP_ID = '6212dc830a5933fa4db00b57cc16f5b6933c094c47b5d0eddb8bc05d13a94c9e'
-OAUTH_CALLBACK_BASE = 'http://cdac-mediasite.appspot.com'
+OAUTH_CALLBACK_BASE = 'https://media.cdac.com'
 
 # Localhost specific config
 if 'SERVER_SOFTWARE' in os.environ and os.environ['SERVER_SOFTWARE'].startswith('Development'):

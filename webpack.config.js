@@ -23,7 +23,7 @@ module.exports = {
     },
     output: {
         path: 'src/static/js/',
-        filename: '[name].[chunkhash].js',
+        filename: '[name].js',
         publicPath: '/static/js/'
     },
     resolve: {
