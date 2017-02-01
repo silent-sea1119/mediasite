@@ -27,6 +27,11 @@ export default class SongSheetConfigurator extends React.Component {
     browserHistory.push(this.calculateSongUrl());
   };
 
+  handleGeneratePreview = (event) => {
+    event.preventDefault();
+    browserHistory.push(this.calculateSongUrl() + '&preview=true');
+  };
+
   updateChosenSongKey = (event) => {
     const newKey = event.target.value;
     this.setState({ songKey: newKey });
