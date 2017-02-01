@@ -22,6 +22,10 @@ export default class SongSheetConfigurator extends React.Component {
     return `/song/${this.props.songId}/print?songKey=${this.state.songKey}&textSize=${this.state.textSize}&printArrangements=${this.arrangement.checked}&printChords=${this.chords.checked}&printPartNames=${this.partNames.checked}`;
   }
 
+  calculatePreviewUrl() {
+    return this.calculateSongUrl() + '&preview=true';
+  }
+
   handleGenerateSheet = (event) => {
     event.preventDefault();
     browserHistory.push(this.calculateSongUrl());
@@ -29,7 +33,7 @@ export default class SongSheetConfigurator extends React.Component {
 
   handleGeneratePreview = (event) => {
     event.preventDefault();
-    browserHistory.push(this.calculateSongUrl() + '&preview=true');
+    browserHistory.push(this.calculatePreviewUrl());
   };
 
   updateChosenSongKey = (event) => {
@@ -74,8 +78,8 @@ export default class SongSheetConfigurator extends React.Component {
           </p>
         </div>
         <div className="card-action">
-          <a onClick={this.handleGenerateSheet} href="#">Generate Sheet</a>
-          <a onClick={this.handleGeneratePreview} href="#">Generate Preview</a>
+          <a onClick={this.handleGenerateSheet} href={this.calculateSongUrl}>Generate Sheet</a>
+          <a onClick={this.handleGeneratePreview} href={this.calculatePreviewUrl}>Generate Preview</a>
         </div>
       </div>
     );
