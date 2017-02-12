@@ -17,7 +17,7 @@ OAUTH_CALLBACK_BASE = 'https://media.cdac.ca'
 # Localhost specific config
 if 'SERVER_SOFTWARE' in os.environ and os.environ['SERVER_SOFTWARE'].startswith('Development'):
     THE_CITY_APP_ID = '61ec5a595872743a091b10ddb070a62785ef8bf038fdce9495fffe23fcde4380'
-    OAUTH_CALLBACK_BASE = 'http://localhost:8079'
+    OAUTH_CALLBACK_BASE = 'http://localhost:8078'
 
 THE_CITY_OAUTH_CALLBACK_URI = OAUTH_CALLBACK_BASE + '/api/v1/cityoauth/callback/'
 THE_CITY_LOGIN_REDIRECT_URI = 'https://authentication.onthecity.org/oauth/authorize?response_type=code' \

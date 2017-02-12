@@ -12,7 +12,7 @@ To get things up and running, here's "all" you have to do:
   4. `npm run build-js` (to compile the Javascript app)
   5. `npm run build-css` (to compile the styles for the app)
   6. `npm start` (starts a gcloud server appropriately)
-3. Navigate to `http://localhost:8079`
+3. Navigate to `http://localhost:8078`
 
 Those steps will work best on \*nix. Here's what I found worked for me on Windows (10):
 
