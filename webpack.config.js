@@ -18,8 +18,8 @@ if (args.watch) {
 
 module.exports = {
     entry: {
-        mediasite: './src/static/js/app/mediasite.js',
-        vendor: './src/static/js/app/vendor.js'
+        mediasite: './client/mediasite.js',
+        vendor: './client/vendor.js'
     },
     output: {
         path: 'src/static/js/',

@@ -1,4 +1,9 @@
 export default class MediasiteApi {
+  static trackSongSheetCreation(songId) {
+    fetch(`/api/v1/song/${songId}/track/`)
+      .then((response) => response.json())
+  }
+
   static getSongs(searchText, callback) {
     fetch(`/api/v1/songs/get/?searchText=${searchText}`)
       .then((response) => response.json())

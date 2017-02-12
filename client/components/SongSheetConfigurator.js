@@ -78,8 +78,8 @@ export default class SongSheetConfigurator extends React.Component {
           </p>
         </div>
         <div className="card-action">
-          <a onClick={this.handleGenerateSheet} href={this.calculateSongUrl}>Generate Sheet</a>
-          <a onClick={this.handleGeneratePreview} href={this.calculatePreviewUrl}>Generate Preview</a>
+          <a onClick={this.handleGenerateSheet} href="#">Generate Sheet</a>
+          <a onClick={this.handleGeneratePreview} href="#">Generate Preview</a>
         </div>
       </div>
     );
