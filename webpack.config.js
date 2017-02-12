@@ -10,7 +10,7 @@ let pluginList = [
     new webpack.optimize.CommonsChunkPlugin({
         names: ['vendor', 'manifest'] // Specify the common bundle's name.
     }),
-    new HtmlWebpackPlugin({template: './src/templates/base_template.html', filename: '../../templates/base.html'})
+    new HtmlWebpackPlugin({template: './server/templates/base_template.html', filename: '../../templates/base.html'})
 ];
 if (args.watch) {
     pluginList.push(new DashboardPlugin());
@@ -22,7 +22,7 @@ module.exports = {
         vendor: './client/vendor.js'
     },
     output: {
-        path: 'src/static/js/',
+        path: 'server/static/js/',
         filename: '[name].js',
         publicPath: '/static/js/'
     },

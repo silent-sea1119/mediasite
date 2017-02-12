@@ -5,15 +5,15 @@ data/*
 coverage-report/*
 jspm_packages/*
 */jspm_packages/*
-src/static/js/vendor/jspm_packages/*
-src/static/vendor/*
+server/static/js/vendor/jspm_packages/*
+server/static/vendor/*
 .DS_Store
-src/static/js/mediasite.js*
-src/static/css/*
-src/settings_secret.py
+server/static/js/mediasite.js*
+server/static/css/*
+server/settings_secret.py
 build
 
-src/static/js/manifest.js
-src/static/js/mediasite.js
-src/static/js/vendor.js
-src/templates/base.html
+server/static/js/manifest.js
+server/static/js/mediasite.js
+server/static/js/vendor.js
+server/templates/base.html
