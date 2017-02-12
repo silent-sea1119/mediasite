@@ -6,6 +6,7 @@ const YouTube = ({ youTubeLink }) => {
     const parser = document.createElement('a');
     parser.href = youTubeLink;
     const queryParams = parser.search.substr(1); // Strip initial '?'
+    // Youtu.be links do not work, need to fix.
     youTubeId = queryParams.split('&').filter((pair) => pair.substr(0, 1) === 'v')[0].split('=')[1];
   } else {
     youTubeId = youTubeLink;
