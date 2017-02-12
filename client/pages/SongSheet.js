@@ -53,10 +53,12 @@ class SongSheet extends React.Component {
 
     const arrangementSection = printArrangements === 'true' ? <div className="ArrangementTitle">Arrangement: {songData.songOrder}</div> : '';
 
+    const previewSection = this.state.previewing ? <div className="preview-only">Preview Only</div> : null;
     return (
       <div style={{backgroundColor: 'white', padding: '10px'}}>
         <div className="song-data">
           <div className="card-title">{songData.title}</div>
+          {previewSection}
           <p>{songData.author1}{songData.author2 ? ` & ${songData.author2}` : ``}</p>
           <p>Key: {valueOrEmptyString(songData.songKey)}</p>
           <p>Style: {valueOrEmptyString(songData.style)}</p>
