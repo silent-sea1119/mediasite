@@ -32,16 +32,16 @@
   "scripts": {
     "build-js": "webpack",
     "watch-js": "webpack-dashboard -- webpack --watch",
-    "build-css": "node-sass --include-path scss src/static/scss/main.scss src/static/css/global.css",
+    "build-css": "node-sass --include-path scss server/static/scss/main.scss server/static/css/global.css",
     "watch-css": "nodemon -e scss -x \"npm run build-css\"",
-    "test": "mocha './src/static/**/*.Spec.js' --compilers js:babel-core/register",
+    "test": "mocha './server/static/**/*.Spec.js' --compilers js:babel-core/register",
     "build-js:prod": "webpack -p",
     "build-css:prod": "node-sass --include-path scss build/static/scss/main.scss build/static/css/global.css",
-    "build:prod": "npm run clean && npm run build-js:prod && cp -r src build && npm run build-css:prod",
-    "move:prod": "npm run clean && cp -r src build && npm run build-css:prod",
+    "build:prod": "npm run clean && npm run build-js:prod && cp -r server build && npm run build-css:prod",
+    "move:prod": "npm run clean && cp -r server build && npm run build-css:prod",
     "clean": "rm -rf build",
     "deploy:prod": "gcloud app deploy --project=cdac-mediasite build/app.yaml -q --promote",
     "bnd": "npm run build:prod && npm run deploy:prod",
-    "start": "dev_appserver.py src/app.yaml --port=8078 --admin_port=9078 --storage_path=./data/"
+    "start": "dev_appserver.py server/app.yaml --port=8078 --admin_port=9078 --storage_path=./data/"
   }
 }
