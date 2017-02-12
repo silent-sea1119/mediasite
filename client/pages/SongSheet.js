@@ -8,16 +8,29 @@ import SongData from '../components/SongData.js';
 class SongSheet extends React.Component {
   state = {
     isLoading: true,
-    songData: {}
+    songData: {},
+    previewing: null,
+    songId: null
+  }
+
+  componentWillMount() {
+    this.setState({
+      previewing: this.props.location.query.preview || false,
+      songId: this.props.params.songId
+    });
   }
 
   componentDidMount() {
-    MediasiteApi.getSongById(this.props.params.songId, (songData) => {
+    const {songId, previewing} = this.state;
+    MediasiteApi.getSongById(songId, (songData) => {
       this.setState({
         songData: songData.data,
         isLoading: false
       });
     });
+    if (!previewing) {
+      MediasiteApi.trackSongSheetGeneration(songId);
+    }
   }
 
   render() {

@@ -1,7 +1,8 @@
 export default class MediasiteApi {
-  static trackSongSheetCreation(songId) {
-    fetch(`/api/v1/song/${songId}/track/`)
-      .then((response) => response.json())
+  static trackSongSheetGeneration(songId) {
+    return fetch(`/api/v1/song/${songId}/track/`, { method: 'PUT' })
+      .then(response => response.json())
+      .catch(err => console.log("Couldn't reach the server for some reason: ", err));
   }
 
   static getSongs(searchText, callback) {
