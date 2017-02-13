@@ -6,6 +6,7 @@ ROUTES = [
     Route('/api/v1/songs/get/', handler='app.views.api.v1.songs.SongsApiHandler'),
     Route('/api/v1/song/', handler='app.views.api.v1.songs.SongApiHandler'),
     Route('/api/v1/song/<song_id>', handler='app.views.api.v1.songs.SongApiHandler'),
+    Route('/api/v1/song/<song_id>/track/', handler='app.views.api.v1.songs.SongSheetGenerationApiHandler'),
     Route('/api/v1/user/login/', handler='app.views.api.v1.user.LoginHandler'),
     Route('/api/v1/user/get/<user_id:\d+>', handler='app.views.api.v1.user.GetUserInfoHandler'),
     Route('/api/v1/cityoauth/callback/', handler='app.views.api.v1.oauth.OauthRedirectCallbackHandler'),

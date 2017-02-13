@@ -7,6 +7,7 @@ from app.song import create_song
 from app.song import get_song_by_id
 from app.song import search_songs_by_title, get_song_api_dict_by_id
 from app.song import update_song_by_id
+from app.sheet_generation import track_song_sheet_generation
 from app.views.api import JsonApiHandler
 
 
@@ -57,3 +58,13 @@ class SongsApiHandler(JsonApiHandler):
         search_text = self.request.GET.get('searchText', '')
         result = search_songs_by_title(search_text)
         return self.render_response(result)
+
+
+class SongSheetGenerationApiHandler(JsonApiHandler):
+    """
+    API for tracking a song sheet being generated.
+    """
+    def put(self, song_id):
+        """ PUT """
+        track_song_sheet_generation(song_id)
+        self.render_response(True)
