@@ -33,7 +33,7 @@
   },
   "scripts": {
     "build-js": "webpack",
-    "watch-js": "webpack-dashboard -- webpack --watch",
+    "watch-js": "webpack-dashboard -- webpack --watch -p",
     "build-css": "node-sass --include-path scss server/static/scss/main.scss server/static/css/global.css",
     "watch-css": "nodemon -e scss -x \"npm run build-css\"",
     "test": "mocha './server/static/**/*.Spec.js' --compilers js:babel-core/register",

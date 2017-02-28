@@ -5,7 +5,7 @@ const MaterializeSelect = ({options, label, selectValue, handleOnSelect}) => {
   options.unshift(<option key='empty' value=''></option>);
 
   return (
-    <div>
+    <div style={{ marginBottom: '10px' }}>
       <label>{label}</label>
       <select className="browser-default" defaultValue={selectValue} onChange={handleOnSelect}>
         {options}

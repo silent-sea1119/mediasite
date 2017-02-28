@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter } from 'react-router';
+import browserHistory from 'react-router/lib/browserHistory';
 
 import MediasiteApi from '../api/MediasiteApi';
 

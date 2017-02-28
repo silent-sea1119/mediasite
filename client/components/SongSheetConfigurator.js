@@ -1,5 +1,5 @@
 import React from 'react';
-import { browserHistory } from 'react-router';
+import browserHistory from 'react-router/lib/browserHistory';
 
 import MaterializeSelect from './materialize/Select';
 
@@ -65,15 +65,15 @@ export default class SongSheetConfigurator extends React.Component {
             label="Text Size"
           />
           <p>
-            <input ref={(input) => this.arrangement = input} defaultChecked type="checkbox" id="arrangement"/>
+            <input ref={(input) => this.arrangement = input} defaultChecked type="checkbox" id="arrangement" className="filled-in"/>
             <label htmlFor="arrangement">Print Arrangement</label>
           </p>
           <p>
-            <input ref={(input) => this.chords = input} type="checkbox" defaultChecked id="chords" />
+            <input ref={(input) => this.chords = input} type="checkbox" defaultChecked id="chords" className="filled-in"/>
             <label htmlFor="chords">Print Chords</label>
           </p>
           <p>
-            <input ref={(input) => this.partNames = input} type="checkbox" defaultChecked id="partnames" />
+            <input ref={(input) => this.partNames = input} type="checkbox" defaultChecked id="partnames" className="filled-in"/>
             <label htmlFor="partnames">Print Part Names</label>
           </p>
         </div>

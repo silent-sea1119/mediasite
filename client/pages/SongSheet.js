@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter } from "react-router";
+import withRouter from "react-router/lib/withRouter";
 
 import MediasiteApi from '../api/MediasiteApi';
 import { Song } from '../mediacodec/Song.js';

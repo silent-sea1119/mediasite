@@ -1,5 +1,5 @@
 import React from 'react';  // Required for JSX magicks
-import { Link } from 'react-router';
+import Link from 'react-router/lib/Link';
 
 const MediasiteHeader = (props) => {
   let addSongLink = '';
