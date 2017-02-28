@@ -110,7 +110,7 @@ export default class EditSong extends React.Component {
     const cancelButton = <button 
       className="btn btn-flat" 
       style={{marginLeft: '5px'}}
-      onClick={() => browserHistory.back()}>
+      onClick={() => {debugger; browserHistory.goBack();}}>
         Cancel
     </button>;
     return (
