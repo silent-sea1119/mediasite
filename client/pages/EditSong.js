@@ -107,6 +107,7 @@ export default class EditSong extends React.Component {
     const keyOptions = MUSICAL_KEYS.map((key) => {
       return <option key={key} value={key}>{key}</option>;
     });
+    const cancelButton = <button className="btn btn-flat" onClick={() => browserHistory.push(`/song/${this.props.params.songId}`)}>Cancel</button>;
     return (
       <div>
         <div className="card">
@@ -131,6 +132,7 @@ export default class EditSong extends React.Component {
               <SongField fieldId='externalUrl' fieldValue={this.state.externalUrl} handleOnChange={(event) => this.handleFormChange(event, 'externalUrl')} labelText='External URL' />
               <SongField fieldId='notes' fieldValue={this.state.notes} handleOnChange={(event) => this.handleFormChange(event, 'notes')} labelText='Notes' />
               <input className="btn" type="submit" />
+              {cancelButton}
             </form>
           </div>
         </div>
@@ -140,6 +142,7 @@ export default class EditSong extends React.Component {
             <form onSubmit={this.handleFormSubmit.bind(this)}>
               <SongPartCreator songParts={this.state.songPartData.parts || []} ref={(input) => this.songPartData = input}></SongPartCreator>
               <input className="btn" type="submit" />
+              {cancelButton}
             </form>
           </div>
         </div>
