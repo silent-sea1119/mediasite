@@ -1,5 +1,7 @@
 {
   "dependencies": {
+    "autosize": "^3.0.20",
+    "bower": "^1.8.0",
     "fetch": "^1.1.0",
     "lodash": "^4.15.0",
     "materialize-css": "^0.97.7",
@@ -42,6 +44,7 @@
     "clean": "rm -rf build",
     "deploy:prod": "gcloud app deploy --project=cdac-mediasite build/app.yaml -q --promote",
     "bnd": "npm run build:prod && npm run deploy:prod",
-    "start": "dev_appserver.py server/app.yaml --port=8078 --admin_port=9078 --storage_path=./data/"
+    "start": "dev_appserver.py server/app.yaml --port=8078 --admin_port=9078 --storage_path=./data/",
+    "bower-install": "bower install"
   }
 }

@@ -1,5 +1,7 @@
 import React from 'react';
 
+import autosize from 'autosize';
+
 import { decodeNoteLine, songParagraphToJson } from '../mediacodec/helpers.js';
 
 export default class SongPartCreator extends React.Component {
@@ -56,6 +58,7 @@ export default class SongPartCreator extends React.Component {
 
   componentDidMount() {
     this.hydrateSongData();
+    autosize(document.querySelectorAll('textarea'));
   }
 
   render() {
