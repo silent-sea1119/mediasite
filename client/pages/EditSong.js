@@ -51,7 +51,7 @@ export default class EditSong extends React.Component {
           isLoading: false
         });
         if (typeof Materialize.updateTextFields === 'function') {
-          setTimeout(Materialize.updateTextFields, 300);
+          setTimeout(Materialize.updateTextFields, 200);
         }
       });
     }
@@ -107,7 +107,12 @@ export default class EditSong extends React.Component {
     const keyOptions = MUSICAL_KEYS.map((key) => {
       return <option key={key} value={key}>{key}</option>;
     });
-    const cancelButton = <button className="btn btn-flat" onClick={() => browserHistory.push(`/song/${this.props.params.songId}`)}>Cancel</button>;
+    const cancelButton = <button 
+      className="btn btn-flat" 
+      style={{marginLeft: '5px'}}
+      onClick={() => browserHistory.push(`/song/${this.props.params.songId}`)}>
+        Cancel
+    </button>;
     return (
       <div>
         <div className="card">
