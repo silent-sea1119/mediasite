@@ -6,7 +6,7 @@ import json
 from app.song import create_song
 from app.song import get_song_by_id
 from app.song import search_songs_by_title, get_song_api_dict_by_id
-from app.song import update_song_by_id
+from app.song import update_song_by_id, track_song_edit
 from app.sheet_generation import track_song_sheet_generation
 from app.views.api import JsonApiHandler
 
@@ -27,6 +27,7 @@ class SongApiHandler(JsonApiHandler):
             return self.abort(404)
         song_body = json.loads(self.request.body)
         update_song_by_id(song_id, **self._convert_camel_to_snake(song_body))
+        track_song_edit(song_body['user_id'], song_id)
         return self.render_response({'songId': song.song_id})
 
     @staticmethod
@@ -39,7 +40,8 @@ class SongApiHandler(JsonApiHandler):
             u'external_url': song_body.pop('externalUrl', u''),
             u'font_size': song_body.pop('fontSize', u''),
             u'song_data': song_body.pop('songData', u''),
-            u'song_key': song_body.pop('songKey', u'')
+            u'song_key': song_body.pop('songKey', u''),
+            u'user_id': song_body.pop('userId', u''),
         }
         song_body.update(converts)
         return song_body

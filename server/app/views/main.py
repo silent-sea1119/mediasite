@@ -8,5 +8,6 @@ class MainView(TemplatedView):
     """
     Main view.
     """
-    def get(self, *args, **kwargs):
+    def get(self):
+        """ Get route for main app """
         self.render_reponse('base.html')
