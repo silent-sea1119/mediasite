@@ -3,6 +3,7 @@ settings
 """
 import os
 
+UNDEFINED = object()
 
 MEDIASITE_API_KEY = 'FDEOJERG4523DFOIP'
 MEDIASITE_BASE_URL = 'http://api.media2.cdac.ca/'

@@ -1,5 +1,9 @@
 """ API for dealing with songs """
-from .model import Song
+from google.appengine.ext import ndb
+
+from ._model import Song, EditHistoryItem
+
+from settings import UNDEFINED
 
 
 def get_song_by_id(song_id):
@@ -18,7 +22,7 @@ def get_song_api_dict_by_id(song_id, with_song_data=False):
 def create_song(title, author1, song_key,
                 author2=None, ccli=None, style=None, use1=None, use2=None, copy_date=None, bible_reference=None,
                 youtube_link=None, publisher=None, notes=None, song_order=None, external_url=None, font_size=None,
-                song_data=None):
+                song_data=None, user_id=None):
     """ Create a song and return its id """
     song_id = Song.generate_song_id()
     song = Song(
@@ -40,20 +44,26 @@ def create_song(title, author1, song_key,
         song_order=song_order,
         external_url=external_url,
         font_size=font_size,
-        song_data=song_data
+        song_data=song_data,
+        created_by_user_id=user_id
     )
     song.put()
 
     return song_id
 
 
+@ndb.transactional()
 def update_song_by_id(song_id, **kwargs):
     """ Update a song by its id, passing in kwargs to do so """
     song = get_song_by_id(song_id)
-    for key, value in kwargs.iteritems():
-        if hasattr(song, key):
-            setattr(song, key, value)
-    song.put()
+    if kwargs.has_key('user_id'):
+        kwargs['last_edited_by_user_id'] = kwargs.pop('user_id')
+    song.apply_changes(**kwargs)
+
+
+def track_song_edit(user_id, song_id):
+    """ Mark that a song has been edited by a user """
+    return EditHistoryItem.create(user_id, song_id)
 
 
 def search_songs_by_title(search_text):

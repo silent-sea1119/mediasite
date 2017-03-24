@@ -1,5 +1,6 @@
 import React from 'react';
 import withRouter from 'react-router/lib/withRouter';
+import debounce from 'lodash.debounce';
 
 import MediasiteApi from '../api/MediasiteApi';
 

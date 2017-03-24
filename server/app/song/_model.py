@@ -5,6 +5,8 @@ from tinyid import TinyIDGenerator
 
 from google.appengine.ext import ndb
 
+from settings import UNDEFINED
+
 
 class Song(ndb.Model):
     """ Songs """
@@ -27,6 +29,17 @@ class Song(ndb.Model):
     external_url = ndb.StringProperty()
     font_size = ndb.StringProperty()
     song_data = ndb.JsonProperty()
+    created_by_user_id = ndb.StringProperty()
+    last_edited_by_user_id = ndb.StringProperty()
+
+    def apply_changes(self, **kwargs):
+        """ Update a song """
+        assert ndb.in_transaction()
+        for key, value in kwargs.iteritems():
+            if value is not UNDEFINED:
+                setattr(self, key, value)
+        self.put()
+        return self
 
     @classmethod
     def build_key(cls, song_id):
@@ -58,5 +71,25 @@ class Song(ndb.Model):
             "songOrder": self.song_order,
             "externalUrl": self.external_url,
             "fontSize": self.font_size,
-            "songData": self.song_data if with_song_data and self.song_data else {}
+            "songData": self.song_data if with_song_data and self.song_data else {},
+            "createdByUserId": self.created_by_user_id,
+            "lastEditedByUserId": self.last_edited_by_user_id,
         }
+
+
+class EditHistoryItem(ndb.Model):
+    """ Model for tracking edits made to songs """
+    user_id = ndb.StringProperty(required=True)
+    song_id = ndb.StringProperty(required=True)
+    edit_date = ndb.DateTimeProperty(auto_now_add=True)
+
+    @classmethod
+    def create(cls, user_id, song_id):
+        """ Create an EditHistoryItem and put it, then return it """
+        entity = cls(
+            user_id=user_id,
+            song_id=song_id,
+        )
+        entity.put()
+
+        return entity

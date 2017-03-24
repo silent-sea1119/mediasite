@@ -1,4 +1,8 @@
 export default class MediasiteApi {
+  static addUserTracking(songData) {
+    return {...songData, userId: localStorage.userId};
+  }
+
   static trackSongSheetGeneration(songId) {
     return fetch(`/api/v1/song/${songId}/track/`, { method: 'PUT' })
       .then(response => response.json())
@@ -18,6 +22,7 @@ export default class MediasiteApi {
   }
 
   static createSong(songData, callback) {
+    songData = MediasiteApi.addUserTracking(songData);
     fetch(`/api/v1/song/`, {
       method: 'PUT',
       headers: {
@@ -30,6 +35,7 @@ export default class MediasiteApi {
   }
 
   static updateSong(songData, callback) {
+    songData = MediasiteApi.addUserTracking(songData);
     fetch(`/api/v1/song/${songData.songId}`, {
       method: 'POST',
       headers: {
