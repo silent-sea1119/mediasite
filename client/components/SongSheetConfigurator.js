@@ -4,12 +4,12 @@ import browserHistory from 'react-router/lib/browserHistory';
 import MaterializeSelect from './materialize/Select';
 
 const MUSICAL_KEYS = ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B'];
-const TEXT_SIZES = [16, 18, 20, 24]; // unused for now 10, 11, 12, 13, 14, 15,
+const TEXT_SIZES = [10, 11, 12, 13, 14, 15, 16, 18, 20, 24];
 
 export default class SongSheetConfigurator extends React.Component {
   state = {
     songKey: '',
-    textSize: 16
+    textSize: 14
   };
 
   componentWillMount() {
@@ -41,6 +41,11 @@ export default class SongSheetConfigurator extends React.Component {
     this.setState({ songKey: newKey });
   };
 
+  updateChosenTextSize = (event) => {
+    const newTextSize = event.target.value;
+    this.setState({ textSize: newTextSize });
+  }
+
   render() {
     const keyOptions = MUSICAL_KEYS.map((key) => {
       return <option key={key} value={key}>{key}</option>;
@@ -63,6 +68,7 @@ export default class SongSheetConfigurator extends React.Component {
             selectValue={this.state.textSize}
             options={textSizeOptions}
             label="Text Size"
+            handleOnSelect={this.updateChosenTextSize}
           />
           <p>
             <input ref={(input) => this.arrangement = input} defaultChecked type="checkbox" id="arrangement" className="filled-in"/>

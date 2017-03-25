@@ -12,7 +12,7 @@ class Song {
     this.songJson = songJson;
   }
 
-  toHtml(transposeKey) {
+  toHtml(transposeKey, textSize) {
     // TODO: This doesn't smell right, probably need to go with dependency injection at some point
     const transposer = this.createTransposer(transposeKey);
 
@@ -23,11 +23,11 @@ class Song {
         let partLineHtml;
         if (songDatum.lyric !== null) {
           partLineHtml = `
-            <span class="lyricLine">${replaceAll(' ', '&nbsp;', songDatum.lyric)}</span>
+            <span class="lyricLine text-size-${textSize}">${replaceAll(' ', '&nbsp;', songDatum.lyric)}</span>
           `;
         } else {
           let line = this.generateNoteLine(songDatum.note, transposer);  // TODO: songDatum.note should be notes someday
-          partLineHtml = `<span class='SongNoteLine'>${line}</span>`;
+          partLineHtml = `<span class='SongNoteLine text-size-${textSize}'>${line}</span>`;
         }
         return previousPartHtml + '<br />' + partLineHtml;
       }, '');
