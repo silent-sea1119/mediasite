@@ -39,6 +39,7 @@ class FilterableSongTable extends React.Component {
     }
 
     if (this.state.songData.length === 0) {
+      // Only load song data the first time...
       MediasiteApi.getSongs(searchText, (songData) => {
         this.setState({
           songData: songData.data,
