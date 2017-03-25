@@ -1,6 +1,5 @@
 import React from 'react';
 import withRouter from 'react-router/lib/withRouter';
-import debounce from 'lodash.debounce';
 
 import MediasiteApi from '../api/MediasiteApi';
 
@@ -8,6 +7,8 @@ import SongTileGroup from './../components/SongTileGroup';
 import SearchBar from './../components/SearchBar';
 
 class FilterableSongTable extends React.Component {
+  timeout = null;
+
   state = {
     searchText: '',
     songData: [],
@@ -50,7 +51,12 @@ class FilterableSongTable extends React.Component {
       searchText  // TODO: Has to be a way to do this stuff without setting state twice
     });
     // TODO: Attempt to avoid hammering the API with requests as someone types.
-    this.getSongsFromApi(searchText);
+    if (this.timeout) {
+      clearTimeout(this.timeout);
+    }
+    this.timeout = setTimeout(() => {
+      this.getSongsFromApi(searchText);
+    }, 400);
   };
 
   render() {
