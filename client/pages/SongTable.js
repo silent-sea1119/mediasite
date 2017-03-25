@@ -1,6 +1,5 @@
 import React from 'react';
 import withRouter from 'react-router/lib/withRouter';
-import debounce from 'lodash.debounce';
 
 import MediasiteApi from '../api/MediasiteApi';
 
@@ -8,6 +7,8 @@ import SongTileGroup from './../components/SongTileGroup';
 import SearchBar from './../components/SearchBar';
 
 class FilterableSongTable extends React.Component {
+  timeout = null;
+
   state = {
     searchText: '',
     songData: [],
@@ -37,12 +38,19 @@ class FilterableSongTable extends React.Component {
       this.props.router.replace('/songs');
     }
 
-    MediasiteApi.getSongs(searchText, (songData) => {
+    if (this.state.songData.length === 0) {
+      // Only load song data the first time...
+      MediasiteApi.getSongs(searchText, (songData) => {
+        this.setState({
+          songData: songData.data,
+          isLoading: false
+        });
+      });
+    } else {
       this.setState({
-        songData: songData.data,
         isLoading: false
       });
-    });
+    }
   }
 
   handleUserInput = (searchText) => {
@@ -50,7 +58,12 @@ class FilterableSongTable extends React.Component {
       searchText  // TODO: Has to be a way to do this stuff without setting state twice
     });
     // TODO: Attempt to avoid hammering the API with requests as someone types.
-    this.getSongsFromApi(searchText);
+    if (this.timeout) {
+      clearTimeout(this.timeout);
+    }
+    this.timeout = setTimeout(() => {
+      this.getSongsFromApi(searchText);
+    }, 400);
   };
 
   render() {

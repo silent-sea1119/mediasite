@@ -2,7 +2,6 @@ import 'materialize-css';
 import React from 'react';
 import { render } from 'react-dom';
 import map from 'lodash.map';
-import debounce from 'lodash.debounce';
 import Router from 'react-router/lib/Router';
 import Route from 'react-router/lib/Route';
 import IndexRoute from 'react-router/lib/IndexRoute';

@@ -4,11 +4,16 @@ import map from 'lodash.map';
 import SongTile from './SongTile';
 
 export default class SongTileGroup extends React.Component {
+  noMatches(song, searchText) {
+    return song.title.toLowerCase().indexOf(searchText.toLowerCase()) === -1 &&
+      song.author1.toLowerCase().indexOf(searchText.toLowerCase()) === -1 &&
+      song.author2.toLowerCase().indexOf(searchText.toLowerCase()) === -1;
+  }
+
   render() {
     var searchText = this.props.searchText;
-    var songs = map(this.props.songs, function(song) {
-      if (searchText !== "" &&
-          song.title.toLowerCase().indexOf(searchText.toLowerCase()) === -1) {
+    var songs = map(this.props.songs, (song) => {
+      if (searchText !== "" && this.noMatches(song, searchText)) {
         return;
       }
       return <SongTile key={song.songId}
