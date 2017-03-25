@@ -68,7 +68,7 @@ class SongSheet extends React.Component {
           {copyrightSection}
         </div>
         {arrangementSection}
-        <div dangerouslySetInnerHTML={{__html: song.toHtml(songKey)}}></div>
+        <div dangerouslySetInnerHTML={{__html: song.toHtml(songKey, textSize)}}></div>
       </div>
     )
   }
