@@ -57,13 +57,7 @@ class FilterableSongTable extends React.Component {
     this.setState({
       searchText  // TODO: Has to be a way to do this stuff without setting state twice
     });
-    // TODO: Attempt to avoid hammering the API with requests as someone types.
-    if (this.timeout) {
-      clearTimeout(this.timeout);
-    }
-    this.timeout = setTimeout(() => {
-      this.getSongsFromApi(searchText);
-    }, 400);
+    this.getSongsFromApi(searchText);
   };
 
   render() {
