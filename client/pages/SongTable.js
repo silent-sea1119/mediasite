@@ -38,12 +38,18 @@ class FilterableSongTable extends React.Component {
       this.props.router.replace('/songs');
     }
 
-    MediasiteApi.getSongs(searchText, (songData) => {
+    if (this.state.songData.length === 0) {
+      MediasiteApi.getSongs(searchText, (songData) => {
+        this.setState({
+          songData: songData.data,
+          isLoading: false
+        });
+      });
+    } else {
       this.setState({
-        songData: songData.data,
         isLoading: false
       });
-    });
+    }
   }
 
   handleUserInput = (searchText) => {
