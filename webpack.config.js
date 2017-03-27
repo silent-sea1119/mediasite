@@ -1,12 +1,13 @@
 const webpack = require('webpack');
 const DashboardPlugin = require('webpack-dashboard/plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const args = require('yargs').argv;
+const path = require('path');
 
 const ENV = process.env.NODE_ENV;
 
 let pluginList = [
-    // new webpack.ProvidePlugin({'Promise': 'es6-promise', 'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'}),
     new webpack.optimize.CommonsChunkPlugin({
         names: ['vendor', 'manifest'] // Specify the common bundle's name.
     }),
@@ -15,6 +16,9 @@ let pluginList = [
 if (args.watch) {
     pluginList.push(new DashboardPlugin());
 }
+if (args.analyze) {
+    pluginList.push(new BundleAnalyzerPlugin());
+}
 
 module.exports = {
     entry: {
@@ -22,15 +26,9 @@ module.exports = {
         vendor: './client/vendor.js'
     },
     output: {
-        path: 'server/static/js/',
+        path: path.resolve(__dirname, 'server/static/js/'),
         filename: '[name].js',
         publicPath: '/static/js/'
-    },
-    resolve: {
-      // alias: {
-      //   'react': 'preact-compat',
-      //   'react-dom': 'preact-compat'
-      // },
     },
     module: {
         rules: [
