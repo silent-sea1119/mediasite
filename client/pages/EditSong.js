@@ -110,7 +110,7 @@ export default class EditSong extends React.Component {
     const cancelButton = <button 
       className="btn btn-flat" 
       style={{marginLeft: '5px'}}
-      onClick={() => {debugger; browserHistory.goBack();}}>
+      onClick={() => {browserHistory.goBack();}}>
         Cancel
     </button>;
     return (
@@ -127,7 +127,7 @@ export default class EditSong extends React.Component {
                 selectValue={this.state.songKey}
                 options={keyOptions}
                 label="Song Key"
-                handleOnSelect={(event) => (event) => this.handleFormChange(event, 'songKey')}
+                handleOnSelect={(event) => this.handleFormChange(event, 'songKey')}
               />
               <SongField fieldId='ccli' fieldValue={this.state.ccli} handleOnChange={(event) => this.handleFormChange(event, 'ccli')} labelText='CCLI #' />
               <SongField fieldId='copyDate' fieldValue={this.state.copyDate} handleOnChange={(event) => this.handleFormChange(event, 'copyDate')} labelText='Copyright Date' />
