@@ -42,7 +42,7 @@ nav .nav-wrapper {
 	margin: 0px 0px 20px;
 }
 
-$sizes: 10, 11, 12, 13, 14, 15, 16, 18, 20, 24;
+$sizes: 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 20, 24;
 
 .SongNoteLine {
 	font-family: "Courier New", Courier, mono;
@@ -61,6 +61,12 @@ $sizes: 10, 11, 12, 13, 14, 15, 16, 18, 20, 24;
 		&.text-size-#{$size} {
 			font-size: #{$size}px;
 		}
+	}
+}
+
+@each $size in $sizes {
+	.text-size-#{$size} {
+		font-size: #{$size}px;
 	}
 }
 
