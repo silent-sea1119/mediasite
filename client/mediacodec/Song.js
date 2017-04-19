@@ -29,7 +29,7 @@ class Song {
           let line = this.generateNoteLine(songDatum.note, transposer);  // TODO: songDatum.note should be notes someday
           partLineHtml = `<span class='SongNoteLine text-size-${textSize}'>${line}</span>`;
         }
-        return previousPartHtml + '<br />' + partLineHtml;
+        return previousPartHtml + `<br class="text-size-${textSize}" />` + partLineHtml;
       }, '');
 
       return previousHtml + `
@@ -37,7 +37,7 @@ class Song {
           <div class="SongPartTitle">${songPart.partName}</div>
           ${partHtml}
         </div>
-        <br />
+        <br class="text-size-${textSize}" />
       `;
     }, "");
 
