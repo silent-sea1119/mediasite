@@ -28,7 +28,7 @@ nav .nav-wrapper {
     }
 }
 
-.SongNotes {
+.songPart {
 	font-family: "Courier New", Courier, mono;
 	font-style: normal;
 	font-size: 14px;
@@ -54,8 +54,8 @@ $sizes: 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 20, 24;
 	text-transform: none;
 	color: #000000;
 	text-decoration: none;
-	padding: 0px;
-	margin: 0px 0px 20px;
+	padding: 0;
+	margin: 0;
 
 	@each $size in $sizes {
 		&.text-size-#{$size} {
@@ -76,6 +76,8 @@ $sizes: 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 20, 24;
 			font-size: #{$size}px;
 		}
 	}
+
+	margin: 0 0 3px;
 }
 
 .SongTitle {
@@ -88,7 +90,7 @@ $sizes: 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 20, 24;
 	color: #000000;
 	text-decoration: none;
 	text-align: center;
-	margin: 0px;
+	margin: 0;
 }
 
 .Author {
@@ -101,7 +103,7 @@ $sizes: 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 20, 24;
 	color: #000000;
 	text-decoration: none;
 	text-align: center;
-	margin: 0px;
+	margin: 0;
 }
 
 .CopyRight {
@@ -114,15 +116,15 @@ $sizes: 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 20, 24;
 	color: #000000;
 	text-decoration: none;
 	text-align: center;
-	clip:  rect(0px auto auto auto);
-	margin: 0px;
+	clip:  rect(0 auto auto auto);
+	margin: 0;
 }
 
 .SongPartTitle {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	font-size: 10px;
 	font-weight: bold;
-	margin: 0px;
+	margin: 0;
 	color: #000000;
 	text-decoration: none;
 	font-style: normal;

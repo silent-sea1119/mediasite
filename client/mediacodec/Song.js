@@ -23,13 +23,13 @@ class Song {
         let partLineHtml;
         if (songDatum.lyric !== null) {
           partLineHtml = `
-            <span class="lyricLine text-size-${textSize}">${replaceAll(' ', '&nbsp;', songDatum.lyric)}</span>
+            <p class="lyricLine text-size-${textSize}">${replaceAll(' ', '&nbsp;', songDatum.lyric)}</p>
           `;
         } else {
           let line = this.generateNoteLine(songDatum.note, transposer);  // TODO: songDatum.note should be notes someday
-          partLineHtml = `<span class='SongNoteLine text-size-${textSize}'>${line}</span>`;
+          partLineHtml = `<p class='SongNoteLine text-size-${textSize}'>${line}</p>`;
         }
-        return previousPartHtml + `<br class="text-size-${textSize}" />` + partLineHtml;
+        return previousPartHtml + partLineHtml;
       }, '');
 
       return previousHtml + `
@@ -37,7 +37,6 @@ class Song {
           <div class="SongPartTitle">${songPart.partName}</div>
           ${partHtml}
         </div>
-        <br class="text-size-${textSize}" />
       `;
     }, "");
 
