@@ -73,3 +73,8 @@ def search_songs_by_title(search_text):
         lower_search = search_text.lower()
         song_query.filter(Song.lower_title >= lower_search).filter(Song.lower_title < lower_search + u'\ufffd')
     return [song.to_api_dict() for song in song_query.fetch()]
+
+
+def get_count_of_songs():
+    """ Returns the number of song entities """
+    return Song.query().count()

@@ -1,13 +1,20 @@
 import React from 'react';
 import Link from 'react-router/lib/Link';
 
+import { SongsPrinted, SongsInDatabase, UsersInDatabase } from '../components/MediasiteStats';
+
 const Welcome = () => {
   return (
     <div className="card">
       <div className="card-content">
-        <h2>Welcome to Circle's Mediasite!</h2>
-        <p>This is the place that folks come when they need media.</p>
-        <Link className='btn btn-large waves-effect btn-primary' to='/songs'>Song Search</Link>
+        <h2>Circle's Mediasite</h2>
+        <p>Some stats about the mediasite:</p>
+        <div className="row">
+          <SongsPrinted></SongsPrinted>
+          <SongsInDatabase></SongsInDatabase>
+          <UsersInDatabase></UsersInDatabase>
+        </div>
+        <Link className='btn btn-large btn-primary' to='/songs'>Song Search</Link>
       </div>
     </div>
   )

@@ -3,6 +3,11 @@ from webapp2 import Route
 
 
 ROUTES = [
+    # Stat endpoints
+    Route('/api/v1/mediasiteStats/printOuts/', handler='app.views.api.v1.mediasite_stats.SongPrintOutsHandler'),
+    Route('/api/v1/mediasiteStats/songCount/', handler='app.views.api.v1.mediasite_stats.SongCountHandler'),
+    Route('/api/v1/mediasiteStats/userCount/', handler='app.views.api.v1.mediasite_stats.UserCountHandler'),
+
     Route('/api/v1/songs/get/', handler='app.views.api.v1.songs.SongsApiHandler'),
     Route('/api/v1/song/', handler='app.views.api.v1.songs.SongApiHandler'),
     Route('/api/v1/song/<song_id>', handler='app.views.api.v1.songs.SongApiHandler'),
