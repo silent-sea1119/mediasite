@@ -19,3 +19,8 @@ def get_sheets_generated_since_date(song_id, from_date=None):
     sheets = SongSheetGeneration.query(SongSheetGeneration.song_id == song_id)
     sheets = sheets.filter(SongSheetGeneration.generation_date > from_date)
     return sheets.fetch()
+
+
+def get_number_of_sheets_generated_all_time_for_all_songs():
+    """ Get the number of sheets generated for the whole table """
+    return SongSheetGeneration.query().count()

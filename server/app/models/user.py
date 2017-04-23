@@ -64,3 +64,8 @@ class User(ndb.Model):
             'email': self.email,
             'profile_picture': self.profile_picture
         }
+
+
+def get_count_of_users():
+    """ Gets the number of user models in the system """
+    return User.query().count()
