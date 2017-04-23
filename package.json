@@ -40,7 +40,7 @@
     "test": "mocha './client/**/*.Spec.js' --compilers js:babel-core/register",
     "build-js:prod": "webpack -p",
     "build-css:prod": "node-sass --include-path scss build/static/scss/main.scss build/static/css/global.css",
-    "build:prod": "npm run clean && npm run build-js:prod && cp -r server build && npm run build-css:prod",
+    "build:prod": "npm run clean && npm run build-js:prod && npm run build-css && cp -r server build",
     "move:prod": "npm run clean && cp -r server build && npm run build-css:prod",
     "clean": "rm -rf build",
     "deploy:prod": "gcloud app deploy --project=cdac-mediasite build/app.yaml -q --promote",
