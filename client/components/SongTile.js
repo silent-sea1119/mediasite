@@ -1,9 +1,16 @@
 import React from 'react';
 import Link from 'react-router/lib/Link';
 
+import { parseYouTubeLink } from './YouTube';
+
 export default class SongTile extends React.Component {
   render() {
     const songUrl = "/song/" + this.props.songId;
+    let youTubeLink;
+    if (this.props.youTubeLink) {
+      let youTubeUrl = parseYouTubeLink(this.props.youTubeLink, false);
+      youTubeLink = <a href={youTubeUrl} target='_blank'>YouTube</a>
+    }
     return (
       <div className="col l4 m6 s12">
         <div className="card small">
@@ -15,6 +22,7 @@ export default class SongTile extends React.Component {
           <div className="card-action">
             <Link to={songUrl}>View</Link>
             <Link to={songUrl + '/edit'}>Edit</Link>
+            {youTubeLink}
           </div>
         </div>
       </div>

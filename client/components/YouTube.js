@@ -1,6 +1,6 @@
 import React from 'react';
 
-const YouTube = ({ youTubeLink }) => {
+const parseYouTubeLink = (youTubeLink, shouldEmbed) => {
   let youTubeId;
   if (youTubeLink.substr(0, 4) === 'http') {
     const parser = document.createElement('a');
@@ -12,12 +12,20 @@ const YouTube = ({ youTubeLink }) => {
     youTubeId = youTubeLink;
   }
 
-  const youtubeEmbedLink = `https://www.youtube.com/embed/${youTubeId}`;
+  return `https://www.youtube.com/${shouldEmbed ? 'embed/' : 'watch?v='}${youTubeId}`;
+};
+
+export { parseYouTubeLink };
+
+const YouTube = ({ youTubeLink }) => {
+  const youtubeEmbedLink = parseYouTubeLink(youTubeLink, true);
+
   return (
     <div className="card">
       <div className="card-content">
         <div className="card-title">YouTube</div>
         <iframe className='youtube-video' src={youtubeEmbedLink} frameBorder='0'></iframe>
+        <p>Embedded video not working? Try watching it <a href={parseYouTubeLink(youTubeLink, false)} target='_blank'>on YouTube</a></p>
       </div>
     </div>
   );

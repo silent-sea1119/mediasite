@@ -20,7 +20,8 @@ export default class SongTileGroup extends React.Component {
                    songId={song.songId}
                    title={song.title}
                    author1={song.author1}
-                   author2={song.author2} />;
+                   author2={song.author2}
+                   youTubeLink={song.youtubeLink} />;
     });
 
     return (
