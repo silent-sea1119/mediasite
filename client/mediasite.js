@@ -1,12 +1,14 @@
 import 'materialize-css';
 import React from 'react';
 import { render } from 'react-dom';
-import Router from 'react-router/lib/Router';
-import Route from 'react-router/lib/Route';
-import IndexRoute from 'react-router/lib/IndexRoute';
-import Link from 'react-router/lib/Link';
-import History from 'react-router/lib/History';
-import browserHistory from 'react-router/lib/browserHistory';
+import {
+  BrowserRouter as Router,
+  Route,
+  Link
+} from 'react-router-dom'
+// import Link from 'react-router/lib/Link';
+// import History from 'react-router/lib/History';
+// import browserHistory from 'react-router/lib/browserHistory';
 
 import { loadScript, browserSupportsAllFeatures } from './browser-helpers';
 
@@ -93,8 +95,9 @@ function startRender(error) {
     console.error(error);
   } else {
     render((
-      <Router history={browserHistory}>
-        <Route path='/' component={App}>
+      <Router>
+        <div>
+          <Route exact path='/' component={App} />
           <IndexRoute component={!auth.loggedIn() ? Login : Welcome} />
           <Route path='welcome' component={Welcome} onEnter={requireAuth} />
           <Route path='songs' component={FilterableSongTable} onEnter={requireAuth} />
@@ -103,8 +106,8 @@ function startRender(error) {
           <Route path='song/:songId/edit' component={EditSong} onEnter={requireAuth} />
           <Route path='login' component={Login} />
           <Route path='logout' component={Logout} />
-        </Route>
-        <Route path='song/:songId/print' component={SongSheet} onEnter={requireAuth} />
+          <Route path='song/:songId/print' component={SongSheet} onEnter={requireAuth} />
+        </div>
       </Router>
     ), document.getElementById('mediasite'));
   }
