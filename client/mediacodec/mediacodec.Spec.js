@@ -352,6 +352,11 @@ describe('media codec', function () {
         const actual = new Transposer('Bb', 'C').transposeNote('Bb');
         expect(actual).toBe('C');
       });
+
+      it('should transpose Cb to Eb when transposing Gb to A', function () {
+          const actual = new Transposer('Gb', 'A').transposeNote('Cb');
+          expect(actual).toBe('Eb');
+      });
     });
 
     describe('getNoteIndex', function () {

@@ -48,7 +48,7 @@ class Transposer {
 
     if ('ABCDEFG'.indexOf(note.substring(0, 1)) >= 0) {
       if ('#b'.indexOf(note.substring(1, 2)) >= 0) {
-        return this.transposeNote(note.substring(0, 2)) + note.substring(2);
+        return this.transposeNote(note.substring(0, 1)) + note.substring(2);
       } else {
         return this.transposeNote(note.substring(0, 1)) + note.substring(1);
       }
