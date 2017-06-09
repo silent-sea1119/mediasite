@@ -2,14 +2,18 @@ class Transposer {
   static sharpKeys = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
   static flatKeys = ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B'];
 
-  constructor(songKey, transposeKey) {
+  constructor(songKey, transposeKey, intonation) {
     this.songKey = songKey;
     this.transposeKey = transposeKey;
     this.noteShiftVal = null;
-    if (Transposer.flatKeys.indexOf(songKey) !== -1) {
-      this.intonation = 'flats';
-    } else if (Transposer.sharpKeys.indexOf(songKey) !== -1) {
-      this.intonation = 'sharps';
+    if (intonation !== undefined) {
+      this.intonation = intonation;
+    } else {
+      if (Transposer.sharpKeys.indexOf(songKey) !== -1) {
+        this.intonation = 'sharps';
+      } else if (Transposer.flatKeys.indexOf(songKey) !== -1) {
+        this.intonation = 'flats';
+      }
     }
   }
 
