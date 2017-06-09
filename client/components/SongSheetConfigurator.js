@@ -3,7 +3,8 @@ import browserHistory from 'react-router/lib/browserHistory';
 
 import MaterializeSelect from './materialize/Select';
 
-const MUSICAL_KEYS = ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B'];
+// TODO: Centralize MUSICAL_KEYS...
+const MUSICAL_KEYS = ['C', 'C#', 'Db', 'D', 'D#', 'Eb', 'E', 'F', 'F#', 'Gb', 'G', 'G#', 'Ab', 'A', 'A#', 'Bb', 'B'];
 const TEXT_SIZES = [10, 11, 12, 13, 14, 15, 16, 18, 20, 24];
 
 export default class SongSheetConfigurator extends React.Component {
@@ -19,7 +20,9 @@ export default class SongSheetConfigurator extends React.Component {
   }
 
   calculateSongUrl() {
-    return `/song/${this.props.songId}/print?songKey=${this.state.songKey}&textSize=${this.state.textSize}&printArrangements=${this.arrangement.checked}&printChords=${this.chords.checked}&printPartNames=${this.partNames.checked}`;
+    let songKey = this.state.songKey;
+    songKey = songKey.replace(/#/g, '%23');
+    return `/song/${this.props.songId}/print?songKey=${songKey}&textSize=${this.state.textSize}&printArrangements=${this.arrangement.checked}&printChords=${this.chords.checked}&printPartNames=${this.partNames.checked}`;
   }
 
   calculatePreviewUrl() {

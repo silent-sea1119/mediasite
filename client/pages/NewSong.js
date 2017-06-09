@@ -8,7 +8,7 @@ import MaterializeSelect from '../components/materialize/Select';
 import SongPartCreator from '../components/SongPartCreator';
 import SongField from '../components/SongField';
 
-const MUSICAL_KEYS = ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B'];
+const MUSICAL_KEYS = ['C', 'C#', 'Db', 'D', 'D#', 'Eb', 'E', 'F', 'F#', 'Gb', 'G', 'G#', 'Ab', 'A', 'A#', 'Bb', 'B'];
 const TEXT_SIZES = [10, 11, 12, 13, 14, 15, 16, 18, 20, 24];
 
 export default class EditSong extends React.Component {
@@ -25,7 +25,6 @@ export default class EditSong extends React.Component {
     songOrder: '',
     externalUrl: '',
     notes: '',
-    songKey: '',
     songPartData: []
   };
 
