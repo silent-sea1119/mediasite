@@ -1,19 +1,27 @@
 class Transposer {
   static sharpKeys = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+  static sharpKeySignatures = ['C', 'G', 'D', 'A', 'E', 'B', 'F#', 'C#'];
   static flatKeys = ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B'];
+  static flatKeySignatures = ['C', 'F', 'Bb', 'Eb', 'Ab', 'Db', 'Gb', 'Cb'];
 
-  constructor(songKey, transposeKey, intonation) {
+  // For UI, mostly.
+  static allKeys = Transposer.sharpKeySignatures.concat(Transposer.flatKeySignatures).sort();
+
+  constructor(songKey, transposeKey) {
     this.songKey = songKey;
     this.transposeKey = transposeKey;
     this.noteShiftVal = null;
-    if (intonation !== undefined) {
-      this.intonation = intonation;
-    } else {
-      if (Transposer.sharpKeys.indexOf(songKey) !== -1) {
-        this.intonation = 'sharps';
-      } else if (Transposer.flatKeys.indexOf(songKey) !== -1) {
-        this.intonation = 'flats';
-      }
+
+    if (Transposer.sharpKeySignatures.indexOf(songKey) !== -1) {
+      this.originalIntonation = 'sharps';
+    } else if (Transposer.flatKeySignatures.indexOf(songKey) !== -1) {
+      this.originalIntonation = 'flats';
+    }
+
+    if (Transposer.sharpKeySignatures.indexOf(transposeKey) !== -1) {
+      this.transposeIntonation = 'sharps';
+    } else if (Transposer.flatKeySignatures.indexOf(transposeKey) !== -1) {
+      this.transposeIntonation = 'flats';
     }
   }
 
@@ -34,9 +42,10 @@ class Transposer {
 
     let intonation, isNoteFound, noteIndex;
 
-    const keys = this.intonation === 'flats' ? Transposer.flatKeys : Transposer.sharpKeys;
+    const originalKeys = this.originalIntonation === 'flats' ? Transposer.flatKeys : Transposer.sharpKeys;
+    const transposeKeys = this.transposeIntonation === 'flats' ? Transposer.flatKeys : Transposer.sharpKeys;
     
-    noteIndex = keys.indexOf(note);
+    noteIndex = originalKeys.indexOf(note);
     if (noteIndex >= 0) {
       isNoteFound = true;
     } else if (note === 'Cb') {
@@ -46,7 +55,7 @@ class Transposer {
 
     if (isNoteFound === true) {
       const newNoteIndex = Transposer.shiftNote(noteIndex, this.getNoteShiftVal());
-      return keys[newNoteIndex];
+      return transposeKeys[newNoteIndex];
     }
 
     if ('ABCDEFG'.indexOf(note.substring(0, 1)) >= 0) {

@@ -268,6 +268,20 @@ describe('media codec', function () {
   });
 
   describe('Transposer', function () {
+    describe('constructor', function () {
+      it('should set *Intonation to sharps for E', function () {
+        const t = new Transposer('E', 'E');
+        expect(t.originalIntonation).toBe('sharps');
+        expect(t.transposeIntonation).toBe('sharps');
+      });
+
+      it('should set *Intonation to flats for F', function () {
+        const t = new Transposer('F', 'F');
+        expect(t.originalIntonation).toBe('flats');
+        expect(t.transposeIntonation).toBe('flats');
+      });
+    });
+
     describe('needsTransposition', function () {
       it('should be false if songKey and transposeKey are equal', function () {
         const actual = new Transposer('G', 'G').needsTransposition();

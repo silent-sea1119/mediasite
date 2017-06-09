@@ -2,9 +2,9 @@ import React from 'react';
 import browserHistory from 'react-router/lib/browserHistory';
 
 import MaterializeSelect from './materialize/Select';
+import { Transposer } from '../mediacodec/Transposer';
 
-// TODO: Centralize MUSICAL_KEYS...
-const MUSICAL_KEYS = ['C', 'C#', 'Db', 'D', 'D#', 'Eb', 'E', 'F', 'F#', 'Gb', 'G', 'G#', 'Ab', 'A', 'A#', 'Bb', 'B'];
+const MUSICAL_KEYS = Transposer.allKeys;
 const TEXT_SIZES = [10, 11, 12, 13, 14, 15, 16, 18, 20, 24];
 
 export default class SongSheetConfigurator extends React.Component {
