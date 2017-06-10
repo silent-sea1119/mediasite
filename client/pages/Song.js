@@ -1,11 +1,13 @@
 import React from 'react';
+import withRouter from "react-router/lib/withRouter";
 
 import SongSheetConfiguratorCard from '../components/SongSheetConfigurator';
 import YouTube from '../components/YouTube';
 import SongData from '../components/SongData';
 import MediasiteApi from '../api/MediasiteApi';
+import { Transposer } from '../mediacodec/Transposer';
 
-export default class Song extends React.Component {
+class Song extends React.Component {
   state = {
     songData: null,
     isLoading: true
@@ -28,6 +30,12 @@ export default class Song extends React.Component {
         </div>
       );
     }
+    let { key } = this.props.location.query;
+    if (Transposer.allKeys.indexOf(key) === -1) {
+      // If they tried to give an invalid key, don't use it.
+      key = null;
+    }
+
     let youtubeArea;
     if (this.state.songData.youtubeLink) {
       youtubeArea = <YouTube youTubeLink={this.state.songData.youtubeLink}/>;
@@ -36,7 +44,7 @@ export default class Song extends React.Component {
     }
     let songConfiguratorArea;
     if (this.state.songData.songData.parts) {
-      songConfiguratorArea = <SongSheetConfiguratorCard songKey={this.state.songData.songKey} songId={this.props.params.songId} />
+      songConfiguratorArea = <SongSheetConfiguratorCard songKey={key || this.state.songData.songKey} songId={this.props.params.songId} />
     } else {
       songConfiguratorArea = <div>This song doesn't have a chart attached yet.</div>;
     }
@@ -53,3 +61,5 @@ export default class Song extends React.Component {
     );
   }
 }
+
+export default withRouter(Song);

@@ -5,7 +5,7 @@ class Transposer {
   static flatKeySignatures = ['C', 'F', 'Bb', 'Eb', 'Ab', 'Db', 'Gb', 'Cb'];
 
   // For UI, mostly.
-  static allKeys = Transposer.sharpKeySignatures.concat(Transposer.flatKeySignatures).sort();
+  static allKeys = unique(Transposer.sharpKeySignatures.concat(Transposer.flatKeySignatures).sort());
 
   constructor(songKey, transposeKey) {
     this.songKey = songKey;
@@ -40,7 +40,7 @@ class Transposer {
       return note.split('/').map(this.transposeNote.bind(this)).join('/');
     }
 
-    let intonation, isNoteFound, noteIndex;
+    let isNoteFound, noteIndex;
 
     const originalKeys = this.originalIntonation === 'flats' ? Transposer.flatKeys : Transposer.sharpKeys;
     const transposeKeys = this.transposeIntonation === 'flats' ? Transposer.flatKeys : Transposer.sharpKeys;
@@ -95,6 +95,17 @@ class Transposer {
       return (noteIndex + shiftBy) - 12;
     }
   }
+}
+
+function unique(arr) {
+    var u = {}, a = [];
+    for(var i = 0, l = arr.length; i < l; ++i){
+        if(!u.hasOwnProperty(arr[i])) {
+            a.push(arr[i]);
+            u[arr[i]] = 1;
+        }
+    }
+    return a;
 }
 
 export { Transposer };
