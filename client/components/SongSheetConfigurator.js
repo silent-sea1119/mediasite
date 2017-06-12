@@ -42,6 +42,7 @@ export default class SongSheetConfigurator extends React.Component {
   updateChosenSongKey = (event) => {
     const newKey = event.target.value;
     this.setState({ songKey: newKey });
+    browserHistory.replace(`/song/${this.props.songId}?key=${newKey.replace(/#/g, '%23')}`);
   };
 
   updateChosenTextSize = (event) => {
