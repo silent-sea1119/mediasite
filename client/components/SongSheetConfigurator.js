@@ -22,7 +22,7 @@ export default class SongSheetConfigurator extends React.Component {
   calculateSongUrl() {
     let songKey = this.state.songKey;
     songKey = songKey.replace(/#/g, '%23');
-    return `/song/${this.props.songId}/print?songKey=${songKey}&textSize=${this.state.textSize}&printArrangements=${this.arrangement.checked}&printChords=${this.chords.checked}&printPartNames=${this.partNames.checked}`;
+    return `/song/${this.props.songId}/print?songKey=${songKey}&textSize=${this.state.textSize}&vocalistMode=${this.vocalistMode.checked}`;
   }
 
   calculatePreviewUrl() {
@@ -75,16 +75,8 @@ export default class SongSheetConfigurator extends React.Component {
             handleOnSelect={this.updateChosenTextSize}
           />
           <p>
-            <input ref={(input) => this.arrangement = input} defaultChecked type="checkbox" id="arrangement" className="filled-in"/>
-            <label htmlFor="arrangement">Print Arrangement</label>
-          </p>
-          <p>
-            <input ref={(input) => this.chords = input} type="checkbox" defaultChecked id="chords" className="filled-in"/>
-            <label htmlFor="chords">Print Chords</label>
-          </p>
-          <p>
-            <input ref={(input) => this.partNames = input} type="checkbox" defaultChecked id="partnames" className="filled-in"/>
-            <label htmlFor="partnames">Print Part Names</label>
+            <input ref={(input) => this.vocalistMode = input} type="checkbox" id="vocalists" className="filled-in"/>
+            <label htmlFor="vocalists">Vocalist Mode</label>
           </p>
         </div>
         <div className="card-action">

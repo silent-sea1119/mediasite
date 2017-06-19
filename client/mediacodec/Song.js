@@ -1,5 +1,5 @@
 /**
- * ES2015 version of MediaCodec2.js
+ * Song domain object. Can render itself as HTML.
  */
 
 import { Transposer } from './Transposer.js';
