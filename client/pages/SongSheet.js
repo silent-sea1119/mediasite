@@ -34,6 +34,13 @@ class SongSheet extends React.Component {
     }
   }
 
+  getSongHtml(song, songKey, textSize, isVocalistMode) {
+    if (isVocalistMode === 'true') {
+      return {__html: song.toVocalistHtml(textSize)}
+    }
+    return {__html: song.toHtml(songKey, textSize)};
+  }
+
   render() {
     if (this.state.isLoading) {
       return (
@@ -68,7 +75,7 @@ class SongSheet extends React.Component {
           {copyrightSection}
         </div>
         <div className="ArrangementTitle">Arrangement: {songData.songOrder}</div>
-        <div dangerouslySetInnerHTML={{__html: song.toHtml(songKey, textSize)}}></div>
+        <div dangerouslySetInnerHTML={this.getSongHtml(song, songKey, textSize, vocalistMode)}></div>
       </div>
     )
   }

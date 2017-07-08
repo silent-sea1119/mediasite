@@ -46,6 +46,34 @@ class Song {
     return songHtml;
   }
 
+  toVocalistHtml(textSize) {
+    let songHtml = `<div id='songInsert' class='SongNotes'>`;
+
+    songHtml += this.songJson.parts.reduce((previousHtml, songPart) => {
+      const partHtml = songPart.partData.reduce((previousPartHtml, songDatum) => {
+        let partLineHtml = '';
+        if (songDatum.lyric !== null) {
+          partLineHtml = `
+            <p class="SongPartTitle text-size-${textSize}">${replaceAll(' ', '&nbsp;', songDatum.lyric)}</p>
+          `;
+        }
+        return previousPartHtml + partLineHtml;
+      }, '');
+
+      return previousHtml + `
+        <div id="${songPart.partName}" class="songPart">
+          <div class="SongPartTitle text-size-${textSize - 4}">${songPart.partName}</div>
+          ${partHtml}
+        </div>
+      `;
+    }, "");
+
+    // Put everything together and close down.
+    songHtml += "</div>";
+
+    return songHtml;
+  }
+
   generateNoteLine(notes, transposer) {
     let line = Array(150).join(" ");
     notes.forEach((note) => {
