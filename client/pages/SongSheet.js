@@ -4,6 +4,7 @@ import withRouter from "react-router/lib/withRouter";
 import MediasiteApi from '../api/MediasiteApi';
 import { Song } from '../mediacodec/Song.js';
 import SongData from '../components/SongData.js';
+import SongOptions from '../components/SongOptions.js';
 
 class SongSheet extends React.Component {
   state = {
@@ -33,6 +34,13 @@ class SongSheet extends React.Component {
     }
   }
 
+  getSongHtml(song, songKey, textSize, isVocalistMode) {
+    if (isVocalistMode === 'true') {
+      return {__html: song.toVocalistHtml(textSize)}
+    }
+    return {__html: song.toHtml(songKey, textSize)};
+  }
+
   render() {
     if (this.state.isLoading) {
       return (
@@ -43,7 +51,7 @@ class SongSheet extends React.Component {
     }
 
     const songData = this.state.songData;
-    const { songKey, textSize, printArrangements, printChords, printPartNames } = this.props.location.query;
+    const { songKey, textSize, vocalistMode } = this.props.location.query;
     const songId = this.props.params.songId;
 
     const song = new Song(songId, songData.title, songData.songKey, songData.songData);
@@ -51,11 +59,10 @@ class SongSheet extends React.Component {
     const ccliSection = songData.ccli ? <p>CCLI: <a target='_blank' href={`http://ca.search.ccli.com/songs/${songData.CCLI}`}>{songData.ccli}</a></p> : '';
     const copyrightSection = songData.copyDate ? <p>Copyright: {songData.copyDate}</p> : '';
 
-    const arrangementSection = printArrangements === 'true' ? <div className="ArrangementTitle">Arrangement: {songData.songOrder}</div> : '';
-
     const previewSection = this.state.previewing ? <div className="preview-only">Preview Only</div> : null;
     return (
       <div style={{backgroundColor: 'white', padding: '10px'}}>
+        <SongOptions songKey={songKey} textSize={textSize} songId={songId} vocalistMode={vocalistMode}></SongOptions>
         <div className="song-data">
           <div className="card-title">{songData.title}</div>
           {previewSection}
@@ -67,8 +74,8 @@ class SongSheet extends React.Component {
           {ccliSection}
           {copyrightSection}
         </div>
-        {arrangementSection}
-        <div dangerouslySetInnerHTML={{__html: song.toHtml(songKey, textSize)}}></div>
+        <div className="ArrangementTitle">Arrangement: {songData.songOrder}</div>
+        <div dangerouslySetInnerHTML={this.getSongHtml(song, songKey, textSize, vocalistMode)}></div>
       </div>
     )
   }
