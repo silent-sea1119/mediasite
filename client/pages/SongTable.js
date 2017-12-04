@@ -33,9 +33,9 @@ class FilterableSongTable extends React.Component {
     });
     if (searchText !== '') {
       // Set searchText query parameter
-      this.props.router.replace(`/songs?searchText=${searchText}`);
+      this.props.history.replace(`/songs?searchText=${searchText}`);
     } else {
-      this.props.router.replace('/songs');
+      this.props.history.replace('/songs');
     }
 
     if (this.state.songData.length === 0) {

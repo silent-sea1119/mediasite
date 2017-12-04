@@ -92,8 +92,11 @@ class App extends React.Component {
       <Router>
         <div className='mediasite'>
           <MediasiteHeader loggedIn={this.state.loggedIn} user={this.state.user} />
-          <Route path="/login" component="Login" />
-          <PrivateRoute path="/songs" component="FilterableSongTable" />
+          <PrivateRoute path="/" exact={true} component={Welcome} />
+          <Route path="/login" component={Login} />
+          <PrivateRoute path="/logout" component={Logout} />
+          <PrivateRoute path="/song/new" component={NewSong} />
+          <PrivateRoute path="/songs" component={FilterableSongTable} />
         </div>
       </Router>
     );
