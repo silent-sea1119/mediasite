@@ -4,7 +4,9 @@ import { render } from 'react-dom';
 import {
   BrowserRouter as Router,
   Route,
-  Link
+  Link,
+  Redirect,
+  withRouter
 } from 'react-router-dom'
 // import Link from 'react-router/lib/Link';
 // import History from 'react-router/lib/History';
@@ -72,14 +74,28 @@ class App extends React.Component {
     }
   }
 
+// <div>
+// <Route exact path='/' component={App} />
+// <IndexRoute component={!auth.loggedIn() ? Login : Welcome} />
+// <Route path='welcome' component={Welcome} onEnter={requireAuth} />
+// <Route path='songs' component={FilterableSongTable} onEnter={requireAuth} />
+// <Route path='song/new' component={NewSong} onEnter={requireAuth} />
+// <Route path='song/:songId' component={Song} onEnter={requireAuth} />
+// <Route path='song/:songId/edit' component={EditSong} onEnter={requireAuth} />
+// <Route path='login' component={Login} />
+// <Route path='logout' component={Logout} />
+// <Route path='song/:songId/print' component={SongSheet} onEnter={requireAuth} />
+// </div>
+
   render() {
     return (
-      <div className='mediasite'>
-        <MediasiteHeader loggedIn={this.state.loggedIn} user={this.state.user} />
-        <div className='container'>
-          {this.props.children}
+      <Router>
+        <div className='mediasite'>
+          <MediasiteHeader loggedIn={this.state.loggedIn} user={this.state.user} />
+          <Route path="/login" component="Login" />
+          <PrivateRoute path="/songs" component="FilterableSongTable" />
         </div>
-      </div>
+      </Router>
     );
   }
 }
@@ -90,24 +106,26 @@ function requireAuth(nextState, replace) {
   }
 }
 
+const PrivateRoute = ({ component: Component, ...rest }) => (
+  <Route {...rest} render={props => (
+    auth.loggedIn() ? (
+      <Component {...props}/>
+    ) : (
+      <Redirect to={{
+        pathname: '/login',
+        state: { from: props.location }
+      }}/>
+    )
+  )}/>
+)
+
 function startRender(error) {
   if (error) {
     console.error(error);
   } else {
     render((
       <Router>
-        <div>
-          <Route exact path='/' component={App} />
-          <IndexRoute component={!auth.loggedIn() ? Login : Welcome} />
-          <Route path='welcome' component={Welcome} onEnter={requireAuth} />
-          <Route path='songs' component={FilterableSongTable} onEnter={requireAuth} />
-          <Route path='song/new' component={NewSong} onEnter={requireAuth} />
-          <Route path='song/:songId' component={Song} onEnter={requireAuth} />
-          <Route path='song/:songId/edit' component={EditSong} onEnter={requireAuth} />
-          <Route path='login' component={Login} />
-          <Route path='logout' component={Logout} />
-          <Route path='song/:songId/print' component={SongSheet} onEnter={requireAuth} />
-        </div>
+        <App />
       </Router>
     ), document.getElementById('mediasite'));
   }

@@ -1,5 +1,5 @@
 import React from 'react';
-import browserHistory from 'react-router/lib/browserHistory';
+import createHistory from 'history/createBrowserHistory';
 
 import MaterializeSelect from './materialize/Select';
 
@@ -28,12 +28,12 @@ export default class SongSheetConfigurator extends React.Component {
 
   handleGenerateSheet = (event) => {
     event.preventDefault();
-    browserHistory.push(this.calculateSongUrl());
+    createHistory().push(this.calculateSongUrl());
   };
 
   handleGeneratePreview = (event) => {
     event.preventDefault();
-    browserHistory.push(this.calculatePreviewUrl());
+    createHistory().push(this.calculatePreviewUrl());
   };
 
   updateChosenSongKey = (event) => {

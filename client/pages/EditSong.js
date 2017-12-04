@@ -1,5 +1,5 @@
 import React from 'react';
-import browserHistory from 'react-router/lib/browserHistory';
+import createHistory from 'history/createBrowserHistory';
 import 'materialize-css';
 
 import MediasiteApi from '../api/MediasiteApi';
@@ -81,7 +81,7 @@ export default class EditSong extends React.Component {
     };
     songObj.songId = this.props.params.songId;
     MediasiteApi.updateSong(songObj, (response) => {
-      browserHistory.push(`/song/${response.data.songId}`);
+      createHistory().push(`/song/${response.data.songId}`);
     });
   }
 
@@ -110,7 +110,7 @@ export default class EditSong extends React.Component {
     const cancelButton = <button 
       className="btn btn-flat" 
       style={{marginLeft: '5px'}}
-      onClick={() => {browserHistory.goBack();}}>
+      onClick={() => {createHistory().goBack();}}>
         Cancel
     </button>;
     return (

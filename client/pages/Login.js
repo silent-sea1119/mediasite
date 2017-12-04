@@ -1,5 +1,5 @@
 import React from 'react';
-import withRouter from 'react-router/lib/withRouter';
+import { withRouter } from 'react-router-dom';
 
 import auth from '../auth';
 
