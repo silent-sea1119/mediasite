@@ -12,7 +12,7 @@ export default class Song extends React.Component {
   };
 
   componentDidMount() {
-    MediasiteApi.getSongById(this.props.params.songId, (songData) => {
+    MediasiteApi.getSongById(this.props.match.params.songId, (songData) => {
       this.setState({
         songData: songData.data,
         isLoading: false
@@ -36,7 +36,7 @@ export default class Song extends React.Component {
     }
     let songConfiguratorArea;
     if (this.state.songData.songData.parts) {
-      songConfiguratorArea = <SongSheetConfiguratorCard songKey={this.state.songData.songKey} songId={this.props.params.songId} />
+      songConfiguratorArea = <SongSheetConfiguratorCard songKey={this.state.songData.songKey} songId={this.props.match.params.songId} history={this.props.history} />
     } else {
       songConfiguratorArea = <div>This song doesn't have a chart attached yet.</div>;
     }

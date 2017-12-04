@@ -1,5 +1,4 @@
 import React from 'react';
-import createHistory from 'history/createBrowserHistory';
 import 'materialize-css';
 
 import MediasiteApi from '../api/MediasiteApi';
@@ -31,8 +30,8 @@ export default class EditSong extends React.Component {
   };
 
   componentDidMount() {
-    if (this.props.params.songId) {
-      MediasiteApi.getSongById(this.props.params.songId, (response) => {
+    if (this.props.match.params.songId) {
+      MediasiteApi.getSongById(this.props.match.params.songId, (response) => {
         const songData = response.data;
         this.setState({
           songKey: songData.songKey,
@@ -79,9 +78,9 @@ export default class EditSong extends React.Component {
       style: this.state.style,
       songData: this.gatherSongData()
     };
-    songObj.songId = this.props.params.songId;
+    songObj.songId = this.props.match.params.songId;
     MediasiteApi.updateSong(songObj, (response) => {
-      createHistory().push(`/song/${response.data.songId}`);
+      this.props.history.push(`/song/${response.data.songId}`);
     });
   }
 
@@ -110,7 +109,7 @@ export default class EditSong extends React.Component {
     const cancelButton = <button 
       className="btn btn-flat" 
       style={{marginLeft: '5px'}}
-      onClick={() => {createHistory().goBack();}}>
+      onClick={() => {this.props.history.goBack();}}>
         Cancel
     </button>;
     return (

@@ -1,13 +1,11 @@
 import React from 'react';
 
-import createHistory from 'history/createBrowserHistory';
-
 import auth from '../auth';
 
 export default class Logout extends React.Component {
   componentDidMount() {
     auth.logout(() => {
-      createHistory().push('/');
+      this.props.history.push('/');
     });
   }
 

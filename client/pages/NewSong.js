@@ -1,5 +1,4 @@
 import React from 'react';
-import createHistory from 'history/createBrowserHistory';
 import 'materialize-css';
 
 import MediasiteApi from '../api/MediasiteApi';
@@ -51,7 +50,7 @@ export default class EditSong extends React.Component {
       songData: this.gatherSongData()
     };
     MediasiteApi.createSong(songObj, (response) => {
-      createHistory().push(`/song/${response.data.songId}`);
+      this.props.history.push(`/song/${response.data.songId}`);
     });
   }
 
