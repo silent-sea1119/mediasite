@@ -1,11 +1,28 @@
 class Transposer {
   static sharpKeys = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+  static sharpKeySignatures = ['C', 'G', 'D', 'A', 'E', 'B', 'F#', 'C#'];
   static flatKeys = ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B'];
+  static flatKeySignatures = ['C', 'F', 'Bb', 'Eb', 'Ab', 'Db', 'Gb', 'Cb'];
+
+  // For UI, mostly.
+  static allKeys = unique(Transposer.sharpKeySignatures.concat(Transposer.flatKeySignatures).sort());
 
   constructor(songKey, transposeKey) {
     this.songKey = songKey;
     this.transposeKey = transposeKey;
     this.noteShiftVal = null;
+
+    if (Transposer.sharpKeySignatures.indexOf(songKey) !== -1) {
+      this.originalIntonation = 'sharps';
+    } else if (Transposer.flatKeySignatures.indexOf(songKey) !== -1) {
+      this.originalIntonation = 'flats';
+    }
+
+    if (Transposer.sharpKeySignatures.indexOf(transposeKey) !== -1) {
+      this.transposeIntonation = 'sharps';
+    } else if (Transposer.flatKeySignatures.indexOf(transposeKey) !== -1) {
+      this.transposeIntonation = 'flats';
+    }
   }
 
   needsTransposition() {
@@ -23,27 +40,22 @@ class Transposer {
       return note.split('/').map(this.transposeNote.bind(this)).join('/');
     }
 
-    let intonation, isNoteFound, noteIndex;
+    let isNoteFound, noteIndex;
 
-    noteIndex = Transposer.flatKeys.indexOf(note);
+    const originalKeys = this.originalIntonation === 'flats' ? Transposer.flatKeys : Transposer.sharpKeys;
+    const transposeKeys = this.transposeIntonation === 'flats' ? Transposer.flatKeys : Transposer.sharpKeys;
+    
+    noteIndex = originalKeys.indexOf(note);
     if (noteIndex >= 0) {
-      intonation = 'flats';
       isNoteFound = true;
-    } else {
-      noteIndex = Transposer.sharpKeys.indexOf(note);
-      if (noteIndex >= 0) {
-        intonation = 'sharps';
-        isNoteFound = true;
-      }
+    } else if (note === 'Cb') {
+      isNoteFound = true;
+      noteIndex = 11;
     }
 
     if (isNoteFound === true) {
       const newNoteIndex = Transposer.shiftNote(noteIndex, this.getNoteShiftVal());
-      if (intonation === 'flats') {
-        return Transposer.flatKeys[newNoteIndex];
-      } else if (intonation === 'sharps') {
-        return Transposer.sharpKeys[newNoteIndex];
-      }
+      return transposeKeys[newNoteIndex];
     }
 
     if ('ABCDEFG'.indexOf(note.substring(0, 1)) >= 0) {
@@ -83,6 +95,17 @@ class Transposer {
       return (noteIndex + shiftBy) - 12;
     }
   }
+}
+
+function unique(arr) {
+    var u = {}, a = [];
+    for(var i = 0, l = arr.length; i < l; ++i){
+        if(!u.hasOwnProperty(arr[i])) {
+            a.push(arr[i]);
+            u[arr[i]] = 1;
+        }
+    }
+    return a;
 }
 
 export { Transposer };

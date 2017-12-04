@@ -1,8 +1,9 @@
 import React from 'react';
 
 import MaterializeSelect from './materialize/Select';
+import { Transposer } from '../mediacodec/Transposer';
 
-const MUSICAL_KEYS = ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B'];
+const MUSICAL_KEYS = Transposer.allKeys;
 const TEXT_SIZES = [10, 11, 12, 13, 14, 15, 16, 18, 20, 24];
 
 export default class SongSheetConfigurator extends React.Component {
@@ -18,7 +19,9 @@ export default class SongSheetConfigurator extends React.Component {
   }
 
   calculateSongUrl() {
-    return `/song/${this.props.songId}/print?songKey=${this.state.songKey}&textSize=${this.state.textSize}&printArrangements=${this.arrangement.checked}&printChords=${this.chords.checked}&printPartNames=${this.partNames.checked}`;
+    let songKey = this.state.songKey;
+    songKey = songKey.replace(/#/g, '%23');
+    return `/song/${this.props.songId}/print?songKey=${songKey}&textSize=${this.state.textSize}&vocalistMode=${this.vocalistMode.checked}`;
   }
 
   calculatePreviewUrl() {
@@ -38,6 +41,7 @@ export default class SongSheetConfigurator extends React.Component {
   updateChosenSongKey = (event) => {
     const newKey = event.target.value;
     this.setState({ songKey: newKey });
+    browserHistory.replace(`/song/${this.props.songId}?key=${newKey.replace(/#/g, '%23')}`);
   };
 
   updateChosenTextSize = (event) => {
@@ -70,16 +74,8 @@ export default class SongSheetConfigurator extends React.Component {
             handleOnSelect={this.updateChosenTextSize}
           />
           <p>
-            <input ref={(input) => this.arrangement = input} defaultChecked type="checkbox" id="arrangement" className="filled-in"/>
-            <label htmlFor="arrangement">Print Arrangement</label>
-          </p>
-          <p>
-            <input ref={(input) => this.chords = input} type="checkbox" defaultChecked id="chords" className="filled-in"/>
-            <label htmlFor="chords">Print Chords</label>
-          </p>
-          <p>
-            <input ref={(input) => this.partNames = input} type="checkbox" defaultChecked id="partnames" className="filled-in"/>
-            <label htmlFor="partnames">Print Part Names</label>
+            <input ref={(input) => this.vocalistMode = input} type="checkbox" id="vocalists" className="filled-in"/>
+            <label htmlFor="vocalists">Vocalist Mode</label>
           </p>
         </div>
         <div className="card-action">

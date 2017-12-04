@@ -268,6 +268,20 @@ describe('media codec', function () {
   });
 
   describe('Transposer', function () {
+    describe('constructor', function () {
+      it('should set *Intonation to sharps for E', function () {
+        const t = new Transposer('E', 'E');
+        expect(t.originalIntonation).toBe('sharps');
+        expect(t.transposeIntonation).toBe('sharps');
+      });
+
+      it('should set *Intonation to flats for F', function () {
+        const t = new Transposer('F', 'F');
+        expect(t.originalIntonation).toBe('flats');
+        expect(t.transposeIntonation).toBe('flats');
+      });
+    });
+
     describe('needsTransposition', function () {
       it('should be false if songKey and transposeKey are equal', function () {
         const actual = new Transposer('G', 'G').needsTransposition();
@@ -352,6 +366,19 @@ describe('media codec', function () {
         const actual = new Transposer('Bb', 'C').transposeNote('Bb');
         expect(actual).toBe('C');
       });
+
+      it('should transpose Cb to Eb when transposing Gb to A', function () {
+          const actual = new Transposer('Gb', 'A').transposeNote('Cb');
+          expect(actual).toBe('D');
+      });
+
+      describe('transcribing Gb to C', function () {
+          it('should transpose Ebm to Am', function () {
+              const tranny = new Transposer('Gb', 'C');
+              const actual = tranny.transposeNote('Ebm');
+              expect(actual).toBe('Am');
+          })
+      })
     });
 
     describe('getNoteIndex', function () {
