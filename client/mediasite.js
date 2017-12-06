@@ -7,10 +7,7 @@ import {
   Link,
   Redirect,
   withRouter
-} from 'react-router-dom'
-// import Link from 'react-router/lib/Link';
-// import History from 'react-router/lib/History';
-// import browserHistory from 'react-router/lib/browserHistory';
+} from 'react-router-dom';
 
 import { loadScript, browserSupportsAllFeatures } from './browser-helpers';
 
@@ -73,19 +70,6 @@ class App extends React.Component {
       });
     }
   }
-
-// <div>
-// <Route exact path='/' component={App} />
-// <IndexRoute component={!auth.loggedIn() ? Login : Welcome} />
-// <Route path='welcome' component={Welcome} onEnter={requireAuth} />
-// <Route path='songs' component={FilterableSongTable} onEnter={requireAuth} />
-// <Route path='song/new' component={NewSong} onEnter={requireAuth} />
-// <Route path='song/:songId' component={Song} onEnter={requireAuth} />
-// <Route path='song/:songId/edit' component={EditSong} onEnter={requireAuth} />
-// <Route path='login' component={Login} />
-// <Route path='logout' component={Logout} />
-// <Route path='song/:songId/print' component={SongSheet} onEnter={requireAuth} />
-// </div>
 
   render() {
     return (
