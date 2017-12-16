@@ -29,6 +29,7 @@
     "mocha": "^3.1.0",
     "node-sass": "^3.3.3",
     "nodemon": "^1.7.1",
+    "prettier": "^1.9.2",
     "react-addons-test-utils": "^15.6.2",
     "webpack": "^2.3.2",
     "webpack-bundle-analyzer": "^2.3.1",
@@ -49,6 +50,7 @@
     "deploy:prod": "gcloud app deploy --project=cdac-mediasite build/app.yaml -q --promote",
     "bnd": "npm run build:prod && npm run deploy:prod",
     "start": "dev_appserver.py server/app.yaml --port=8078 --admin_port=9078 --storage_path=./data/",
-    "bower-install": "bower install"
+    "bower-install": "bower install",
+    "format-js": "prettier 'src/**/*.js' --write"
   }
 }
