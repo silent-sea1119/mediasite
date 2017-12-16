@@ -31,7 +31,7 @@
     "nodemon": "^1.7.1",
     "prettier": "^1.9.2",
     "react-addons-test-utils": "^15.6.2",
-    "webpack": "^2.3.2",
+    "webpack": "^3.10.0",
     "webpack-bundle-analyzer": "^2.3.1",
     "webpack-dashboard": "^0.3.0",
     "yargs": "^6.4.0"
