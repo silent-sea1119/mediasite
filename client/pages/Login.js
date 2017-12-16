@@ -1,12 +1,14 @@
 import React from 'react';
-import withRouter from 'react-router/lib/withRouter';
+import { withRouter } from 'react-router-dom';
+import qs from 'qs';
 
 import auth from '../auth';
 
 class Login extends React.Component {
   componentDidMount() {
-    const { query } = this.props.location;
-    this.loginByUserId(query.userId);
+    const { search } = this.props.location;
+    const queryParams = qs.parse(search);
+    this.loginByUserId(queryParams.userId);
   }
 
   loginByUserId(userId) {
@@ -15,19 +17,22 @@ class Login extends React.Component {
         return;
       }
       const { location } = this.props;
+      const queryParams = qs.parse(location.search);
 
-      if (location.query.nextUrl || location.query.nextPathName) {
-        this.props.router.replace(location.query.nextUrl || location.query.nextPathName);
+      if (queryParams.nextUrl || queryParams.nextPathName) {
+        this.props.history.replace(queryParams.nextUrl || queryParams.nextPathName);
       } else {
-        this.props.router.replace('/welcome');
+        this.props.history.replace('/welcome');
       }
     });
   }
 
   render() {
     const { location } = this.props;
-    let loginDisabled = !!location.query.success || auth.loggedIn();
-    let nextUrl = location.query ? location.query.nextPathName ? location.query.nextPathName : '' : '';
+    const queryParams = qs.parse(location.search);
+
+    let loginDisabled = !!queryParams.success || auth.loggedIn();
+    let nextUrl = queryParams ? queryParams.nextPathName ? queryParams.nextPathName : '' : '';
     return (
       <div className='card login'>
         <div className="card-content">

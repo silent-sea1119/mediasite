@@ -1,15 +1,17 @@
 {
   "dependencies": {
     "autosize": "^3.0.20",
+    "axios": "^0.17.1",
     "bower": "^1.8.0",
     "fetch": "^1.1.0",
+    "history": "^4.7.2",
     "lodash.debounce": "^4.0.8",
     "lodash.map": "^4.6.0",
     "materialize-css": "^0.97.7",
-    "react": "^15.5.0",
-    "react-dom": "^15.5.0",
-    "react-router": "^2.8.1",
-    "rx-dom": "^7.0.3"
+    "qs": "^6.5.1",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-router-dom": "^4.2.2"
   },
   "devDependencies": {
     "babel": "^6.5.2",
@@ -27,8 +29,9 @@
     "mocha": "^3.1.0",
     "node-sass": "^3.3.3",
     "nodemon": "^1.7.1",
-    "react-addons-test-utils": "^15.1.0",
-    "webpack": "^2.3.2",
+    "prettier": "^1.9.2",
+    "react-addons-test-utils": "^15.6.2",
+    "webpack": "^3.10.0",
     "webpack-bundle-analyzer": "^2.3.1",
     "webpack-dashboard": "^0.3.0",
     "yargs": "^6.4.0"
@@ -47,6 +50,7 @@
     "deploy:prod": "gcloud app deploy --project=cdac-mediasite build/app.yaml -q --promote",
     "bnd": "npm run build:prod && npm run deploy:prod",
     "start": "dev_appserver.py server/app.yaml --port=8078 --admin_port=9078 --storage_path=./data/",
-    "bower-install": "bower install"
+    "bower-install": "bower install",
+    "format-js": "prettier 'src/**/*.js' --write"
   }
 }

@@ -1,5 +1,4 @@
 import React from 'react';
-import browserHistory from 'react-router/lib/browserHistory';
 
 import MaterializeSelect from './materialize/Select';
 import { Transposer } from '../mediacodec/Transposer';
@@ -31,12 +30,12 @@ export default class SongSheetConfigurator extends React.Component {
 
   handleGenerateSheet = (event) => {
     event.preventDefault();
-    browserHistory.push(this.calculateSongUrl());
+    this.props.history.push(this.calculateSongUrl());
   };
 
   handleGeneratePreview = (event) => {
     event.preventDefault();
-    browserHistory.push(this.calculatePreviewUrl());
+    this.props.history.push(this.calculatePreviewUrl());
   };
 
   updateChosenSongKey = (event) => {

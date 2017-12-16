@@ -1,5 +1,5 @@
 import React from 'react';
-import { DOM as rxAjax } from 'rx-dom';
+import axios from 'axios';
 
 const CircleLoader = () => {
   return (
@@ -27,6 +27,19 @@ class MediasiteStat extends React.Component {
     loading: true,
     stat: null
   };
+
+  gatherStats() {
+    axios.get(this.statEndpoint)
+      .then(({ data }) => {
+        this.setState({
+          loading: false,
+          stat: new Stat({
+            name: this.statName,
+            number: data.data
+          })
+        })
+      });
+  }
 
   componentDidMount() {
     this.gatherStats();
@@ -58,56 +71,26 @@ class MediasiteStat extends React.Component {
 }
 
 class SongsPrinted extends MediasiteStat {
-  gatherStats() {
-    rxAjax.getJSON('/api/v1/mediasiteStats/printOuts/')
-      .map(resp => resp.data)
-      .subscribe(
-        songsPrinted => {
-          this.setState({
-            loading: false,
-            stat: new Stat({
-              name: 'Sheets Generated',
-              number: songsPrinted
-            })
-          });
-        }
-      );
+  constructor() {
+    super();
+    this.statEndpoint = '/api/v1/mediasiteStats/printOuts/';
+    this.statName = 'Sheets Generated';
   }
 }
 
 class SongsInDatabase extends MediasiteStat {
-  gatherStats() {
-    rxAjax.getJSON('/api/v1/mediasiteStats/songCount/')
-      .map(resp => resp.data)
-      .subscribe(
-        songsInDb => {
-          this.setState({
-            loading: false,
-            stat: new Stat({
-              name: '# of Songs',
-              number: songsInDb
-            })
-          });
-        }
-      );
+  constructor() {
+    super();
+    this.statEndpoint = '/api/v1/mediasiteStats/songCount/';
+    this.statName = '# of Songs';
   }
 }
 
 class UsersInDatabase extends MediasiteStat {
-  gatherStats() {
-    rxAjax.getJSON('/api/v1/mediasiteStats/userCount/')
-      .map(resp => resp.data)
-      .subscribe(
-        usersInDb => {
-          this.setState({
-            loading: false,
-            stat: new Stat({
-              name: '# of Users',
-              number: usersInDb
-            })
-          });
-        }
-      );
+  constructor() {
+    super();
+    this.statEndpoint = '/api/v1/mediasiteStats/userCount/';
+    this.statName = '# of Users';
   }
 }
 

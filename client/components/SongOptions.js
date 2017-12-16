@@ -1,5 +1,5 @@
 import React from 'react';
-import withRouter from 'react-router/lib/withRouter';
+import { withRouter } from 'react-router-dom';
 
 import MaterializeSelect from './materialize/Select';
 import { Transposer } from '../mediacodec/Transposer';

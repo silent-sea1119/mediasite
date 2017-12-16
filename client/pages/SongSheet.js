@@ -1,5 +1,6 @@
 import React from 'react';
-import withRouter from "react-router/lib/withRouter";
+import { withRouter } from 'react-router-dom';
+import qs from 'qs';
 
 import MediasiteApi from '../api/MediasiteApi';
 import { Song } from '../mediacodec/Song.js';
@@ -15,9 +16,10 @@ class SongSheet extends React.Component {
   }
 
   componentWillMount() {
+    const queryParams = qs.parse(this.props.location.search);
     this.setState({
-      previewing: this.props.location.query.preview || false,
-      songId: this.props.params.songId
+      previewing: queryParams.preview || false,
+      songId: this.props.match.params.songId
     });
   }
 
@@ -51,8 +53,9 @@ class SongSheet extends React.Component {
     }
 
     const songData = this.state.songData;
-    const { songKey, textSize, vocalistMode } = this.props.location.query;
-    const songId = this.props.params.songId;
+    const queryParams = qs.parse(this.props.location.search);
+    const { songKey, textSize, vocalistMode } = queryParams;
+    const songId = this.props.match.params.songId;
 
     const song = new Song(songId, songData.title, songData.songKey, songData.songData);
 
