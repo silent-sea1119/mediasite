@@ -93,12 +93,6 @@ class App extends React.Component {
   }
 }
 
-function requireAuth(nextState, replace) {
-  if (!auth.loggedIn()) {
-    replace(`/login?nextPathName=${nextState.location.pathname}`)
-  }
-}
-
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route {...rest} render={props => (
     auth.loggedIn() ? (
