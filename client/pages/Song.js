@@ -1,5 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
+import qs from 'qs';
 
 import SongSheetConfiguratorCard from '../components/SongSheetConfigurator';
 import YouTube from '../components/YouTube';
@@ -30,7 +31,9 @@ class Song extends React.Component {
         </div>
       );
     }
-    let { key } = this.props.location.query;
+    const { search } = this.props.location;
+    const queryParams = qs.parse(search, {ignoreQueryPrefix: true});
+    let key = queryParams.key;
     if (Transposer.allKeys.indexOf(key) === -1) {
       // If they tried to give an invalid key, don't use it.
       key = null;

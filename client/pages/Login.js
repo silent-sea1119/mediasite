@@ -29,7 +29,7 @@ class Login extends React.Component {
 
   render() {
     const { location } = this.props;
-    const queryParams = qs.parse(location.search);
+    const queryParams = qs.parse(location.search, {ignoreQueryPrefix: true});
 
     let loginDisabled = !!queryParams.success || auth.loggedIn();
     let nextUrl = queryParams ? queryParams.nextPathName ? queryParams.nextPathName : '' : '';
