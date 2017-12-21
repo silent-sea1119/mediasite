@@ -75,7 +75,8 @@ class App extends React.Component {
     return (
       <Router>
         <div className='mediasite'>
-          <MediasiteHeader loggedIn={this.state.loggedIn} user={this.state.user} />
+          <PrivateRoute path='/song/:songId/print' component={SongSheet} />
+          <Route path="/" render={(props)=><MediasiteHeader loggedIn={this.state.loggedIn} user={this.state.user} {...props} />} />
           <div className='container'>
             <PrivateRoute path="/" exact={true} component={Welcome} />
             <PrivateRoute path='/welcome' component={Welcome} />
@@ -86,7 +87,6 @@ class App extends React.Component {
             <PrivateRoute path='/song/:songId' component={Song} exact={true} />
             <PrivateRoute path='/song/:songId/edit' component={EditSong} />
           </div>
-          <PrivateRoute path='/song/:songId/print' component={SongSheet} />
         </div>
       </Router>
     );

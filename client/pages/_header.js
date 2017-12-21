@@ -1,10 +1,12 @@
 import React from 'react';  // Required for JSX magicks
 import { Link } from 'react-router-dom';
 
-const MediasiteHeader = (props) => {
+const MediasiteHeader = ({loggedIn, user, location}) => {
+  // If printing a song, don't display header (only way I could figure how to do this 🤔)
+  if (/\/song\/.*\/print/.test(location.pathname)) return '';
   let addSongLink = '';
   let songsLink = '';
-  if (props.loggedIn) {
+  if (loggedIn) {
     addSongLink = <li><Link to='/song/new'>Add Song</Link></li>;
     songsLink = <li><Link to='/songs'>Songs</Link></li>;
   }
@@ -17,23 +19,23 @@ const MediasiteHeader = (props) => {
           {addSongLink}
           {songsLink}
           <li>
-            <a href='#'>{props.user !== null ? props.user.firstName : ''}</a>
+            <a href='#'>{user !== null ? user.firstName : ''}</a>
           </li>
           <li>
-            <img src={props.user !== null ? props.user.profilePicture : ''} className='user-profile__image' />
+            <img src={user !== null ? user.profilePicture : ''} className='user-profile__image' />
           </li>
           <li className='divider'></li>
-          <li><Link to={ props.loggedIn ? '/logout' : '/login' }>{ props.loggedIn ? 'Logout' : 'Login' }</Link></li>
+          <li><Link to={ loggedIn ? '/logout' : '/login' }>{ loggedIn ? 'Logout' : 'Login' }</Link></li>
         </ul>
         <ul className="side-nav" id="mobile-demo">
           <li><Link to='/songs'>Songs</Link></li>
           <li>
-            <a href='#'>{props.user !== null ? props.user.firstName : ''}</a>
+            <a href='#'>{user !== null ? user.firstName : ''}</a>
           </li>
           <li>
-            <img src={props.user !== null ? props.user.profilePicture : ''} className='user-profile__image' />
+            <img src={user !== null ? user.profilePicture : ''} className='user-profile__image' />
           </li>
-          <li><Link to={ props.loggedIn ? '/logout' : '/login' }>{ props.loggedIn ? 'Logout' : 'Login' }</Link></li>
+          <li><Link to={ loggedIn ? '/logout' : '/login' }>{ loggedIn ? 'Logout' : 'Login' }</Link></li>
         </ul>
       </div>
     </nav>
