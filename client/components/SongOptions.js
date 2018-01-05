@@ -9,7 +9,7 @@ const TEXT_SIZES = [10, 11, 12, 13, 14, 15, 16, 18, 20, 24];
 
 class SongOptions extends React.Component {
   updateSongParameters = (songKey, textSize, vocalistMode) => {
-    this.props.router.push(`/song/${this.props.songId}/print?songKey=${songKey.replace(/#/g, '%23')}&textSize=${textSize}&vocalistMode=${vocalistMode}`);
+    this.props.history.push(`/song/${this.props.songId}/print?songKey=${songKey.replace(/#/g, '%23')}&textSize=${textSize}&vocalistMode=${vocalistMode}`);
   }
 
   updateChosenSongKey = (event) => {
