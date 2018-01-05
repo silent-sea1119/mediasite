@@ -53,7 +53,7 @@ class SongSheet extends React.Component {
     }
 
     const songData = this.state.songData;
-    const queryParams = qs.parse(this.props.location.search);
+    const queryParams = qs.parse(this.props.location.search, {ignoreQueryPrefix: true});
     const { songKey, textSize, vocalistMode } = queryParams;
     const songId = this.props.match.params.songId;
 
