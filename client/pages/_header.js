@@ -7,7 +7,7 @@ const MediasiteHeader = ({loggedIn, user, location}) => {
   let addSongLink = '';
   let songsLink = '';
   if (loggedIn) {
-    addSongLink = <li><Link to='/song/new'>Add Song</Link></li>;
+    addSongLink = <li><Link to='/new-song'>Add Song</Link></li>;
     songsLink = <li><Link to='/songs'>Songs</Link></li>;
   }
   return (
@@ -19,10 +19,10 @@ const MediasiteHeader = ({loggedIn, user, location}) => {
           {addSongLink}
           {songsLink}
           <li>
-            <a href='#'>{user !== null ? user.firstName : ''}</a>
+            <a href='#'>{user !== null ? user.displayName : ''}</a>
           </li>
           <li>
-            <img src={user !== null ? user.profilePicture : ''} className='user-profile__image' />
+            <img src={user !== null ? user.photoURL : ''} className='user-profile__image' />
           </li>
           <li className='divider'></li>
           <li><Link to={ loggedIn ? '/logout' : '/login' }>{ loggedIn ? 'Logout' : 'Login' }</Link></li>
@@ -30,10 +30,10 @@ const MediasiteHeader = ({loggedIn, user, location}) => {
         <ul className="side-nav" id="mobile-demo">
           <li><Link to='/songs'>Songs</Link></li>
           <li>
-            <a href='#'>{user !== null ? user.firstName : ''}</a>
+            <a href='#'>{user !== null ? user.displayName : ''}</a>
           </li>
           <li>
-            <img src={user !== null ? user.profilePicture : ''} className='user-profile__image' />
+            <img src={user !== null ? user.photoURL : ''} className='user-profile__image' />
           </li>
           <li><Link to={ loggedIn ? '/logout' : '/login' }>{ loggedIn ? 'Logout' : 'Login' }</Link></li>
         </ul>

@@ -1,11 +1,15 @@
 import React from 'react';
 
-import auth from '../auth';
+import firebase from 'firebase';
 
 export default class Logout extends React.Component {
   componentDidMount() {
-    auth.logout(() => {
-      this.props.history.push('/');
+    firebase.auth().signOut().then(function() {
+      // Sign-out successful.
+      this.props.history.push('/login');
+    }).catch(function(error) {
+      // An error happened.
+      console.log(error);
     });
   }
 

@@ -44,10 +44,13 @@ module.exports = {
                       ],
                       plugins: ['transform-class-properties']
                     }
-                }
+                },
             }, {
                 test: /\.json$/,
                 use: 'json'
+            }, {
+                test: /\.css/,
+                use: [ 'style-loader', 'css-loader' ]
             }
         ]
     },

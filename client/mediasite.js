@@ -9,66 +9,86 @@ import {
   withRouter
 } from 'react-router-dom';
 
+import { FirebaseAuth } from 'react-firebaseui';
+import firebase from 'firebase';
+
 import { loadScript, browserSupportsAllFeatures } from './browser-helpers';
 
 import {
     EditSong,
     NewSong,
-    Login,
     Logout,
     Song,
     FilterableSongTable,
     SongSheet,
     MediasiteHeader,
-    Welcome
+    Welcome,
+    User
 } from './pages';
 import auth from './auth';
 import MediasiteApi from './api/MediasiteApi';
 
+// Configure Firebase.
+const config = {
+  apiKey: 'AIzaSyDJGi-gLoEjZvMN9PqMAloHCAD9QTdK1kI',
+  authDomain: 'cdac-mediasite.firebaseapp.com'
+};
+firebase.initializeApp(config);
+
+// Firebase user has a ton of extra info that doesn't need to get shared around.
+function getBareUserFromFirebaseUser(user) {
+  return {
+    displayName: user.displayName,
+    email: user.email,
+    emailVerified: user.emailVerified,
+    phoneNumber: user.phoneNumber,
+    photoURL: user.photoURL,
+    uid: user.uid
+  }
+}
+
 class App extends React.Component {
+  uiConfig = {
+    callbacks: {
+      signInSuccess: (currentUser, credential, redirectUrl) => {
+        console.log({ currentUser, credential, redirectUrl });
+        this.setState({
+          loggedIn: true,
+        });
+        localStorage.userId = currentUser.uid;
+        return true;
+      }
+    },
+    signInFlow: 'popup',
+    signInSuccessUrl: '/welcome',
+    signInOptions: [
+      firebase.auth.GoogleAuthProvider.PROVIDER_ID
+    ]
+  };
+
   state = {
-    loggedIn: auth.loggedIn(),
+    loggedIn: false,
     user: null
   };
 
-  updateAuth = (loggedIn) => {
-    let newState = {
-      loggedIn: loggedIn
-    };
-    if (!loggedIn && this.state.loggedIn && this.state.user !== null) {
-      newState.user = null;
-    }
-    this.setState(newState);
-  };
-
   componentDidMount() {
-    this.loadUserInfo();
     $('.button-collapse').sideNav();
   }
 
-  componentDidUpdate() {
-    this.loadUserInfo();
-  }
-
   componentWillMount() {
-    auth.onChange = this.updateAuth;
-    auth.login();
-  }
-
-  loadUserInfo() {
-    if (this.state.user === null && this.state.loggedIn) {
-      MediasiteApi.getUserInfo(localStorage.userId, (userInfo) => {
-        this.setState({
-          user: {
-            'title': userInfo.data.title,
-            'profilePicture': userInfo.data.profile_picture,
-            'firstName': userInfo.data.first_name,
-            'lastName': userInfo.data.last_name,
-            'email': userInfo.data.email
-          }
-        });
-      });
-    }
+    firebase.auth().onAuthStateChanged((user) => {
+      const newState = {};
+      if (user) {
+        newState.loggedIn = true;
+        newState.user = getBareUserFromFirebaseUser(user);
+      } else {
+        // No user is signed in.
+        newState.loggedIn = false;
+        newState.user = null;
+        auth.logout();
+      }
+      this.setState(newState);
+    });
   }
 
   render() {
@@ -80,9 +100,18 @@ class App extends React.Component {
           <div className='container'>
             <PrivateRoute path="/" exact={true} component={Welcome} />
             <PrivateRoute path='/welcome' component={Welcome} />
-            <Route path="/login" component={Login} />
+            <Route path="/login" component={() => (
+              <div className="card">
+                <div className="card-content">
+                  <h2>Welcome to Circle's Mediasite!</h2>
+                  <p>This is the place that folks come when they need media.</p>
+                  <FirebaseAuth uiConfig={this.uiConfig} firebaseAuth={firebase.auth()}/>
+                </div>
+              </div>
+            )} />
             <PrivateRoute path="/logout" component={Logout} />
-            <PrivateRoute path="/song/new" component={NewSong} />
+            {/* <PrivateRoute path="/user" component={User} /> */}
+            <PrivateRoute path="/new-song" component={NewSong} exact={true} />
             <PrivateRoute path="/songs" component={FilterableSongTable} />
             <PrivateRoute path='/song/:songId' component={Song} exact={true} />
             <PrivateRoute path='/song/:songId/edit' component={EditSong} />
@@ -93,18 +122,17 @@ class App extends React.Component {
   }
 }
 
-const PrivateRoute = ({ component: Component, ...rest }) => (
-  <Route {...rest} render={props => (
+const PrivateRoute = ({ component: Component, ...rest }) => {
+  return <Route {...rest} render={props => (
     auth.loggedIn() ? (
       <Component {...props}/>
     ) : (
       <Redirect to={{
-        pathname: '/login',
-        state: { from: props.location }
+        pathname: `/login?signInSuccessUrl=${encodeURIComponent(props.location.pathname + props.location.search)}`
       }}/>
     )
   )}/>
-)
+}
 
 function startRender(error) {
   if (error) {
