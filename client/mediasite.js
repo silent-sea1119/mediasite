@@ -51,7 +51,6 @@ class App extends React.Component {
   uiConfig = {
     callbacks: {
       signInSuccess: (currentUser, credential, redirectUrl) => {
-        console.log({ currentUser, credential, redirectUrl });
         this.setState({
           loggedIn: true,
         });
@@ -100,15 +99,7 @@ class App extends React.Component {
           <div className='container'>
             <PrivateRoute path="/" exact={true} component={Welcome} />
             <PrivateRoute path='/welcome' component={Welcome} />
-            <Route path="/login" component={() => (
-              <div className="card">
-                <div className="card-content">
-                  <h2>Welcome to Circle's Mediasite!</h2>
-                  <p>This is the place that folks come when they need media.</p>
-                  <FirebaseAuth uiConfig={this.uiConfig} firebaseAuth={firebase.auth()}/>
-                </div>
-              </div>
-            )} />
+            <Route path="/login" component={(props) => <Login uiConfig={this.uiConfig} {...props} />} />
             <PrivateRoute path="/logout" component={Logout} />
             {/* <PrivateRoute path="/user" component={User} /> */}
             <PrivateRoute path="/new-song" component={NewSong} exact={true} />
@@ -122,16 +113,31 @@ class App extends React.Component {
   }
 }
 
+const Login = withRouter((props) => {
+  const uiConfig = { ...props.uiConfig, signInSuccessUrl: props.location.state.from };
+  return (
+    <div className="card">
+      <div className="card-content">
+        <h2>Welcome to Circle's Mediasite!</h2>
+        <p>This is the place that folks come when they need media.</p>
+        <FirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()}/>
+      </div>
+    </div>
+  )
+});
+
 const PrivateRoute = ({ component: Component, ...rest }) => {
   return <Route {...rest} render={props => (
-    auth.loggedIn() ? (
-      <Component {...props}/>
-    ) : (
-      <Redirect to={{
-        pathname: `/login?signInSuccessUrl=${encodeURIComponent(props.location.pathname + props.location.search)}`
-      }}/>
+      auth.loggedIn() ? (
+        <Component {...props}/>
+      ) : (
+        <Redirect to={{
+          pathname: `/login`,
+          state: { from: props.location.pathname + props.location.search }
+        }}/>
+      )
     )
-  )}/>
+  }/>
 }
 
 function startRender(error) {
@@ -139,9 +145,7 @@ function startRender(error) {
     console.error(error);
   } else {
     render((
-      <Router>
-        <App />
-      </Router>
+      <App />
     ), document.getElementById('mediasite'));
   }
 }
