@@ -42,6 +42,7 @@
     "build-css": "node-sass --include-path scss server/static/scss/main.scss server/static/css/global.css",
     "watch-css": "nodemon -e scss -x \"npm run build-css\"",
     "test": "mocha './client/**/*.Spec.js' --compilers js:babel-core/register",
+    "watch-test": "npm test -- --watch",
     "build-js:prod": "webpack -p",
     "build-css:prod": "node-sass --include-path scss build/static/scss/main.scss build/static/css/global.css",
     "build:prod": "npm run clean && npm run build-js:prod && npm run build-css && cp -r server build",

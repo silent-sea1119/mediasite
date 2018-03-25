@@ -25,7 +25,7 @@ export default class SongPartCreator extends React.Component {
       const currentPart = this.props.songParts[i - 1];
 
       this[`part${i}name`].value = currentPart.partName;
-      this[`part${i}data`].value = currentPart.partData.reduce((prevString, currentPart, index) => {
+      this[`part${i}data`].value = currentPart.partData.reduce((prevString, currentPart) => {
         let partData;
         if (currentPart.lyric !== null) {
           partData = currentPart.lyric;
