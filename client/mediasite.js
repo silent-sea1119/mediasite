@@ -82,7 +82,7 @@ class App extends React.Component {
             <PrivateRoute path='/welcome' component={Welcome} />
             <Route path="/login" component={Login} />
             <PrivateRoute path="/logout" component={Logout} />
-            <PrivateRoute path="/song/new" component={NewSong} />
+            <PrivateRoute path="/new-song" component={NewSong} />
             <PrivateRoute path="/songs" component={FilterableSongTable} />
             <PrivateRoute path='/song/:songId' component={Song} exact={true} />
             <PrivateRoute path='/song/:songId/edit' component={EditSong} />

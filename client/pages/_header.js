@@ -7,7 +7,7 @@ const MediasiteHeader = ({loggedIn, user, location}) => {
   let addSongLink = '';
   let songsLink = '';
   if (loggedIn) {
-    addSongLink = <li><Link to='/song/new'>Add Song</Link></li>;
+    addSongLink = <li><Link to='/new-song'>Add Song</Link></li>;
     songsLink = <li><Link to='/songs'>Songs</Link></li>;
   }
   return (
