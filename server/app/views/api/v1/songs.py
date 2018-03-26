@@ -61,7 +61,8 @@ class SongsApiHandler(JsonApiHandler):
     """
     def get(self):
         search_text = self.request.GET.get('searchText', '')
-        result = search_songs_by_title(search_text)
+        in_rotation_only = self.request.GET.get('inRotationOnly', '') == 'true'
+        result = search_songs_by_title(search_text, in_rotation_only)
         return self.render_response(result)
 
 

@@ -9,8 +9,8 @@ export default class MediasiteApi {
       .catch(err => console.log("Couldn't reach the server for some reason: ", err));
   }
 
-  static getSongs(searchText, callback) {
-    fetch(`/api/v1/songs/get/?searchText=${searchText}`)
+  static getSongs(searchText, inRotationOnly, callback) {
+    fetch(`/api/v1/songs/get/?searchText=${searchText}&inRotationOnly=${inRotationOnly}`)
       .then((response) => response.json())
       .then((jsonData) => callback(jsonData));
   }

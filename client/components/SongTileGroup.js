@@ -24,7 +24,8 @@ export default class SongTileGroup extends React.Component {
         author2={song.author2}
         youTubeLink={song.youtubeLink}
         inRotation={song.inRotation || false} />;
-    });
+    })
+      .filter(Boolean);
 
     return (
       <div className="row">
