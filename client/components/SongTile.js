@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { parseYouTubeLink } from './YouTube';
+import { CircleSongList } from './CircleSongList';
 
 export default class SongTile extends React.Component {
   render() {
@@ -18,6 +19,7 @@ export default class SongTile extends React.Component {
             <h5>{this.props.title}</h5>
             <p>{this.props.author1}</p>
             <p>{this.props.author2}</p>
+            <CircleSongList inRotation={this.props.inRotation} />
           </div>
           <div className="card-action">
             <Link to={songUrl}>View</Link>

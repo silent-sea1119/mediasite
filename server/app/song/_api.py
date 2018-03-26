@@ -20,9 +20,9 @@ def get_song_api_dict_by_id(song_id, with_song_data=False):
 
 
 def create_song(title, author1, song_key,
-                author2=None, ccli=None, style=None, use1=None, use2=None, copy_date=None, bible_reference=None,
+                author2=None, ccli=None, style=None, use1=None, use2=None, copy_date=None, bible_references=None,
                 youtube_link=None, publisher=None, notes=None, song_order=None, external_url=None, font_size=None,
-                song_data=None, user_id=None):
+                song_data=None, user_id=None, tempo=None, beats_per_minute=None, in_rotation=None):
     """ Create a song and return its id """
     song_id = Song.generate_song_id()
     song = Song(
@@ -37,7 +37,7 @@ def create_song(title, author1, song_key,
         use1=use1,
         use2=use2,
         copy_date=copy_date,
-        bible_reference=bible_reference,
+        bible_references=bible_references,
         youtube_link=youtube_link,
         publisher=publisher,
         notes=notes,
@@ -45,7 +45,10 @@ def create_song(title, author1, song_key,
         external_url=external_url,
         font_size=font_size,
         song_data=song_data,
-        created_by_user_id=user_id
+        created_by_user_id=user_id,
+        tempo=tempo,
+        beats_per_minute=beats_per_minute,
+        in_rotation=in_rotation,
     )
     song.put()
 

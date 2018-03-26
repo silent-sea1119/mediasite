@@ -15,7 +15,7 @@ const CircleLoader = () => {
       </div>
     </div>
   );
-}
+};
 
 function Stat(data) {
   this.name = data.name;
@@ -49,7 +49,7 @@ class MediasiteStat extends React.Component {
     let content;
     if (this.state.loading) {
       content = <div className="cart-content">
-        <CircleLoader></CircleLoader>
+        <CircleLoader />
       </div>;
     } else {
       const { stat } = this.state;

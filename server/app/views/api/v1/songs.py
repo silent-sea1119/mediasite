@@ -34,7 +34,6 @@ class SongApiHandler(JsonApiHandler):
     def _convert_camel_to_snake(song_body):
         converts = {
             u'copy_date': song_body.pop('copyDate', u''),
-            u'bible_reference': song_body.pop('bibleReference', u''),
             u'youtube_link': song_body.pop('youtubeLink', u''),
             u'song_order': song_body.pop('songOrder', u''),
             u'external_url': song_body.pop('externalUrl', u''),
@@ -42,6 +41,10 @@ class SongApiHandler(JsonApiHandler):
             u'song_data': song_body.pop('songData', u''),
             u'song_key': song_body.pop('songKey', u''),
             u'user_id': song_body.pop('userId', u''),
+            u'in_rotation': song_body.pop('inRotation', False),
+            u'beats_per_minute': song_body.pop('bpm', u''),
+            u'tempo': song_body.pop('tempo', u''),
+            u'bible_references': song_body.pop('bibleReferences', u''),
         }
         song_body.update(converts)
         return song_body

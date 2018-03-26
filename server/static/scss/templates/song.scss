@@ -6,3 +6,11 @@
     height: 390px;
   }
 }
+
+.black-with-hover {
+  color: black;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

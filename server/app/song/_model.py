@@ -15,13 +15,14 @@ class Song(ndb.Model):
     lower_title = ndb.ComputedProperty(lambda song: song.title.lower())
     author1 = ndb.StringProperty(required=True)
     author2 = ndb.StringProperty()
+    # authors = ndb.StringProperty(required=True)
     song_key = ndb.StringProperty(required=True)
     ccli = ndb.StringProperty()
     style = ndb.StringProperty()
     use1 = ndb.StringProperty()
     use2 = ndb.StringProperty()
     copy_date = ndb.StringProperty()
-    bible_reference = ndb.StringProperty()
+    bible_references = ndb.StringProperty()
     youtube_link = ndb.StringProperty()
     publisher = ndb.StringProperty()
     notes = ndb.StringProperty()
@@ -31,6 +32,10 @@ class Song(ndb.Model):
     song_data = ndb.JsonProperty()
     created_by_user_id = ndb.StringProperty()
     last_edited_by_user_id = ndb.StringProperty()
+    beats_per_minute = ndb.StringProperty()
+    tempo = ndb.StringProperty()
+    # Whether or not this song is in Circle's current Song List (i.e. songs that get played on Sundays)
+    in_rotation = ndb.BooleanProperty()
 
     def apply_changes(self, **kwargs):
         """ Update a song """
@@ -64,7 +69,7 @@ class Song(ndb.Model):
             "use1": self.use1,
             "use2": self.use2,
             "copyDate": self.copy_date,
-            "bibleReference": self.bible_reference,
+            "bibleReferences": self.bible_references,
             "youtubeLink": self.youtube_link,
             "publisher": self.publisher,
             "notes": self.notes,
@@ -74,6 +79,9 @@ class Song(ndb.Model):
             "songData": self.song_data if with_song_data and self.song_data else {},
             "createdByUserId": self.created_by_user_id,
             "lastEditedByUserId": self.last_edited_by_user_id,
+            "tempo": self.tempo,
+            "bpm": self.beats_per_minute,
+            "inRotation": self.in_rotation
         }
 
 
