@@ -26,7 +26,7 @@ export const DEFAULT_SONG_STATE = {
   title: '',
   author1: '',
   author2: '',
-  style: '',
+  category: '',
   bibleReferences: '',
   tempo: '',
   bpm: '',
