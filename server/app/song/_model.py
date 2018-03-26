@@ -19,6 +19,7 @@ class Song(ndb.Model):
     song_key = ndb.StringProperty(required=True)
     ccli = ndb.StringProperty()
     style = ndb.StringProperty()
+    category = ndb.StringProperty()
     use1 = ndb.StringProperty()
     use2 = ndb.StringProperty()
     copy_date = ndb.StringProperty()
@@ -81,7 +82,8 @@ class Song(ndb.Model):
             "lastEditedByUserId": self.last_edited_by_user_id,
             "tempo": self.tempo,
             "bpm": self.beats_per_minute,
-            "inRotation": self.in_rotation
+            "inRotation": self.in_rotation,
+            "category": self.category,
         }
 
 
