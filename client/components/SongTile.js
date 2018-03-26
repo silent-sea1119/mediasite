@@ -19,6 +19,7 @@ export default class SongTile extends React.Component {
             <h5>{this.props.title}</h5>
             <p>{this.props.author1}</p>
             <p>{this.props.author2}</p>
+            <br />
             <CircleSongList inRotation={this.props.inRotation} />
           </div>
           <div className="card-action">
