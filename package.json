@@ -5,6 +5,7 @@
     "bower": "^1.8.0",
     "fetch": "^1.1.0",
     "history": "^4.7.2",
+    "jquery": "^3.3.1",
     "lodash.debounce": "^4.0.8",
     "lodash.map": "^4.6.0",
     "materialize-css": "^0.97.7",

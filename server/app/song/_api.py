@@ -20,9 +20,9 @@ def get_song_api_dict_by_id(song_id, with_song_data=False):
 
 
 def create_song(title, author1, song_key,
-                author2=None, ccli=None, style=None, use1=None, use2=None, copy_date=None, bible_reference=None,
+                author2=None, ccli=None, style=None, use1=None, use2=None, copy_date=None, bible_references=None,
                 youtube_link=None, publisher=None, notes=None, song_order=None, external_url=None, font_size=None,
-                song_data=None, user_id=None):
+                song_data=None, user_id=None, tempo=None, beats_per_minute=None, in_rotation=None):
     """ Create a song and return its id """
     song_id = Song.generate_song_id()
     song = Song(
@@ -37,7 +37,7 @@ def create_song(title, author1, song_key,
         use1=use1,
         use2=use2,
         copy_date=copy_date,
-        bible_reference=bible_reference,
+        bible_references=bible_references,
         youtube_link=youtube_link,
         publisher=publisher,
         notes=notes,
@@ -45,7 +45,10 @@ def create_song(title, author1, song_key,
         external_url=external_url,
         font_size=font_size,
         song_data=song_data,
-        created_by_user_id=user_id
+        created_by_user_id=user_id,
+        tempo=tempo,
+        beats_per_minute=beats_per_minute,
+        in_rotation=in_rotation,
     )
     song.put()
 
@@ -66,12 +69,14 @@ def track_song_edit(user_id, song_id):
     return EditHistoryItem.create(user_id, song_id)
 
 
-def search_songs_by_title(search_text):
+def search_songs_by_title(search_text, in_rotation_only=True):
     """ Search songs by search_text, which searches the titles only """
     song_query = Song.query()
     if search_text:
         lower_search = search_text.lower()
-        song_query.filter(Song.lower_title >= lower_search).filter(Song.lower_title < lower_search + u'\ufffd')
+        song_query = song_query.filter(Song.lower_title >= lower_search).filter(Song.lower_title < lower_search + u'\ufffd')
+    if in_rotation_only:
+        song_query = song_query.filter(Song.in_rotation == True)
     return [song.to_api_dict() for song in song_query.fetch()]
 
 

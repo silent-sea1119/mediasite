@@ -9,8 +9,8 @@ export default class MediasiteApi {
       .catch(err => console.log("Couldn't reach the server for some reason: ", err));
   }
 
-  static getSongs(searchText, callback) {
-    fetch(`/api/v1/songs/get/?searchText=${searchText}`)
+  static getSongs(searchText, inRotationOnly, callback) {
+    fetch(`/api/v1/songs/get/?searchText=${searchText}&inRotationOnly=${inRotationOnly}`)
       .then((response) => response.json())
       .then((jsonData) => callback(jsonData));
   }
@@ -21,30 +21,28 @@ export default class MediasiteApi {
       .then((jsonData) => callback(jsonData));
   }
 
-  static createSong(songData, callback) {
+  static createSong(songData) {
     songData = MediasiteApi.addUserTracking(songData);
-    fetch(`/api/v1/song/`, {
+    return fetch(`/api/v1/song/`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(songData)
     })
-      .then((response) => response.json())
-      .then((jsonData) => callback(jsonData));
+      .then((response) => response.json());
   }
 
-  static updateSong(songData, callback) {
+  static updateSong(songData) {
     songData = MediasiteApi.addUserTracking(songData);
-    fetch(`/api/v1/song/${songData.songId}`, {
+    return fetch(`/api/v1/song/${songData.songId}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(songData)
     })
-      .then((response) => response.json())
-      .then((jsonData) => callback(jsonData));
+      .then((response) => response.json());
   }
 
   static getUserInfo(userId, callback) {
