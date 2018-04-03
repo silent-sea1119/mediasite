@@ -7,5 +7,6 @@ import FilterableSongTable from './SongTable';
 import MediasiteHeader from './_header';
 import Welcome from './Welcome';
 import SongSheet from './SongSheet';
+import { SongList } from './SongList';
 
-export { EditSong, NewSong, Login, Logout, Song, FilterableSongTable, MediasiteHeader, Welcome, SongSheet };
+export { EditSong, NewSong, Login, Logout, Song, FilterableSongTable, MediasiteHeader, Welcome, SongSheet, SongList };

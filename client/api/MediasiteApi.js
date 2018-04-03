@@ -15,6 +15,11 @@ export default class MediasiteApi {
       .then((jsonData) => callback(jsonData));
   }
 
+  static getSongsInRotation() {
+    return fetch(`/api/v1/songs/get/?inRotationOnly=true`)
+      .then(response => response.json());
+  }
+
   static getSongById(songId, callback) {
     fetch(`/api/v1/song/${songId}`)
       .then((response) => response.json())

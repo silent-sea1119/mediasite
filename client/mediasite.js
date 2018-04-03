@@ -12,15 +12,16 @@ import {
 import { loadScript, browserSupportsAllFeatures } from './browser-helpers';
 
 import {
-    EditSong,
-    NewSong,
-    Login,
-    Logout,
-    Song,
-    FilterableSongTable,
-    SongSheet,
-    MediasiteHeader,
-    Welcome
+  EditSong,
+  NewSong,
+  Login,
+  Logout,
+  Song,
+  FilterableSongTable,
+  SongSheet,
+  MediasiteHeader,
+  Welcome,
+  SongList
 } from './pages';
 import auth from './auth';
 import MediasiteApi from './api/MediasiteApi';
@@ -83,6 +84,7 @@ class App extends React.Component {
             <Route path="/login" component={Login} />
             <PrivateRoute path="/logout" component={Logout} />
             <PrivateRoute path="/new-song" component={NewSong} />
+            <Route path="/song-list" component={SongList} />
             <PrivateRoute path="/songs" component={FilterableSongTable} />
             <PrivateRoute path='/song/:songId' component={Song} exact={true} />
             <PrivateRoute path='/song/:songId/edit' component={EditSong} />
