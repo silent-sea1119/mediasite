@@ -47,7 +47,8 @@ export default class NewSong extends React.Component {
 
   handleFormChange(event, stateKey) {
     let currentState = this.state;
-    currentState[stateKey] = event.target.value;
+    const target = event.target;
+    currentState[stateKey] = target.type === 'checkbox' ? target.checked : target.value;
     this.setState(currentState);
   }
 
