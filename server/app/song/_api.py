@@ -70,7 +70,7 @@ def track_song_edit(user_id, song_id):
     return EditHistoryItem.create(user_id, song_id)
 
 
-def search_songs_by_title(search_text, in_rotation_only=True):
+def search_songs_by_title(search_text, in_rotation_only=True, descending_name_order=False):
     """ Search songs by search_text, which searches the titles only """
     song_query = Song.query()
     if search_text:
@@ -78,6 +78,8 @@ def search_songs_by_title(search_text, in_rotation_only=True):
         song_query = song_query.filter(Song.lower_title >= lower_search).filter(Song.lower_title < lower_search + u'\ufffd')
     if in_rotation_only:
         song_query = song_query.filter(Song.in_rotation == True)
+    if descending_name_order:
+        song_query = song_query.order(Song.lower_title)
     return [song.to_api_dict() for song in song_query.fetch()]
 
 

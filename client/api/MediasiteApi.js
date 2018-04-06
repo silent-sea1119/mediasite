@@ -16,7 +16,7 @@ export default class MediasiteApi {
   }
 
   static getSongsInRotation() {
-    return fetch(`/api/v1/songs/get/?inRotationOnly=true`)
+    return fetch(`/api/v1/songs/get/?inRotationOnly=true&descendingName=true`)
       .then(response => response.json());
   }
 

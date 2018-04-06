@@ -15,8 +15,10 @@ export default class SongList extends React.PureComponent {
   render() {
     if (this.state.songs.length === 0) {
       return (
-        <div>No songs I guess</div>
-      )
+        <div className="progress">
+          <div className="indeterminate"></div>
+        </div>
+      );
     }
     const songs = this.state.songs.map(song => {
       return <tr key={song.songId}>

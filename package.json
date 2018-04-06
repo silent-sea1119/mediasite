@@ -42,12 +42,12 @@
     "yargs": "^6.4.0"
   },
   "scripts": {
-    "build-js": "webpack --config ./webpack.config.js",
-    "watch-js": "webpack-dashboard -- npm run build-js -- --watch --mode development",
+    "build-js": "webpack --config ./webpack.config.js --mode development",
+    "watch-js": "webpack-dashboard -- npm run build-js -- --watch",
     "build-css": "node-sass --include-path scss server/static/scss/main.scss server/static/css/global.css",
     "watch-css": "nodemon -e scss -x \"npm run build-css\"",
     "test": "mocha './client/**/*.Spec.js' --compilers js:babel-core/register",
-    "build-js:prod": "webpack -p",
+    "build-js:prod": "npm run build-js -- --mode production",
     "build-css:prod": "node-sass --include-path scss build/static/scss/main.scss build/static/css/global.css",
     "build:prod": "npm run clean && npm run build-js:prod && npm run build-css && cp -r server build",
     "move:prod": "npm run clean && cp -r server build && npm run build-css:prod",
