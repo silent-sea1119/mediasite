@@ -377,8 +377,13 @@ describe('media codec', function () {
               const tranny = new Transposer('Gb', 'C');
               const actual = tranny.transposeNote('Ebm');
               expect(actual).toBe('Am');
-          })
-      })
+          });
+      });
+
+      it('should transpose B/// to C/// when transposing B to C', function() {
+        const actual = new Transposer('Bb', 'C').transposeNote('Bb///');
+        expect(actual).toBe('C///')
+      });
     });
 
     describe('getNoteIndex', function () {
