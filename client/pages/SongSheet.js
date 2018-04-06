@@ -61,7 +61,7 @@ class SongSheet extends React.Component {
 
     return (
       <div style={{backgroundColor: 'white', padding: '10px'}}>
-        <SongOptions songKey={songKey} textSize={textSize} songId={songId} vocalistMode={vocalistMode} />
+        <SongOptions songKey={songKey} textSize={textSize} songId={songId} vocalistMode={vocalistMode} previewing={this.state.previewing === 'true'} />
         <div className="song-data">
           <div className="card-title">{songData.title}</div>
           {this.state.previewing ?
