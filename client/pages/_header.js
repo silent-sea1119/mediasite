@@ -6,9 +6,11 @@ const MediasiteHeader = ({loggedIn, user, location}) => {
   if (/\/song\/.*\/print/.test(location.pathname)) return '';
   let addSongLink = '';
   let songsLink = '';
+  let songListLink = '';
   if (loggedIn) {
     addSongLink = <li><Link to='/new-song'>Add Song</Link></li>;
     songsLink = <li><Link to='/songs'>Songs</Link></li>;
+    songListLink = <li><Link to='/song-list'>Circle's Song List</Link></li>;
   }
   return (
     <nav>
@@ -16,6 +18,7 @@ const MediasiteHeader = ({loggedIn, user, location}) => {
         <Link to='/' className='brand-logo'>Circle's Mediasite</Link>
         <a href="#" data-activates="mobile-demo" className="button-collapse"><i className="material-icons">menu</i></a>
         <ul className='right hide-on-med-and-down'>
+          {songListLink}
           {addSongLink}
           {songsLink}
           <li>
@@ -28,7 +31,9 @@ const MediasiteHeader = ({loggedIn, user, location}) => {
           <li><Link to={ loggedIn ? '/logout' : '/login' }>{ loggedIn ? 'Logout' : 'Login' }</Link></li>
         </ul>
         <ul className="side-nav" id="mobile-demo">
-          <li><Link to='/songs'>Songs</Link></li>
+          {songListLink}
+          {addSongLink}
+          {songsLink}
           <li>
             <a href='#'>{user !== null ? user.firstName : ''}</a>
           </li>

@@ -76,7 +76,7 @@ class App extends React.Component {
             <Route path="/login" component={Login} />
             <PrivateRoute path="/logout" component={Logout} />
             <PrivateRoute path="/new-song" component={LoadableNewSong} />
-            <Route path="/song-list" component={LoadableSongList} />
+            <PrivateRoute path="/song-list" component={LoadableSongList} />
             <PrivateRoute path="/songs" component={LoadableSongTable} />
             <PrivateRoute path='/song/:songId' component={LoadableSong} exact={true} />
             <PrivateRoute path='/song/:songId/edit' component={LoadableEditSong} />

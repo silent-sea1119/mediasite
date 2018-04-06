@@ -1,5 +1,6 @@
 import React from 'react';
 import MediasiteApi from '../api/MediasiteApi';
+import { Link } from 'react-router-dom';
 
 export default class SongList extends React.PureComponent {
   state = {
@@ -19,13 +20,13 @@ export default class SongList extends React.PureComponent {
     }
     const songs = this.state.songs.map(song => {
       return <tr key={song.songId}>
-        <td>{song.title}</td>
+        <td><Link to={`/song/${song.songId}`}>{song.title}</Link></td>
         <td>{song.copyDate}</td>
         <td>{song.tempo}</td>
         <td>{song.bpm}</td>
         <td>{song.category}</td>
-        <td>{song.bibleReferences}</td>
-        <td>{song.songKey}</td>
+        <td>{getBibleReferenceLinks(song.bibleReferences)}</td>
+        <td style={{textAlign: 'center'}}>{song.songKey}</td>
       </tr>
     });
     return (
@@ -50,4 +51,12 @@ export default class SongList extends React.PureComponent {
       </div>
     );
   }
+}
+
+function getBibleReferenceLinks(rawRefs) {
+  return rawRefs
+    .split(',')
+    .map(ref => ref.trim())
+    .map(ref => <a href={`https://www.biblegateway.com/passage/?version=NIV&search=${ref}`} key={ref} target="_blank">{ref}</a>)
+    .reduce((curr, prev) => [prev, ', ', curr]);
 }
