@@ -6,8 +6,6 @@ import { decodeNoteLine, songParagraphToJson } from '../mediacodec/helpers.js';
 import { Song } from '../mediacodec';
 
 const SongPreview = ({ songPartName, songData }) => {
-  if (!songData) return '';
-
   const song = new Song('na', 'na', 'B', {parts: [{ partName: songPartName, partData: songParagraphToJson(songData) }]});
 
   return (
@@ -80,6 +78,7 @@ export default class SongPartCreator extends React.Component {
     for (let i = 1; i <= 8; i++) {
       songParts.push(
         <div className="collector" key={`songPartCollector${i}`}>
+          <h5>Part {i}<hr /></h5>
           <div className="row">
             <div className="input-field col m2 s12">
               <input
@@ -89,7 +88,7 @@ export default class SongPartCreator extends React.Component {
                 value={this.state[`part${i}name`]}
                 onChange={(event) => this.handleInputChange(event, `part${i}name`)}
               />
-              <label htmlFor={`part${i}name`}>{`Part #${i} name`}</label>
+              <label htmlFor={`part${i}name`}>Title</label>
             </div>
             <div className="input-field col m10 s12">
               <textarea
@@ -99,10 +98,10 @@ export default class SongPartCreator extends React.Component {
                 value={this.state[`part${i}data`]}
                 onChange={(event) => this.handleInputChange(event, `part${i}data`)}
               />
-              <label htmlFor={`part${i}data`}>{`Part #${i}:`}</label>
+              <label htmlFor={`part${i}data`}>Notes and Lyrics</label>
             </div>
           </div>
-          { this.state[`part${i}data`] ?
+          { this.state[`part${i}name`] || this.state[`part${i}data`] ?
           <div className="row">
             <div className="input-field col m2 s12">
               <p className="preview-text">Preview:</p>
