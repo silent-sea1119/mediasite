@@ -52,7 +52,7 @@
     "build:prod": "npm run clean && npm run build-js:prod && npm run build-css && cp -r server build",
     "move:prod": "npm run clean && cp -r server build && npm run build-css:prod",
     "clean": "rm -rf build",
-    "deploy:prod": "gcloud app deploy --project=cdac-mediasite build/app.yaml -q --promote",
+    "deploy:prod": "gcloud app deploy --project=cdac-mediasite build/app.yaml build/index.yaml -q --promote",
     "bnd": "npm run build:prod && npm run deploy:prod",
     "start": "dev_appserver.py server/app.yaml --port=8078 --admin_port=9078 --storage_path=./data/",
     "bower-install": "bower install",
