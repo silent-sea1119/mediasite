@@ -13,14 +13,6 @@ function Loading(props) {
   }
 }
 
-const createLoadable = path => {
-  return Loadable({
-    loader: () => import(path),
-    loading: Loading,
-    delay: 300
-  });
-};
-
 export const LoadableNewSong = Loadable({
   loader: () => import('./NewSong'),
   loading: Loading,
