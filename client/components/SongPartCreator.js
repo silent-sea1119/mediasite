@@ -3,13 +3,43 @@ import React from 'react';
 import autosize from 'autosize';
 
 import { decodeNoteLine, songParagraphToJson } from '../mediacodec/helpers.js';
+import { Song } from '../mediacodec';
+
+const SongPreview = ({ songPartName, songData }) => {
+  if (!songData) return '';
+
+  const song = new Song('na', 'na', 'B', {parts: [{ partName: songPartName, partData: songParagraphToJson(songData) }]});
+
+  return (
+    <div dangerouslySetInnerHTML={{__html: song.toHtml('B', '16')}} />
+  );
+};
 
 export default class SongPartCreator extends React.Component {
+  state = {
+    part1data: '',
+    part2data: '',
+    part3data: '',
+    part4data: '',
+    part5data: '',
+    part6data: '',
+    part7data: '',
+    part8data: '',
+    part1name: '',
+    part2name: '',
+    part3name: '',
+    part4name: '',
+    part5name: '',
+    part6name: '',
+    part7name: '',
+    part8name: '',
+  };
+
   gatherSongData() {
     let songParts = [];
     for (let i = 1; i <= 8; i++) {
-      const partName = this[`part${i}name`].value;
-      const partData = this[`part${i}data`].value;
+      const partName = this.state[`part${i}name`];
+      const partData = this.state[`part${i}data`];
       if (!partData) break;
       songParts.push({
         partName,
@@ -21,11 +51,12 @@ export default class SongPartCreator extends React.Component {
   }
 
   hydrateSongData() {
+    const songParts = {};
     for (let i = 1; i <= this.props.songParts.length; i++) {
       const currentPart = this.props.songParts[i - 1];
 
-      this[`part${i}name`].value = currentPart.partName;
-      this[`part${i}data`].value = currentPart.partData.reduce((prevString, currentPart, index) => {
+      songParts[`part${i}name`] = currentPart.partName;
+      songParts[`part${i}data`] = currentPart.partData.reduce((prevString, currentPart) => {
         let partData;
         if (currentPart.lyric !== null) {
           partData = currentPart.lyric;
@@ -35,21 +66,52 @@ export default class SongPartCreator extends React.Component {
         return prevString + partData + '\n';
       }, '').replace(/\s+$/g, '');
     }
+    this.setState(songParts);
+  }
+
+  handleInputChange(event, stateKey) {
+    const state = this.state;
+    state[stateKey] = event.target.value;
+    this.setState(state);
   }
 
   renderSongParts() {
     let songParts = [];
     for (let i = 1; i <= 8; i++) {
       songParts.push(
-        <div className="row" key={`songPart${i}`}>
-          <div className="input-field col m2 s12">
-            <input id={`part${i}name`} type="text" className="validate" ref={(input) => this[`part${i}name`] = input} />
-            <label htmlFor={`part${i}name`}>{`Part #${i} name`}</label>
+        <div className="collector" key={`songPartCollector${i}`}>
+          <div className="row">
+            <div className="input-field col m2 s12">
+              <input
+                id={`part${i}name`}
+                type="text"
+                className="validate"
+                value={this.state[`part${i}name`]}
+                onChange={(event) => this.handleInputChange(event, `part${i}name`)}
+              />
+              <label htmlFor={`part${i}name`}>{`Part #${i} name`}</label>
+            </div>
+            <div className="input-field col m10 s12">
+              <textarea
+                id={`part${i}data`}
+                className="materialize-textarea"
+                style={{fontFamily: ["Courier New", "Courier", "mono"]}}
+                value={this.state[`part${i}data`]}
+                onChange={(event) => this.handleInputChange(event, `part${i}data`)}
+              />
+              <label htmlFor={`part${i}data`}>{`Part #${i}:`}</label>
+            </div>
           </div>
-          <div className="input-field col m10 s12">
-            <textarea id={`part${i}data`} className="materialize-textarea" style={{fontFamily: ["Courier New", "Courier", "mono"]}} ref={(input) => this[`part${i}data`] = input}></textarea>
-            <label htmlFor={`part${i}data`}>{`Part #${i}:`}</label>
+          { this.state[`part${i}data`] ?
+          <div className="row">
+            <div className="input-field col m2 s12">
+              <p className="preview-text">Preview:</p>
+            </div>
+            <div className="input-field col m10 s12">
+              <SongPreview songPartName={this.state[`part${i}name`]} songData={this.state[`part${i}data`]} />
+            </div>
           </div>
+            : '' }
         </div>
       );
     }
@@ -58,7 +120,7 @@ export default class SongPartCreator extends React.Component {
 
   componentDidMount() {
     this.hydrateSongData();
-    autosize(document.querySelectorAll('textarea'));
+    requestAnimationFrame(() => autosize(document.querySelectorAll('textarea')));
   }
 
   render() {

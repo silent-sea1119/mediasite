@@ -23,4 +23,6 @@ server/static/js/3.js
 server/static/js/4.js
 server/static/js/5.js
 server/static/js/6.js
+server/static/js/7.js
+server/static/js/8.js
 server/templates/base.html
