@@ -1,30 +1,22 @@
 import 'materialize-css';
 import React from 'react';
 import { render } from 'react-dom';
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  Redirect,
-  withRouter
-} from 'react-router-dom';
+import { BrowserRouter as Router, Redirect, Route } from 'react-router-dom';
 
-import { loadScript, browserSupportsAllFeatures } from './browser-helpers';
+import { browserSupportsAllFeatures, loadScript } from './browser-helpers';
 
-import {
-  EditSong,
-  NewSong,
-  Login,
-  Logout,
-  Song,
-  FilterableSongTable,
-  SongSheet,
-  MediasiteHeader,
-  Welcome,
-  SongList
-} from './pages';
+import { Login, Logout, MediasiteHeader, Welcome } from './pages';
 import auth from './auth';
 import MediasiteApi from './api/MediasiteApi';
+import {
+  LoadableEditSong,
+  LoadableNewSong,
+  LoadableSong,
+  LoadableSongList,
+  LoadableSongSheet,
+  LoadableSongTable
+} from './pages/loadable-pages';
+
 
 class App extends React.Component {
   state = {
@@ -76,18 +68,18 @@ class App extends React.Component {
     return (
       <Router>
         <div className='mediasite'>
-          <PrivateRoute path='/song/:songId/print' component={SongSheet} />
+          <PrivateRoute path='/song/:songId/print' component={LoadableSongSheet} />
           <Route path="/" render={(props)=><MediasiteHeader loggedIn={this.state.loggedIn} user={this.state.user} {...props} />} />
           <div className='container'>
             <PrivateRoute path="/" exact={true} component={Welcome} />
             <PrivateRoute path='/welcome' component={Welcome} />
             <Route path="/login" component={Login} />
             <PrivateRoute path="/logout" component={Logout} />
-            <PrivateRoute path="/new-song" component={NewSong} />
-            <Route path="/song-list" component={SongList} />
-            <PrivateRoute path="/songs" component={FilterableSongTable} />
-            <PrivateRoute path='/song/:songId' component={Song} exact={true} />
-            <PrivateRoute path='/song/:songId/edit' component={EditSong} />
+            <PrivateRoute path="/new-song" component={LoadableNewSong} />
+            <Route path="/song-list" component={LoadableSongList} />
+            <PrivateRoute path="/songs" component={LoadableSongTable} />
+            <PrivateRoute path='/song/:songId' component={LoadableSong} exact={true} />
+            <PrivateRoute path='/song/:songId/edit' component={LoadableEditSong} />
           </div>
         </div>
       </Router>
@@ -106,7 +98,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
       }}/>
     )
   )}/>
-)
+);
 
 function startRender(error) {
   if (error) {

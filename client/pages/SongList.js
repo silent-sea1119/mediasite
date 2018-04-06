@@ -1,7 +1,7 @@
 import React from 'react';
 import MediasiteApi from '../api/MediasiteApi';
 
-export class SongList extends React.PureComponent {
+export default class SongList extends React.PureComponent {
   state = {
     songs: []
   };
