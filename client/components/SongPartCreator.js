@@ -78,7 +78,7 @@ export default class SongPartCreator extends React.Component {
     for (let i = 1; i <= 8; i++) {
       songParts.push(
         <div className="collector" key={`songPartCollector${i}`}>
-          <h5>Part {i}<hr /></h5>
+          <h5>Part {i}</h5>
           <div className="row">
             <div className="input-field col m2 s12">
               <input
