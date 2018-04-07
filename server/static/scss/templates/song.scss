@@ -6,3 +6,30 @@
     height: 390px;
   }
 }
+
+.black-with-hover {
+  color: black;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.collector {
+  h5 {
+    text-decoration: underline;
+    font-size: 1.3rem;
+  }
+
+  .row {
+    margin-bottom: 0;
+  }
+}
+
+.preview-text {
+  text-align: right;
+
+  @media #{$medium-and-down} {
+    text-align: left;
+  }
+}
