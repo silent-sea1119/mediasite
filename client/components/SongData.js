@@ -30,6 +30,9 @@ const SongData = ({ songData }) => {
       {songData.notes ?
         <p>Notes: {valueOrEmptyString(songData.notes)}</p> :
         ''}
+      {songData.externalUrl ?
+        <p><a href={songData.externalUrl} target="_blank">External Url</a></p> :
+        ''}
       {songData.ccli ?
         <p>CCLI: <a target='_blank' href={`http://ca.search.ccli.com/songs/${songData.ccli}`}>{songData.ccli}</a></p> :
         ''}
