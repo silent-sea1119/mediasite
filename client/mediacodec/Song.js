@@ -77,13 +77,14 @@ class Song {
   generateNoteLine(notes, transposer) {
     let line = Array(150).join(" ");
     notes.forEach((note) => {
+      debugger;
       const position = parseInt(note.position);
       let transposedNote;
       if (this.noteIsHeld(note.note)) {
         // %20 is a hack to get around the replaceAll that is coming below
-        transposedNote = `<span%20class='held'><span%20class='note'>${transposer.transposeNote(note.note.slice(0, note.note.length - 1))}</span></span>`;
+        transposedNote = `<span%20class='note'>${transposer.transposeNote(note.note.slice(0, note.note.length - 1))}</span><span%20class='held'></span>`;
       } else if (this.noteIsChoked(note.note)) {
-        transposedNote = `<span%20class='choked'><span%20class='note'>${transposer.transposeNote(note.note.slice(1, note.note.length))}</span></span>`;
+        transposedNote = `<span%20class='note'>${transposer.transposeNote(note.note.slice(0, note.note.length - 1))}</span><span%20class='choked'></span>`;
       } else {
         transposedNote = transposer.transposeNote(note.note);
       }
@@ -97,7 +98,7 @@ class Song {
   }
 
   noteIsChoked(note) {
-    return note.indexOf('^') === 0;
+    return note.indexOf('v') === note.length - 1;
   }
 
   noteIsHeld(note) {

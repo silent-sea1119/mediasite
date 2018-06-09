@@ -37,23 +37,20 @@
 .held {
 	display: inline-block;
 	border: 1px solid black;
-	padding: 5px 10px;
+	padding: 5px 5px;
 	transform: rotate(45deg);
+	margin-left: 5px;
 }
 
 .choked {
 	display: inline-block;
-	border-top-color: black;
-	border-top-style: solid;
-	border-top-width: 1px;
-	border-left-color: black;
-	border-left-style: solid;
-	border-left-width: 1px;
+	border-top: 1px solid black;
+	border-left: 1px solid black;
 	transform: rotate(45deg);
-	padding: 5px 10px;
+	padding: 5px 5px;
+	margin-left: 5px;
 }
 
 .note {
 	display: inline-block;
-	transform: rotate(-45deg);
 }
