@@ -77,7 +77,6 @@ class Song {
   generateNoteLine(notes, transposer) {
     let line = Array(150).join(" ");
     notes.forEach((note) => {
-      debugger;
       const position = parseInt(note.position);
       let transposedNote;
       if (this.noteIsHeld(note.note)) {
@@ -92,17 +91,22 @@ class Song {
     });
     line = trimRight(line);  // Trim whitespace from the end of the line
     line = replaceAll(' ', '&nbsp;', line);
-    line = decodeURIComponent(line);
+    try {
+      // Try but don't bother catching... just to prevent 'url malformed' error from blowing up previews
+      line = decodeURIComponent(line);
+    } catch (e) {
+      console.log(e)
+    }
 
     return line;
   }
 
   noteIsChoked(note) {
-    return note.indexOf('v') === note.length - 1;
+    return note.indexOf('^') === note.length - 1;
   }
 
   noteIsHeld(note) {
-    return note.indexOf('^') === note.length - 1;
+    return note.indexOf('v') === note.length - 1;
   }
 
   createTransposer(transposeKey) {
