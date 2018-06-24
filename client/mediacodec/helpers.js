@@ -14,7 +14,7 @@ function decodeNoteLine(notes) {
 }
 
 function isNoteLine(line) {
-  const legalChars = 'ABCDEFGabcdefgimjM2345679#SUsu/^|(): no';
+  const legalChars = 'ABCDEFGabcdefgimjM2345679#SUsuv/^|(): no';
   for(let i = 0; i < line.length; i++) {
     if (legalChars.indexOf(line[i]) === -1) {
       return false;

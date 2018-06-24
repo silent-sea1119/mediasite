@@ -33,3 +33,24 @@
 	text-decoration: none;
   margin: 15px 0;
 }
+
+.held {
+	display: inline-block;
+	border: 1px solid black;
+	padding: 5px 5px;
+	transform: rotate(45deg);
+	margin-left: 5px;
+}
+
+.choked {
+	display: inline-block;
+	border-top: 1px solid black;
+	border-left: 1px solid black;
+	transform: rotate(45deg);
+	padding: 5px 5px;
+	margin-left: 5px;
+}
+
+.note {
+	display: inline-block;
+}
