@@ -1,4 +1,3 @@
-const webpack = require('webpack');
 const DashboardPlugin = require('webpack-dashboard/plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
@@ -8,9 +7,6 @@ const path = require('path');
 const ENV = process.env.NODE_ENV;
 
 let pluginList = [
-    new webpack.optimize.CommonsChunkPlugin({
-        names: ['vendor', 'manifest'] // Specify the common bundle's name.
-    }),
     new HtmlWebpackPlugin({template: './server/templates/base_template.html', filename: '../../templates/base.html'})
 ];
 if (args.watch) {
@@ -22,8 +18,7 @@ if (args.analyze) {
 
 module.exports = {
     entry: {
-        mediasite: './client/mediasite.js',
-        vendor: './client/vendor.js'
+        mediasite: './client/mediasite.js'
     },
     output: {
         path: path.resolve(__dirname, 'server/static/js/'),
@@ -42,7 +37,7 @@ module.exports = {
                           ['es2015', { 'modules': false } ],
                           'react'
                       ],
-                      plugins: ['transform-class-properties']
+                      plugins: ['transform-class-properties', 'syntax-dynamic-import']
                     }
                 },
             }, {

@@ -1,32 +1,25 @@
 import 'materialize-css';
 import React from 'react';
 import { render } from 'react-dom';
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  Redirect,
-  withRouter
-} from 'react-router-dom';
+import { BrowserRouter as Router, Redirect, Route } from 'react-router-dom';
 
 import { FirebaseAuth } from 'react-firebaseui';
 import firebase from 'firebase';
 
 import { loadScript, browserSupportsAllFeatures } from './browser-helpers';
 
-import {
-    EditSong,
-    NewSong,
-    Logout,
-    Song,
-    FilterableSongTable,
-    SongSheet,
-    MediasiteHeader,
-    Welcome,
-    User
-} from './pages';
+import { Login, Logout, MediasiteHeader, Welcome } from './pages';
 import auth from './auth';
 import MediasiteApi from './api/MediasiteApi';
+import {
+  LoadableEditSong,
+  LoadableNewSong,
+  LoadableSong,
+  LoadableSongList,
+  LoadableSongSheet,
+  LoadableSongTable
+} from './pages/loadable-pages';
+
 
 // Configure Firebase.
 const config = {
@@ -94,18 +87,18 @@ class App extends React.Component {
     return (
       <Router>
         <div className='mediasite'>
-          <PrivateRoute path='/song/:songId/print' component={SongSheet} />
+          <PrivateRoute path='/song/:songId/print' component={LoadableSongSheet} />
           <Route path="/" render={(props)=><MediasiteHeader loggedIn={this.state.loggedIn} user={this.state.user} {...props} />} />
           <div className='container'>
             <PrivateRoute path="/" exact={true} component={Welcome} />
             <PrivateRoute path='/welcome' component={Welcome} />
             <Route path="/login" component={(props) => <Login uiConfig={this.uiConfig} {...props} />} />
             <PrivateRoute path="/logout" component={Logout} />
-            {/* <PrivateRoute path="/user" component={User} /> */}
-            <PrivateRoute path="/new-song" component={NewSong} exact={true} />
-            <PrivateRoute path="/songs" component={FilterableSongTable} />
-            <PrivateRoute path='/song/:songId' component={Song} exact={true} />
-            <PrivateRoute path='/song/:songId/edit' component={EditSong} />
+            <PrivateRoute path="/new-song" component={LoadableNewSong} />
+            <PrivateRoute path="/song-list" component={LoadableSongList} />
+            <PrivateRoute path="/songs" component={LoadableSongTable} />
+            <PrivateRoute path='/song/:songId' component={LoadableSong} exact={true} />
+            <PrivateRoute path='/song/:songId/edit' component={LoadableEditSong} />
           </div>
         </div>
       </Router>

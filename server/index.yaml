@@ -10,6 +10,17 @@ indexes:
 # automatically uploaded to the admin console when you next deploy
 # your application using appcfg.py.
 
+- kind: Song
+  properties:
+  - name: in_rotation
+  - name: lower_title
+
+- kind: Song
+  properties:
+  - name: in_rotation
+  - name: lower_title
+    direction: desc
+
 - kind: SongSheetGeneration
   properties:
   - name: song_id

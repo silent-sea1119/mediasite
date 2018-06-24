@@ -78,12 +78,35 @@ class Song {
     let line = Array(150).join(" ");
     notes.forEach((note) => {
       const position = parseInt(note.position);
-      line = replaceAt(line, position, transposer.transposeNote(note.note));
+      let transposedNote;
+      if (this.noteIsHeld(note.note)) {
+        // %20 is a hack to get around the replaceAll that is coming below
+        transposedNote = `<span%20class='note'>${transposer.transposeNote(note.note.slice(0, note.note.length - 1))}</span><span%20class='held'></span>`;
+      } else if (this.noteIsChoked(note.note)) {
+        transposedNote = `<span%20class='note'>${transposer.transposeNote(note.note.slice(0, note.note.length - 1))}</span><span%20class='choked'></span>`;
+      } else {
+        transposedNote = transposer.transposeNote(note.note);
+      }
+      line = replaceAt(line, position, transposedNote);
     });
     line = trimRight(line);  // Trim whitespace from the end of the line
     line = replaceAll(' ', '&nbsp;', line);
+    try {
+      // Try but don't bother catching... just to prevent 'url malformed' error from blowing up previews
+      line = decodeURIComponent(line);
+    } catch (e) {
+      console.log(e)
+    }
 
     return line;
+  }
+
+  noteIsChoked(note) {
+    return note.indexOf('^') === note.length - 1;
+  }
+
+  noteIsHeld(note) {
+    return note.indexOf('v') === note.length - 1;
   }
 
   createTransposer(transposeKey) {

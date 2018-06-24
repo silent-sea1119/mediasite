@@ -5,28 +5,13 @@ import MediasiteApi from '../api/MediasiteApi';
 
 import MaterializeSelect from '../components/materialize/Select';
 import SongPartCreator from '../components/SongPartCreator';
-import SongField from '../components/SongField';
+import { DEFAULT_SONG_STATE, SongField, SongCheckbox } from '../components/SongField';
 import { Transposer } from '../mediacodec/Transposer';
 
 const MUSICAL_KEYS = Transposer.allKeys;
-const TEXT_SIZES = [10, 11, 12, 13, 14, 15, 16, 18, 20, 24];
 
 export default class NewSong extends React.Component {
-  state = {
-    isLoading: true,
-    songKey: 'C',
-    title: '',
-    author1: '',
-    author2: '',
-    ccli: '',
-    copyDate: '',
-    youtubeLink: '',
-    publisher: '',
-    songOrder: '',
-    externalUrl: '',
-    notes: '',
-    songPartData: []
-  };
+  state = DEFAULT_SONG_STATE;
 
   gatherSongData() {
     const parts = this.songPartData.gatherSongData();
@@ -39,6 +24,11 @@ export default class NewSong extends React.Component {
       title: this.state.title,
       author1: this.state.author1,
       author2: this.state.author2,
+      category: this.state.category,
+      tempo: this.state.tempo,
+      bpm: this.state.bpm,
+      inRotation: this.state.inRotation,
+      bibleReferences: this.state.bibleReferences,
       ccli: this.state.ccli,
       copyDate: this.state.copyDate,
       youtubeLink: this.state.youtubeLink,
@@ -49,21 +39,18 @@ export default class NewSong extends React.Component {
       notes: this.state.notes,
       songData: this.gatherSongData()
     };
-    MediasiteApi.createSong(songObj, (response) => {
-      this.props.history.push(`/song/${response.data.songId}`);
-    });
+    MediasiteApi.createSong(songObj)
+      .then((response) => {
+        this.props.history.push(`/song/${response.data.songId}`);
+      });
   }
 
   handleFormChange(event, stateKey) {
     let currentState = this.state;
-    currentState[stateKey] = event.target.value;
+    const target = event.target;
+    currentState[stateKey] = target.type === 'checkbox' ? target.checked : target.value;
     this.setState(currentState);
   }
-
-  updateChosenSongKey(event) {
-    const newKey = event.target.value;
-    this.setState({ songKey: newKey });
-  };
 
   render() {
     const keyOptions = MUSICAL_KEYS.map((key) => {
@@ -75,48 +62,26 @@ export default class NewSong extends React.Component {
           <div className="card-content">
             <div className="card-title">{this.state.title === '' ? 'New Song' : this.state.title }</div>
             <form className="col s12" onSubmit={this.handleFormSubmit.bind(this)}>
-              <div className="input-field col s12">
-                <input id="title" type="text" className="validate" value={this.state.title} onChange={(event) => this.handleFormChange(event, 'title')} required />
-                <label htmlFor="title">Title</label>
-              </div>
-              <div className="input-field col s12">
-                <input id="author1" type="text" className="validate" value={this.state.author1} onChange={(event) => this.handleFormChange(event, 'author1')} required />
-                <label htmlFor="author1">Author #1</label>
-              </div>
-              <div className="input-field col s12">
-                <input id="author2" type="text" className="validate" value={this.state.author2} onChange={(event) => this.handleFormChange(event, 'author2')}/>
-                <label htmlFor="author2">Author #2</label>
-              </div>
+              <SongField fieldId='title' fieldValue={this.state.title} handleOnChange={(event) => this.handleFormChange(event, 'title')} labelText='Title' isRequired={true} />
+              <SongField fieldId='author1' fieldValue={this.state.author1} handleOnChange={(event) => this.handleFormChange(event, 'author1')} labelText='Author #1' isRequired={true} />
+              <SongField fieldId='author2' fieldValue={this.state.author2} handleOnChange={(event) => this.handleFormChange(event, 'author2')} labelText='Author #2' />
+              <SongCheckbox fieldId='inRotation' fieldValue={this.state.inRotation} handleOnChange={(event) => this.handleFormChange(event, 'inRotation')} labelText='In Rotation?' />
+              <SongField fieldId='category' fieldValue={this.state.category} handleOnChange={(event) => this.handleFormChange(event, 'category')} labelText='Category' />
               <MaterializeSelect
                 selectValue={this.state.songKey}
                 options={keyOptions}
                 label="Song Key"
                 handleOnSelect={(event) => this.handleFormChange(event, 'songKey')}
               />
-              <div className="input-field col s12">
-                <input id="ccli" type="text" className="validate" value={this.state.ccli} onChange={(event) => this.handleFormChange(event, 'ccli')}/>
-                <label htmlFor="ccli">CCLI #</label>
-              </div>
-              <div className="input-field col s12">
-                <input id="copyDate" type="text" className="validate" value={this.state.copyDate} onChange={(event) => this.handleFormChange(event, 'copyDate')}/>
-                <label htmlFor="copyDate">Copyright Date</label>
-              </div>
-              <div className="input-field col s12">
-                <input id="youtubeLink" type="text" className="validate" value={this.state.youtubeLink} onChange={(event) => this.handleFormChange(event, 'youtubeLink')}/>
-                <label htmlFor="youtubeLink">YouTube Link</label>
-              </div>
-              <div className="input-field col s12">
-                <input id="publisher" type="text" className="validate" value={this.state.publisher} onChange={(event) => this.handleFormChange(event, 'publisher')}/>
-                <label htmlFor="publisher">Publisher</label>
-              </div>
-              <div className="input-field col s12">
-                <input id="songOrder" type="text" className="validate" value={this.state.songOrder} onChange={(event) => this.handleFormChange(event, 'songOrder')}/>
-                <label htmlFor="arrangement">Song Order/Arrangement</label>
-              </div>
-              <div className="input-field col s12">
-                <input id="externalUrl" type="text" className="validate" value={this.state.externalUrl} onChange={(event) => this.handleFormChange(event, 'externalUrl')}/>
-                <label htmlFor="externalUrl">External URL</label>
-              </div>
+              <SongField fieldId='tempo' fieldValue={this.state.tempo} handleOnChange={(event) => this.handleFormChange(event, 'tempo')} labelText='Tempo (i.e. Fast, Slow, etc.)' />
+              <SongField fieldId='bpm' fieldValue={this.state.bpm} handleOnChange={(event) => this.handleFormChange(event, 'bpm')} labelText='BPM' />
+              <SongField fieldId='bibleReferences' fieldValue={this.state.bibleReferences} handleOnChange={(event) => this.handleFormChange(event, 'bibleReferences')} labelText='Bible References' />
+              <SongField fieldId='ccli' fieldValue={this.state.ccli} handleOnChange={(event) => this.handleFormChange(event, 'ccli')} labelText='CCLI #' />
+              <SongField fieldId='copyDate' fieldValue={this.state.copyDate} handleOnChange={(event) => this.handleFormChange(event, 'copyDate')} labelText='Copyright Date' />
+              <SongField fieldId='youtubeLink' fieldValue={this.state.youtubeLink} handleOnChange={(event) => this.handleFormChange(event, 'youtubeLink')} labelText='YouTube Link' />
+              <SongField fieldId='publisher' fieldValue={this.state.publisher} handleOnChange={(event) => this.handleFormChange(event, 'publisher')} labelText='Publisher' />
+              <SongField fieldId='songOrder' fieldValue={this.state.songOrder} handleOnChange={(event) => this.handleFormChange(event, 'songOrder')} labelText='Song Order/Arrangement' />
+              <SongField fieldId='externalUrl' fieldValue={this.state.externalUrl} handleOnChange={(event) => this.handleFormChange(event, 'externalUrl')} labelText='External URL' />
               <SongField fieldId='notes' fieldValue={this.state.notes} handleOnChange={(event) => this.handleFormChange(event, 'notes')} labelText='Notes' />
               <input className="btn" type="submit" />
             </form>
@@ -126,7 +91,7 @@ export default class NewSong extends React.Component {
           <div className="card-content">
             <div className="card-title">Song Information</div>
             <form onSubmit={this.handleFormSubmit.bind(this)}>
-              <SongPartCreator songParts={this.state.songPartData.parts || []} ref={(input) => this.songPartData = input}></SongPartCreator>
+              <SongPartCreator songParts={this.state.songPartData.parts || []} ref={(input) => this.songPartData = input} />
               <input className="btn" type="submit" />
             </form>
           </div>

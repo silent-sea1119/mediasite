@@ -9,22 +9,22 @@ const TEXT_SIZES = [10, 11, 12, 13, 14, 15, 16, 18, 20, 24];
 
 class SongOptions extends React.Component {
   updateSongParameters = (songKey, textSize, vocalistMode) => {
-    this.props.history.push(`/song/${this.props.songId}/print?songKey=${songKey.replace(/#/g, '%23')}&textSize=${textSize}&vocalistMode=${vocalistMode}`);
-  }
+    this.props.history.push(`/song/${this.props.songId}/print?songKey=${songKey.replace(/#/g, '%23')}&textSize=${textSize}&vocalistMode=${vocalistMode}&preview=${this.props.previewing}`);
+  };
 
   updateChosenSongKey = (event) => {
     const newKey = event.target.value;
     this.updateSongParameters(newKey, this.props.textSize, this.vocalistMode.checked);
-  }
+  };
 
   updateChosenTextSize = (event) => {
     const newTextSize = event.target.value;
     this.updateSongParameters(this.props.songKey, newTextSize, this.vocalistMode.checked);
-  }
+  };
 
   updateVocalistMode = () => {
     this.updateSongParameters(this.props.songKey, this.props.textSize, this.vocalistMode.checked);
-  }
+  };
 
   buildCheckbox(vocalistMode) {
     if (vocalistMode === "true") {

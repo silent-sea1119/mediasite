@@ -16,13 +16,16 @@ export default class SongTileGroup extends React.Component {
       if (searchText !== "" && this.noMatches(song, searchText)) {
         return;
       }
-      return <SongTile key={song.songId}
-                   songId={song.songId}
-                   title={song.title}
-                   author1={song.author1}
-                   author2={song.author2}
-                   youTubeLink={song.youtubeLink} />;
-    });
+      return <SongTile
+        key={song.songId}
+        songId={song.songId}
+        title={song.title}
+        author1={song.author1}
+        author2={song.author2}
+        youTubeLink={song.youtubeLink}
+        inRotation={song.inRotation || false} />;
+    })
+      .filter(Boolean);
 
     return (
       <div className="row">

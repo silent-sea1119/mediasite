@@ -5,29 +5,13 @@ import MediasiteApi from '../api/MediasiteApi';
 
 import MaterializeSelect from '../components/materialize/Select';
 import SongPartCreator from '../components/SongPartCreator';
-import SongField from '../components/SongField';
+import { DEFAULT_SONG_STATE, SongField, SongCheckbox } from '../components/SongField';
 import { Transposer } from '../mediacodec/Transposer';
 
 const MUSICAL_KEYS = Transposer.allKeys;
-const TEXT_SIZES = [10, 11, 12, 13, 14, 15, 16, 18, 20, 24];
 
 export default class EditSong extends React.Component {
-  state = {
-    isLoading: true,
-    songKey: 'C',
-    title: '',
-    author1: '',
-    author2: '',
-    ccli: '',
-    copyDate: '',
-    youtubeLink: '',
-    publisher: '',
-    songOrder: '',
-    externalUrl: '',
-    notes: '',
-    style: '',
-    songPartData: []
-  };
+  state = DEFAULT_SONG_STATE;
 
   componentDidMount() {
     if (this.props.match.params.songId) {
@@ -46,11 +30,15 @@ export default class EditSong extends React.Component {
           externalUrl: songData.externalUrl || '',
           songPartData: songData.songData || {},
           notes: songData.notes || '',
-          style: songData.style || '',
-          isLoading: false
+          category: songData.category|| '',
+          isLoading: false,
+          inRotation: songData.inRotation || false,
+          tempo: songData.tempo || '',
+          bpm: songData.bpm || '',
+          bibleReferences: songData.bibleReferences || ''
         });
         if (typeof Materialize.updateTextFields === 'function') {
-          setTimeout(Materialize.updateTextFields, 200);
+          requestAnimationFrame(Materialize.updateTextFields);
         }
       });
     }
@@ -67,6 +55,11 @@ export default class EditSong extends React.Component {
       title: this.state.title,
       author1: this.state.author1,
       author2: this.state.author2,
+      category: this.state.category,
+      tempo: this.state.tempo,
+      bpm: this.state.bpm,
+      inRotation: this.state.inRotation,
+      bibleReferences: this.state.bibleReferences,
       ccli: this.state.ccli,
       copyDate: this.state.copyDate,
       youtubeLink: this.state.youtubeLink,
@@ -75,25 +68,21 @@ export default class EditSong extends React.Component {
       externalUrl: this.state.externalUrl,
       songKey: this.state.songKey,
       notes: this.state.notes,
-      style: this.state.style,
       songData: this.gatherSongData()
     };
     songObj.songId = this.props.match.params.songId;
-    MediasiteApi.updateSong(songObj, (response) => {
-      this.props.history.push(`/song/${response.data.songId}`);
-    });
+    MediasiteApi.updateSong(songObj)
+      .then((response) => {
+        this.props.history.push(`/song/${response.data.songId}`);
+      });
   }
 
   handleFormChange(event, stateKey) {
-    let currentState = this.state;
-    currentState[stateKey] = event.target.value;
+    const currentState = this.state;
+    const target = event.target;
+    currentState[stateKey] = target.type === 'checkbox' ? target.checked : target.value;
     this.setState(currentState);
   }
-
-  updateChosenSongKey(event) {
-    const newKey = event.target.value;
-    this.setState({ songKey: newKey });
-  };
 
   render() {
     if (this.state.isLoading) {
@@ -118,16 +107,20 @@ export default class EditSong extends React.Component {
           <div className="card-content">
             <div className="card-title">{this.state.title === '' ? 'New Song' : this.state.title }</div>
             <form className="col s12" onSubmit={this.handleFormSubmit.bind(this)}>
-              <SongField fieldId='title' fieldValue={this.state.title} handleOnChange={(event) => this.handleFormChange(event, 'title')} labelText='Title' />
-              <SongField fieldId='author1' fieldValue={this.state.author1} handleOnChange={(event) => this.handleFormChange(event, 'author1')} labelText='Author #1' />
+              <SongField fieldId='title' fieldValue={this.state.title} handleOnChange={(event) => this.handleFormChange(event, 'title')} labelText='Title' isRequired={true} />
+              <SongField fieldId='author1' fieldValue={this.state.author1} handleOnChange={(event) => this.handleFormChange(event, 'author1')} labelText='Author #1' isRequired={true} />
               <SongField fieldId='author2' fieldValue={this.state.author2} handleOnChange={(event) => this.handleFormChange(event, 'author2')} labelText='Author #2' />
-              <SongField fieldId='style' fieldValue={this.state.style} handleOnChange={(event) => this.handleFormChange(event, 'style')} labelText='Style' />
+              <SongCheckbox fieldId='inRotation' fieldValue={this.state.inRotation} handleOnChange={(event) => this.handleFormChange(event, 'inRotation')} labelText='In Rotation?' />
+              <SongField fieldId='category' fieldValue={this.state.category} handleOnChange={(event) => this.handleFormChange(event, 'category')} labelText='Category' />
               <MaterializeSelect
                 selectValue={this.state.songKey}
                 options={keyOptions}
                 label="Song Key"
                 handleOnSelect={(event) => this.handleFormChange(event, 'songKey')}
               />
+              <SongField fieldId='tempo' fieldValue={this.state.tempo} handleOnChange={(event) => this.handleFormChange(event, 'tempo')} labelText='Tempo (i.e. Fast, Slow, etc.)' />
+              <SongField fieldId='bpm' fieldValue={this.state.bpm} handleOnChange={(event) => this.handleFormChange(event, 'bpm')} labelText='BPM' />
+              <SongField fieldId='bibleReferences' fieldValue={this.state.bibleReferences} handleOnChange={(event) => this.handleFormChange(event, 'bibleReferences')} labelText='Bible References' />
               <SongField fieldId='ccli' fieldValue={this.state.ccli} handleOnChange={(event) => this.handleFormChange(event, 'ccli')} labelText='CCLI #' />
               <SongField fieldId='copyDate' fieldValue={this.state.copyDate} handleOnChange={(event) => this.handleFormChange(event, 'copyDate')} labelText='Copyright Date' />
               <SongField fieldId='youtubeLink' fieldValue={this.state.youtubeLink} handleOnChange={(event) => this.handleFormChange(event, 'youtubeLink')} labelText='YouTube Link' />

@@ -13,7 +13,7 @@ class SongSheet extends React.Component {
     songData: {},
     previewing: null,
     songId: null
-  }
+  };
 
   componentWillMount() {
     const queryParams = qs.parse(this.props.location.search);
@@ -59,23 +59,23 @@ class SongSheet extends React.Component {
 
     const song = new Song(songId, songData.title, songData.songKey, songData.songData);
 
-    const ccliSection = songData.ccli ? <p>CCLI: <a target='_blank' href={`http://ca.search.ccli.com/songs/${songData.CCLI}`}>{songData.ccli}</a></p> : '';
-    const copyrightSection = songData.copyDate ? <p>Copyright: {songData.copyDate}</p> : '';
-
-    const previewSection = this.state.previewing ? <div className="preview-only">Preview Only</div> : null;
     return (
       <div style={{backgroundColor: 'white', padding: '10px'}}>
-        <SongOptions songKey={songKey} textSize={textSize} songId={songId} vocalistMode={vocalistMode}></SongOptions>
+        <SongOptions songKey={songKey} textSize={textSize} songId={songId} vocalistMode={vocalistMode} previewing={this.state.previewing === 'true'} />
         <div className="song-data">
           <div className="card-title">{songData.title}</div>
-          {previewSection}
+          {this.state.previewing ?
+            <div className="preview-only">Preview Only</div> :
+            ''}
           <p>{songData.author1}{songData.author2 ? ` & ${songData.author2}` : ``}</p>
           <p>Key: {valueOrEmptyString(songData.songKey)}</p>
-          <p>Style: {valueOrEmptyString(songData.style)}</p>
-          {/* <p>Uses: {valueOrEmptyString(songData.use1)}{songData.use2 ? `, ${songData.use2}` : ``}</p> */}
           <p>Notes: {valueOrEmptyString(songData.notes)}</p>
-          {ccliSection}
-          {copyrightSection}
+          {songData.tempo ?
+            <p>Tempo: {songData.tempo}</p> :
+            ''}
+          {songData.bpm ?
+            <p>Beats per minute: {songData.bpm}</p> :
+            ''}
         </div>
         <div className="ArrangementTitle">Arrangement: {songData.songOrder}</div>
         <div dangerouslySetInnerHTML={this.getSongHtml(song, songKey, textSize, vocalistMode)}></div>
