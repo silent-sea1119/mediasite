@@ -1,16 +1,16 @@
 import 'materialize-css';
 import React from 'react';
 import { render } from 'react-dom';
-import { BrowserRouter as Router, Redirect, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Redirect, Route, withRouter } from 'react-router-dom';
 
 import { FirebaseAuth } from 'react-firebaseui';
 import firebase from 'firebase';
 
 import { loadScript, browserSupportsAllFeatures } from './browser-helpers';
 
-import { Login, Logout, MediasiteHeader, Welcome } from './pages';
+import { Logout, MediasiteHeader, Welcome } from './pages';
 import auth from './auth';
-import MediasiteApi from './api/MediasiteApi';
+
 import {
   LoadableEditSong,
   LoadableNewSong,
@@ -131,7 +131,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
       )
     )
   }/>
-}
+};
 
 function startRender(error) {
   if (error) {
