@@ -23,6 +23,8 @@ export default class SongPartCreator extends React.Component {
     part6data: '',
     part7data: '',
     part8data: '',
+    part9data: '',
+    part10data: '',
     part1name: '',
     part2name: '',
     part3name: '',
@@ -31,11 +33,13 @@ export default class SongPartCreator extends React.Component {
     part6name: '',
     part7name: '',
     part8name: '',
+    part9name: '',
+    part10name: '',
   };
 
   gatherSongData() {
     let songParts = [];
-    for (let i = 1; i <= 8; i++) {
+    for (let i = 1; i <= 10; i++) {
       const partName = this.state[`part${i}name`];
       const partData = this.state[`part${i}data`];
       if (!partData) break;
@@ -75,7 +79,7 @@ export default class SongPartCreator extends React.Component {
 
   renderSongParts() {
     let songParts = [];
-    for (let i = 1; i <= 8; i++) {
+    for (let i = 1; i <= 10; i++) {
       songParts.push(
         <div className="collector" key={`songPartCollector${i}`}>
           <h5>Part {i}</h5>
