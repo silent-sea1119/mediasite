@@ -384,6 +384,11 @@ describe('media codec', function () {
         const actual = new Transposer('Bb', 'C').transposeNote('Bb///');
         expect(actual).toBe('C///')
       });
+
+      it('should not touch ///, just leave it untransposed', function() {
+          const actual = new Transposer('Bb', 'C').transposeNote('///');
+          expect(actual).toBe('///')
+      })
     });
 
     describe('getNoteIndex', function () {
