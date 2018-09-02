@@ -44,15 +44,12 @@ class App extends React.Component {
   uiConfig = {
     callbacks: {
       signInSuccess: (currentUser, credential, redirectUrl) => {
-        this.setState({
-          loggedIn: true,
-        });
-        localStorage.userId = currentUser.uid;
+        auth.login(currentUser.uid, currentUser.email);
         return true;
       }
     },
     signInFlow: 'popup',
-    signInSuccessUrl: '/welcome',
+    signInSuccessUrl: '/',
     signInOptions: [
       firebase.auth.GoogleAuthProvider.PROVIDER_ID
     ]
@@ -63,12 +60,10 @@ class App extends React.Component {
     user: null
   };
 
+  // Listen to the Firebase Auth state and set the local state.
   componentDidMount() {
     $('.button-collapse').sideNav();
-  }
-
-  componentWillMount() {
-    firebase.auth().onAuthStateChanged((user) => {
+    this.unregisterAuthObserver = firebase.auth().onAuthStateChanged((user) => {
       const newState = {};
       if (user) {
         newState.loggedIn = true;
@@ -107,7 +102,14 @@ class App extends React.Component {
 }
 
 const Login = withRouter((props) => {
-  const uiConfig = { ...props.uiConfig, signInSuccessUrl: props.location.state.from };
+  function calculateReturnUrl(url) {
+      if (url === '/login' || url === '/logout') {
+          return '/';
+      }
+      return url;
+  }
+  const whereToGo = props.location.state !== undefined ? calculateReturnUrl(props.location.state.from) : '/';
+  const uiConfig = { ...props.uiConfig, signInSuccessUrl: whereToGo };
   return (
     <div className="card">
       <div className="card-content">

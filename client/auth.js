@@ -1,19 +1,25 @@
-import MediasiteApi from './api/MediasiteApi';
 
 export default {
-  login(userId) {
+  login(userId, email) {
     localStorage.userId = userId;
+    localStorage.email = email;
   },
 
   getUserID() {
     return localStorage.userId;
   },
 
-  logout(cb) {
+  logout() {
     delete localStorage.userId;
   },
 
   loggedIn() {
     return !!this.getUserID();
+  },
+
+  canAddSongs() {
+    return [
+        'menello@gmail.com'
+    ].indexOf(localStorage.email);
   }
 }
