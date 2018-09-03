@@ -1,5 +1,6 @@
 import React from 'react';  // Required for JSX magicks
 import { Link } from 'react-router-dom';
+import auth from '../auth.js';
 
 const MediasiteHeader = ({loggedIn, user, location}) => {
   // If printing a song, don't display header (only way I could figure how to do this 🤔)
@@ -8,7 +9,9 @@ const MediasiteHeader = ({loggedIn, user, location}) => {
   let songsLink = '';
   let songListLink = '';
   if (loggedIn) {
-    addSongLink = <li><Link to='/new-song'>Add Song</Link></li>;
+    if (auth.canAddSongs()) {
+      addSongLink = <li><Link to='/new-song'>Add Song</Link></li>;
+    }
     songsLink = <li><Link to='/songs'>Songs</Link></li>;
     songListLink = <li><Link to='/song-list'>Circle's Song List</Link></li>;
   }
@@ -22,10 +25,10 @@ const MediasiteHeader = ({loggedIn, user, location}) => {
           {addSongLink}
           {songsLink}
           <li>
-            <a href='#'>{user !== null ? user.firstName : ''}</a>
+            <a href='#'>{user !== null ? user.displayName : ''}</a>
           </li>
           <li>
-            <img src={user !== null ? user.profilePicture : ''} className='user-profile__image' />
+            <img src={user !== null ? user.photoURL : ''} className='user-profile__image' />
           </li>
           <li className='divider'></li>
           <li><Link to={ loggedIn ? '/logout' : '/login' }>{ loggedIn ? 'Logout' : 'Login' }</Link></li>
@@ -35,10 +38,10 @@ const MediasiteHeader = ({loggedIn, user, location}) => {
           {addSongLink}
           {songsLink}
           <li>
-            <a href='#'>{user !== null ? user.firstName : ''}</a>
+            <a href='#'>{user !== null ? user.displayName : ''}</a>
           </li>
           <li>
-            <img src={user !== null ? user.profilePicture : ''} className='user-profile__image' />
+            <img src={user !== null ? user.photoURL : ''} className='user-profile__image' />
           </li>
           <li><Link to={ loggedIn ? '/logout' : '/login' }>{ loggedIn ? 'Logout' : 'Login' }</Link></li>
         </ul>

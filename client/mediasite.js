@@ -1,13 +1,16 @@
 import 'materialize-css';
 import React from 'react';
 import { render } from 'react-dom';
-import { BrowserRouter as Router, Redirect, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Redirect, Route, withRouter } from 'react-router-dom';
 
-import { browserSupportsAllFeatures, loadScript } from './browser-helpers';
+import { FirebaseAuth } from 'react-firebaseui';
+import firebase from 'firebase';
 
-import { Login, Logout, MediasiteHeader, Welcome } from './pages';
+import { loadScript, browserSupportsAllFeatures } from './browser-helpers';
+
+import { Logout, MediasiteHeader, Welcome } from './pages';
 import auth from './auth';
-import MediasiteApi from './api/MediasiteApi';
+
 import {
   LoadableEditSong,
   LoadableNewSong,
@@ -18,50 +21,62 @@ import {
 } from './pages/loadable-pages';
 
 
+// Configure Firebase.
+const config = {
+  apiKey: 'AIzaSyDJGi-gLoEjZvMN9PqMAloHCAD9QTdK1kI',
+  authDomain: 'cdac-mediasite.firebaseapp.com'
+};
+firebase.initializeApp(config);
+
+// Firebase user has a ton of extra info that doesn't need to get shared around.
+function getBareUserFromFirebaseUser(user) {
+  return {
+    displayName: user.displayName,
+    email: user.email,
+    emailVerified: user.emailVerified,
+    phoneNumber: user.phoneNumber,
+    photoURL: user.photoURL,
+    uid: user.uid
+  }
+}
+
 class App extends React.Component {
+  uiConfig = {
+    callbacks: {
+      signInSuccess: (currentUser, credential, redirectUrl) => {
+        auth.login(currentUser.uid, currentUser.email);
+        return true;
+      }
+    },
+    signInFlow: 'popup',
+    signInSuccessUrl: '/',
+    signInOptions: [
+      firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+      firebase.auth.FacebookAuthProvider.PROVIDER_ID
+    ]
+  };
+
   state = {
-    loggedIn: auth.loggedIn(),
+    loggedIn: false,
     user: null
   };
 
-  updateAuth = (loggedIn) => {
-    let newState = {
-      loggedIn: loggedIn
-    };
-    if (!loggedIn && this.state.loggedIn && this.state.user !== null) {
-      newState.user = null;
-    }
-    this.setState(newState);
-  };
-
+  // Listen to the Firebase Auth state and set the local state.
   componentDidMount() {
-    this.loadUserInfo();
     $('.button-collapse').sideNav();
-  }
-
-  componentDidUpdate() {
-    this.loadUserInfo();
-  }
-
-  componentWillMount() {
-    auth.onChange = this.updateAuth;
-    auth.login();
-  }
-
-  loadUserInfo() {
-    if (this.state.user === null && this.state.loggedIn) {
-      MediasiteApi.getUserInfo(localStorage.userId, (userInfo) => {
-        this.setState({
-          user: {
-            'title': userInfo.data.title,
-            'profilePicture': userInfo.data.profile_picture,
-            'firstName': userInfo.data.first_name,
-            'lastName': userInfo.data.last_name,
-            'email': userInfo.data.email
-          }
-        });
-      });
-    }
+    this.unregisterAuthObserver = firebase.auth().onAuthStateChanged((user) => {
+      const newState = {};
+      if (user) {
+        newState.loggedIn = true;
+        newState.user = getBareUserFromFirebaseUser(user);
+      } else {
+        // No user is signed in.
+        newState.loggedIn = false;
+        newState.user = null;
+        auth.logout();
+      }
+      this.setState(newState);
+    });
   }
 
   render() {
@@ -71,9 +86,10 @@ class App extends React.Component {
           <PrivateRoute path='/song/:songId/print' component={LoadableSongSheet} />
           <Route path="/" render={(props)=><MediasiteHeader loggedIn={this.state.loggedIn} user={this.state.user} {...props} />} />
           <div className='container'>
+            <Route path="/privacy" component={Privacy} />
             <PrivateRoute path="/" exact={true} component={Welcome} />
             <PrivateRoute path='/welcome' component={Welcome} />
-            <Route path="/login" component={Login} />
+            <Route path="/login" component={(props) => <Login uiConfig={this.uiConfig} {...props} />} />
             <PrivateRoute path="/logout" component={Logout} />
             <PrivateRoute path="/new-song" component={LoadableNewSong} />
             <PrivateRoute path="/song-list" component={LoadableSongList} />
@@ -87,27 +103,55 @@ class App extends React.Component {
   }
 }
 
-const PrivateRoute = ({ component: Component, ...rest }) => (
-  <Route {...rest} render={props => (
-    auth.loggedIn() ? (
-      <Component {...props}/>
-    ) : (
-      <Redirect to={{
-        pathname: '/login',
-        state: { from: props.location }
-      }}/>
+const Privacy = () => {
+  return (
+    <div className="privacy">
+      <h1>Privacy Policy</h1>
+      <p>Circle's Mediasite will not use your Facebook information in any way. It is only needed for the Firebase login.</p>
+    </div>
+  );
+};
+
+const Login = withRouter((props) => {
+  function calculateReturnUrl(url) {
+      if (url === '/login' || url === '/logout') {
+          return '/';
+      }
+      return url;
+  }
+  const whereToGo = props.location.state !== undefined ? calculateReturnUrl(props.location.state.from) : '/';
+  const uiConfig = { ...props.uiConfig, signInSuccessUrl: whereToGo };
+  return (
+    <div className="card">
+      <div className="card-content">
+        <h2>Welcome to Circle's Mediasite!</h2>
+        <p>This is the place that folks come when they need media.</p>
+        <FirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()}/>
+      </div>
+    </div>
+  )
+});
+
+const PrivateRoute = ({ component: Component, ...rest }) => {
+  return <Route {...rest} render={props => (
+      auth.loggedIn() ? (
+        <Component {...props}/>
+      ) : (
+        <Redirect to={{
+          pathname: `/login`,
+          state: { from: props.location.pathname + props.location.search }
+        }}/>
+      )
     )
-  )}/>
-);
+  }/>
+};
 
 function startRender(error) {
   if (error) {
     console.error(error);
   } else {
     render((
-      <Router>
-        <App />
-      </Router>
+      <App />
     ), document.getElementById('mediasite'));
   }
 }

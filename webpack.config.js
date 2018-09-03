@@ -39,10 +39,13 @@ module.exports = {
                       ],
                       plugins: ['transform-class-properties', 'syntax-dynamic-import']
                     }
-                }
+                },
             }, {
                 test: /\.json$/,
                 use: 'json'
+            }, {
+                test: /\.css/,
+                use: [ 'style-loader', 'css-loader' ]
             }
         ]
     },

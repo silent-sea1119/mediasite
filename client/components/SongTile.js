@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { parseYouTubeLink } from './YouTube';
 import { CircleSongList } from './CircleSongList';
+import auth from "../auth";
 
 export default class SongTile extends React.Component {
   render() {
@@ -24,7 +25,9 @@ export default class SongTile extends React.Component {
           </div>
           <div className="card-action">
             <Link to={songUrl}>View</Link>
+            {(auth.canAddSongs()) ?
             <Link to={songUrl + '/edit'}>Edit</Link>
+                : ''}
             {youTubeLink}
           </div>
         </div>

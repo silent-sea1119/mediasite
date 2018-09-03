@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { CircleSongList } from "./CircleSongList";
+import auth from "../auth";
 
 const valueOrEmptyString = value => value ? value : '';
 
@@ -10,7 +11,7 @@ const SongData = ({ songData }) => {
   }
   return (
     <div>
-      <div className="card-title">{songData.title} <Link to={`/song/${songData.songId}/edit`}><i className="material-icons black-text">mode_edit</i></Link></div>
+      <div className="card-title">{songData.title} {auth.canAddSongs() ? <Link to={`/song/${songData.songId}/edit`}><i className="material-icons black-text">mode_edit</i></Link> : ''}</div>
       <CircleSongList inRotation={songData.inRotation} />
       <br />
       <p>{songData.author1}{songData.author2 ? ` & ${songData.author2}` : ``}</p>
