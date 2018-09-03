@@ -86,6 +86,7 @@ class App extends React.Component {
           <PrivateRoute path='/song/:songId/print' component={LoadableSongSheet} />
           <Route path="/" render={(props)=><MediasiteHeader loggedIn={this.state.loggedIn} user={this.state.user} {...props} />} />
           <div className='container'>
+            <Route path="/privacy" component={Privacy} />
             <PrivateRoute path="/" exact={true} component={Welcome} />
             <PrivateRoute path='/welcome' component={Welcome} />
             <Route path="/login" component={(props) => <Login uiConfig={this.uiConfig} {...props} />} />
@@ -101,6 +102,15 @@ class App extends React.Component {
     );
   }
 }
+
+const Privacy = () => {
+  return (
+    <div className="privacy">
+      <h1>Privacy Policy</h1>
+      <p>Circle's Mediasite will not use your Facebook information in any way. It is only needed for the Firebase login.</p>
+    </div>
+  );
+};
 
 const Login = withRouter((props) => {
   function calculateReturnUrl(url) {
