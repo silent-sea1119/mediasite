@@ -19,7 +19,7 @@ export default {
 
   canAddSongs() {
     return [
-        'menello@gmail.com'
+      'menello@gmail.com'
     ].indexOf(localStorage.email) > -1;
   }
 }
