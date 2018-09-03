@@ -39,6 +39,10 @@ class Transposer {
       if (note.indexOf('//') >= 0) {
         // Probably a strumming pattern?
         const actualNote = note.split('//')[0];
+        if (actualNote === '') {
+          // It's some standalone strum patterns, don't try to transpose
+          return note;
+        }
         return this.transposeNote(actualNote) + note.substring(actualNote.length);
       }
       // Complex note case like Csus4/F

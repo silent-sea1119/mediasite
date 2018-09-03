@@ -34,6 +34,9 @@ export default class SongList extends React.PureComponent {
     return (
       <div>
         <h4>Circle's Song List</h4>
+          <p>
+              <a href="https://www.youtube.com/playlist?list=PL7Gp-Hq9eDczbmdCqrWu_dh4X64jYCHZX">YouTube</a> - <a href="https://open.spotify.com/user/22frgomriyj5wiyykniraxcwi/playlist/3ZZFfCNxlxk1zqEDY0gLMD?si=oGEsJbs-RTmA3DA-_ygzFw">Spotify</a>
+          </p>
         <table className="bordered">
           <thead>
             <tr>
