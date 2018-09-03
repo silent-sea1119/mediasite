@@ -20,6 +20,6 @@ export default {
   canAddSongs() {
     return [
         'menello@gmail.com'
-    ].indexOf(localStorage.email);
+    ].indexOf(localStorage.email) > -1;
   }
 }

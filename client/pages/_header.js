@@ -1,5 +1,6 @@
 import React from 'react';  // Required for JSX magicks
 import { Link } from 'react-router-dom';
+import auth from '../auth.js';
 
 const MediasiteHeader = ({loggedIn, user, location}) => {
   // If printing a song, don't display header (only way I could figure how to do this 🤔)
@@ -8,7 +9,9 @@ const MediasiteHeader = ({loggedIn, user, location}) => {
   let songsLink = '';
   let songListLink = '';
   if (loggedIn) {
-    addSongLink = <li><Link to='/new-song'>Add Song</Link></li>;
+    if (auth.canAddSongs()) {
+      addSongLink = <li><Link to='/new-song'>Add Song</Link></li>;
+    }
     songsLink = <li><Link to='/songs'>Songs</Link></li>;
     songListLink = <li><Link to='/song-list'>Circle's Song List</Link></li>;
   }
